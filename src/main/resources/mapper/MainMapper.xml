@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TST_teamproject.main.dao.MainMapper">
+<!-- 	대소문자를 구분하네요 제가 부족햇어요 -->
+	<select id="test" resultType="TST_teamproject.main.model.MainVo">
+		SELECT * FROM test
+	</select>
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="TST_teamproject.user.dao.UserMapper">
+
+ 	<select id="readUser" parameterType="String" resultType="TST_teamproject.user.model.UserVo">
+        SELECT 
+        				* 
+        FROM 			TST_USER 
+        WHERE 
+        				TST_USER_ID = #{tst_user_id}
+    </select>
+    
+    
+    <select id="readAuthority" parameterType="String" resultType="String">
+        SELECT 
+        				TST_AUTHORITY_NAME 
+        FROM 
+        				TST_AUTHORITY
+        WHERE 
+        				TST_USER_ID = #{tst_user_id}
+    </select>
+
+</mapper>

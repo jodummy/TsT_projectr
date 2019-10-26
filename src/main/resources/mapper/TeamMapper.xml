@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TST_teamproject.team.dao.TeamMapper">
+	<select id="teamList" resultType="TST_teamproject.team.model.TeamVo">
+		SELECT 
+						TST_TEAM_NO, 
+						TST_TEAM_NAME, 
+						TST_TEAM_TYPE, 
+						TST_TEAM_LOCATION, 
+						TST_USER_NICKNAME,
+						TST_TEAM_CONTENT, 
+						TST_TEAM_WIN, 
+						TST_TEAM_LOSE 
+		FROM 
+						TST_TEAM
+	</select>
+
+	
+</mapper>
