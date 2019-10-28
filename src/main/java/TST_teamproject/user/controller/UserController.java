@@ -31,4 +31,9 @@ public class UserController {
 	}
 	
 	
+	@RequestMapping(value = "/signUp" , method= {RequestMethod.GET})
+	public String signUp(Model model) {
+		return "/signUp";
+	}
+	
 }

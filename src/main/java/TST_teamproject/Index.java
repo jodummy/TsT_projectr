@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 
 @SpringBootApplication
 //기능 추가 하면 dao 데이터베이스 추가 해줘야해
-@MapperScan(value = {"TST_teamproject.main.dao","TST_teamproject.user.dao","TST_teamproject.team.dao"})
+@MapperScan(value = {"TST_teamproject.main.dao","TST_teamproject.user.dao","TST_teamproject.team.dao","TST_teamproject.board.dao"})
 public class Index {
 
 	public static void main(String[] args) {

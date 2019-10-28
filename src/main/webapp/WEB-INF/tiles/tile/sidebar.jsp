@@ -40,13 +40,14 @@
                     <!-- 상단바 -->
 
                     <ul id="js-nav-menu" class="nav-menu">
-                        <li class="active open">
+                        <li>
                             <a href="#" title="Application Intel" data-filter-tags="application intel">
                                 <i class="fal fa-info-circle"></i>
                                 <span class="nav-link-text" data-i18n="nav.application_intel">Application Intel</span>
                             </a>
                             <ul>
-                                <li class="active">
+<!--                              class="active" -->
+                                <li>
                                     <a href="intel_analytics_dashboard.html" title="Analytics Dashboard"
                                         data-filter-tags="application intel analytics dashboard">
                                         <span class="nav-link-text"
@@ -86,6 +87,42 @@
                                 </li>
                             </ul>
                         </li>
+                        
+                        
+                        <li class="active open">
+                         <a href="#" title="Application Intel" data-filter-tags="application intel">
+                                 <i class="fal fa-table"></i>
+                                <span class="nav-link-text" data-i18n="nav.application_intel">Board Table</span>
+                            </a>
+                            <ul>
+                             <li class="active">
+                                <a href="/BoardList?tst_board_category=자유 게시판" title="자유 게시판" data-filter-tags="application intel analytics dashboard">
+                                   <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">자유 게시판</span>
+                                 </a>
+                             </li>
+                             <li>
+                                <a href="/BoardList?tst_board_category=모집 게시판" title="모집 게시판" data-filter-tags="application intel analytics dashboard">
+                                   <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">모집 게시판</span>
+                                 </a>
+                             </li>
+                             <li>
+                                <a href="/BoardList?tst_board_category=블랙리스트 게시판" title="블랙리스트 게시판" data-filter-tags="application intel analytics dashboard">
+                                   <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">블랙리스트 게시판</span>
+                                 </a>
+                             </li>
+                             <li>
+                                <a href="/BoardList?tst_board_category=공지 게시판" title="공지 게시판" data-filter-tags="application intel analytics dashboard">
+                                   <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">공지 게시판</span>
+                                 </a>
+                             </li>
+                             
+                            </ul>
+                        </li>
+                        
+                        
+                       
+                        
+                        
                     </ul>
                     <div class="filter-message js-filter-message bg-success-600"></div>
                 </nav>

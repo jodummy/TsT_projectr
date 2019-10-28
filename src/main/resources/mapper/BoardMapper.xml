@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="TST_teamproject.Board.dao.BoardMapper">
+
+	<select id="boardList" resultType="TST_teamproject.Board.model.BoardVo" parameterType="String">
+	SELECT
+						@rownum:=@rownum+1 NO,
+						TST_BOARD_NO,
+						TST_BOARD_CATEGORY, 
+						TST_BOARD_TITLE,
+						TST_BOARD_CONTENTS,
+						TST_USER_ID,
+						TST_BOARD_DELFLAG,
+						DATE_FORMAT(TST_INSERT_DATE, '%Y-%m-%d') AS TST_INSERT_DATE,
+						DATE_FORMAT(TST_MODIFY_DATE, '%Y-%m-%d') AS TST_MODIFY_DATE
+                          
+	FROM 
+						TST_BOARD,
+						(SELECT @rownum:=0) r
+						
+	WHERE
+						TST_BOARD_DELFLAG ='N' AND TST_BOARD_CATEGORY=#{tst_board_category}
+						
+	ORDER BY              
+	NO DESC
+	</select>
+
+	<insert id="boardInsert" parameterType="TST_teamproject.Board.model.BoardVo">
+	INSERT INTO
+                      	TST_BOARD(
+                      	TST_BOARD_CATEGORY, 
+		                TST_BOARD_TITLE, 
+		                TST_BOARD_CONTENTS, 
+		                TST_USER_ID, 
+		                TST_INSERT_DATE, 
+		                TST_MODIFY_DATE) 
+	VALUES       
+						(#{tst_board_category}, 
+						#{tst_board_title}, 
+						#{tst_board_contents}, 
+						#{tst_user_id}, 
+						NOW(), 
+						NOW())
+	</insert>
+
+</mapper>
