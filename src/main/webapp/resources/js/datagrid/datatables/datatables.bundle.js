@@ -5987,7 +5987,6 @@
 						len=aSort.length,
 						dataA = aoData[a]._aSortData,
 						dataB = aoData[b]._aSortData;
-	
 					for ( k=0 ; k<len ; k++ ) {
 						sort = aSort[k];
 	
@@ -12147,7 +12146,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"asSorting": [ 'asc', 'desc' ],
+		"asSorting": [  'desc' ,'asc' ],
 	
 	
 		/**

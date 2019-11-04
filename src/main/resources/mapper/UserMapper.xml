@@ -7,8 +7,17 @@
 
  	<select id="readUser" parameterType="String" resultType="TST_teamproject.user.model.UserVo">
         SELECT 
-        				* 
-        FROM 			TST_USER 
+        				TST_USER_NICKNAME,
+        				TST_USER_ID,
+        				TST_USER_PW,
+        				TST_USER_EMAIL,
+        				TST_USER_ISACCOUNTNONEXPIRED,
+        				TST_USER_ISACCOUNTNONLOCKED,
+        				TST_USER_ISCREDENTIALSNONEXPIRED,
+        				TST_USER_ISENABLED,
+        				TST_USER_BLACK
+        FROM 			
+        				TST_USER 
         WHERE 
         				TST_USER_ID = #{tst_user_id}
     </select>
@@ -22,5 +31,49 @@
         WHERE 
         				TST_USER_ID = #{tst_user_id}
     </select>
+    
+    
+    <select id="overlapName" parameterType="TST_teamproject.user.model.UserVo" resultType="int">
+    	SELECT 
+    					COUNT(*) 
+    	FROM 
+    					TST_USER
+    					
+    	<if test="tst_user_id != null">
+    		WHERE 
+    						TST_USER_ID = #{tst_user_id}
+  		</if>
+  		<if test="tst_user_nickname != null">
+    		WHERE 
+    						TST_USER_NICKNAME = #{tst_user_nickname}
+  		</if>
+  		<if test="tst_user_email != null">
+  			WHERE 
+    						TST_USER_EMAIL = #{tst_user_email}
+  		</if>
+    </select>
+    
+    <insert id="insertUser" parameterType="TST_teamproject.user.model.UserVo">
+    INSERT 
+    INTO 
+    					TST_USER(
+    					TST_USER_NICKNAME,
+    					TST_USER_ID,
+    					TST_USER_EMAIL,
+    					TST_USER_PW,
+    					TST_USER_GENDER,
+    					TST_USER_BRITH)
+	values
+						(
+						#{tst_user_nickname},
+						#{tst_user_id},
+						#{tst_user_email},
+						#{tst_user_pw},
+						#{tst_user_gender},
+						DATE_FORMAT(NOW(), '%Y%m%d')-(#{tst_user_brith}*10000-10000))
+    </insert>
+    
+    
+  
 
 </mapper>

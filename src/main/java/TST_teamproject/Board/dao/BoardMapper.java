@@ -6,7 +6,7 @@ import TST_teamproject.Board.model.BoardVo;
 
 public interface BoardMapper {
 	/**
-	 * BoardList
+	 * boardList
 	 * 10.25 
 	 * @return List<BoardVo>
 	 * @param String tst_board_category
@@ -14,18 +14,38 @@ public interface BoardMapper {
 	public List<BoardVo> boardList(String tst_board_category)throws Exception;
 	
 	/**
-	 * BoardInsert
+	 * boardInsert
 	 * 10.26 
 	 * @return 
-	 * @param BoardVo Vo
+	 * @param BoardVo vo
 	 */
-	public void boardInsert (BoardVo vo)throws Exception;
+	public void boardInsert(BoardVo vo) throws Exception;
 	
-//	BoardVo BoardDetail(int tst_board_no)throws Exception;
+	/**
+	 * boardDetail
+	 * 10.27 
+	 * @return BoardVo
+	 * @param int tst_board_no
+	 */
+	public BoardVo boardDetail(int tst_board_no)throws Exception;
+	
+	/**
+	 * boardDelete
+	 * 10.27 
+	 * @return 
+	 * @param int tst_board_no
+	 */
+	public void boardDelete(int tst_board_no)throws Exception;
+	
+	/**
+	 * boardModify
+	 * 10.28 
+	 * @return 
+	 * @param int tst_board_no
+	 */
+	public void boardModify(BoardVo vo)throws Exception;
+	
 //	void BoardInsert(BoardVo vo)throws Exception;
 //	void BoardDelete(int tst_board_no)throws Exception;
 //	void BoardModify(BoardVo vo)throws Exception;
-	
-	
-	
 }

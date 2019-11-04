@@ -375,7 +375,8 @@
   display: none; }
 
 .note-editor.note-frame .note-placeholder {
-  padding: 10px; }
+  padding: 10px;
+  display: none !important; }
 
 .note-popover.popover {
   display: none;

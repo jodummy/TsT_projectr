@@ -52,7 +52,6 @@
                                     <h2 class="fs-xxl fw-500 mt-4 text-white">
                                         The simplest UI toolkit for developers &amp; programmers
                                         <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60">
-                                            Presenting you with the next level of innovative UX design and engineering. The most modular toolkit available with over 600+ layout permutations. Experience the simplicity of SmartAdmin, everywhere you go!
                                         </small>
                                     </h2>
 <!--                                     <a href="#" class="fs-lg fw-500 text-white opacity-70">Learn more &gt;&gt;</a> -->

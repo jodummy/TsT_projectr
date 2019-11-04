@@ -74,7 +74,7 @@
   var toolbar = renderer.create('<div class="note-toolbar card-header" role="toolbar"></div>');
   var editingArea = renderer.create('<div class="note-editing-area"/>');
   var codable = renderer.create('<textarea class="note-codable" role="textbox" aria-multiline="true"/>');
-  var editable = renderer.create('<div class="note-editable card-block" contentEditable="true" role="textbox" aria-multiline="true"/>');
+  var editable = renderer.create('<div class="note-editable card-block" contentEditable="true" role="textbox" aria-multiline="true" id="test" name="test" value="asd"/>sss');
   var statusbar = renderer.create([
       '<output class="note-status-output" aria-live="polite"/>',
       '<div class="note-statusbar" role="status">',

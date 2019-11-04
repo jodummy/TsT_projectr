@@ -6,9 +6,10 @@ import TST_teamproject.team.model.TeamVo;
 
 public interface TeamMapper { 
 	/**
-	 * 팀 목록
-	 * 10.25 
-	 * @return
+	 * 중복 방지
+	 * 10.28
+	 * @param vo
+	 * @return int
 	 */
 	public List<TeamVo> teamList();
 	

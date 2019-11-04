@@ -17,17 +17,38 @@ public interface BoardService {
 	 */
 	public List<BoardVo> boardList(String tst_board_category)throws Exception;
 	
+	/**
+	 * boardInsert
+	 * 10.26 
+	 * @return
+	 * @param BoardVo vo
+	 */
+	public void boardInsert(BoardVo vo) throws Exception;
 	
 	/**
-	 * BoardInsert
-	 * 10.26 
-	 * @return 
-	 * @param BoardVo Vo
+	 * boardDetail
+	 * 10.27 
+	 * @return BoardVo
+	 * @param int tst_board_no
 	 */
-	public void boardInsert (BoardVo vo)throws Exception;
+	public BoardVo boardDetail(int tst_board_no)throws Exception;
 	
+	/**
+	 * boardDelete
+	 * 10.27 
+	 * @return 
+	 * @param int tst_board_no
+	 */
+	public void boardDelete(int tst_board_no)throws Exception;
 	
-//	BoardVo BoardDetail(int tst_board_no)throws Exception;
+	/**
+	 * boardModify
+	 * 10.28 
+	 * @return 
+	 * @param int tst_board_no
+	 */
+	public void boardModify(BoardVo vo)throws Exception;
+	
 //	void BoardInsert(BoardVo vo)throws Exception;
 //	void BoardDelete(int tst_board_no)throws Exception;
 //	void BoardModify(BoardVo vo)throws Exception;

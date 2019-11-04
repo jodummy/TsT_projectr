@@ -24,4 +24,26 @@ public class BoardServiceImp implements BoardService{
 	public void boardInsert(BoardVo vo) throws Exception {
 		mapper.boardInsert(vo);
 	}
+
+	@Override
+	public BoardVo boardDetail(int tst_board_no) throws Exception {
+		return mapper.boardDetail(tst_board_no);
+	}
+
+	@Override
+	public void boardDelete(int tst_board_no) throws Exception {
+		mapper.boardDelete(tst_board_no);
+	}
+
+	@Override
+	public void boardModify(BoardVo vo) throws Exception {
+		mapper.boardModify(vo);
+	}
+	
+	
+
+
+
+
+
 }

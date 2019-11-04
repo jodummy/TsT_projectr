@@ -24,4 +24,14 @@ public class UserServiceImp implements UserService {
 		return userMapper.readAuthority(tst_user_id);
 	}
 
+	@Override
+	public int overlapName(UserVo vo) {
+		return userMapper.overlapName(vo);
+	}
+
+	@Override
+	public void insertUser(UserVo vo) {
+		userMapper.insertUser(vo);
+	}
+
 }

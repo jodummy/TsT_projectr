@@ -11,7 +11,7 @@ public class SecurityMember extends User{
     private String ip;
     
     public SecurityMember(UserVo member) {
-        super(member.getTst_user_id(), member.getTst_user_pw(), member.getAuthorities());
+        super(member.getTst_user_nickname(), member.getTst_user_pw(), member.getAuthorities());
     }
  
     public String getIp() {
