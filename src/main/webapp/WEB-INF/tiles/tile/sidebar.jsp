@@ -92,7 +92,7 @@
                         <li class="active open">
                          <a href="#" title="Application Intel" data-filter-tags="application intel">
                                  <i class="fal fa-table"></i>
-                                <span class="nav-link-text" data-i18n="nav.application_intel">Board Table</span>
+                                <span class="nav-link-text" data-i18n="nav.application_intel">Board</span>
                             </a>
                             <ul>
                              <li class="active">
@@ -115,6 +115,25 @@
                                    <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">공지 게시판</span>
                                  </a>
                              </li>
+                             
+                            </ul>
+                        </li>
+                        
+                        
+                        <li class="active open">
+                         <a href="#" title="Application Intel" data-filter-tags="application intel">
+                                 <i class="fal fa-table"></i>
+                                <span class="nav-link-text" data-i18n="nav.application_intel">My Team</span>
+                            </a>
+                            <ul>
+                            
+                            
+                             <li class="active">
+                                <a href="????" title="????" data-filter-tags="application intel analytics dashboard">
+                                   <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">??????</span>
+                                 </a>
+                             </li>
+                             
                              
                             </ul>
                         </li>

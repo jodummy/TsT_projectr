@@ -4,19 +4,167 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="TST_teamproject.team.dao.TeamMapper">
-	<select id="teamList" resultType="TST_teamproject.team.model.TeamVo">
-		SELECT 
-						TST_TEAM_NO, 
-						TST_TEAM_NAME, 
-						TST_TEAM_TYPE, 
-						TST_TEAM_LOCATION, 
-						TST_USER_NICKNAME,
-						TST_TEAM_CONTENT, 
-						TST_TEAM_WIN, 
-						TST_TEAM_LOSE 
-		FROM 
-						TST_TEAM
-	</select>
+   <!-- 11.04 팀 검색 및 페이징 -->
+   <select id="teamList" resultType="TST_teamproject.team.model.TeamVo">
+      SELECT 
+                  TST_TEAM_NO, 
+                  TST_TEAM_NAME, 
+                  TST_TEAM_TYPE, 
+                  TST_TEAM_LOCATION, 
+                  TST_USER_NICKNAME,
+                  TST_TEAM_CONTENT, 
+                  TST_TEAM_WIN, 
+                  TST_TEAM_LOSE, 
+                  TST_TEAM_AGE
+      FROM 
+                  TST_TEAM
+                  
+   <if test="keyword != null">
+      WHERE 
+      TST_TEAM_NAME 
+      LIKE CONCAT 
+                  ('%', #{keyword}, '%') 
+      OR 
+      TST_TEAM_TYPE 
+      LIKE CONCAT
+                  ('%', #{keyword}, '%')
+   </if>
+      LIMIT
+                  #{ startList },
+                  #{ listSize }
+                  
+   </select>
+   
+   <!-- 10.26 팀추가 -->
+   <insert id="teamInsert" useGeneratedKeys="true" keyProperty="tst_team_no">
+      INSERT 
+      INTO 
+                  TST_TEAM
+                  (
+                  TST_TEAM_NAME, 
+                  TST_TEAM_TYPE, 
+                  TST_TEAM_LOCATION, 
+                  TST_USER_NICKNAME, 
+                  TST_TEAM_CONTENT,
+                  TST_TEAM_AGE
+                  
+                  )
+      VALUES
+                  (
+                  #{ tst_team_name }, 
+                  #{ tst_team_type},
+                  #{ tst_team_location }, 
+                  #{ tst_user_nickname },
+                  #{ tst_team_content },
+                  #{ tst_team_age }
+                  )
+   </insert>
+   <!-- 10.28 팀 멤버 목록 -->
+    <select id="memberList" resultType="TST_teamproject.user.model.UserVo">
+      SELECT 
+      
+                  A.TST_USER_NICKNAME,
+                  A.TST_USER_BRITH, 
+                  A.TST_USER_LOCATION,
+                  A.TST_USER_ID
+                  
+      FROM 
+                  TST_USER AS A 
+      INNER JOIN 
+                  TST_USER_TEAM AS B 
+      ON 
+                  A.TST_USER_NICKNAME=B.TST_USER_NICKNAME 
+      WHERE 
+                  B.TST_TEAM_NO = #{tst_team_no}
+                         
+    </select>
+      <!-- 10.28 팀 디테일 생성 -->
+   <select id="teamFindOne" resultType="TST_teamproject.team.model.TeamVo">
+      SELECT
+                  TST_TEAM_NO,
+                  TST_TEAM_NAME, 
+                  TST_TEAM_TYPE, 
+                  TST_TEAM_LOCATION, 
+                  TST_TEAM_CONTENT, 
+                  TST_TEAM_WIN, 
+                  TST_TEAM_LOSE,
+                  TST_USER_NICKNAME,
+                  TST_TEAM_AGE
+                  
+      FROM 
+                  TST_TEAM             
+      WHERE
+      
+                  TST_TEAM_NO = #{ TST_TEAM_NO }
+   </select>
+   <!-- 10.29 팀 삭제 -->
+   <delete id="teamDelete">
+      delete 
+      from 
+                  TST_TEAM 
+      where 
+                  tst_team_no = #{tst_team_no}
+   </delete>
+   
+   
 
-	
+   <insert id="addMember">
+      INSERT 
+      INTO 
+      TST_USER_TEAM( 
+                  TST_USER_NICKNAME, 
+                  TST_TEAM_NO, 
+                  TST_USER_ID
+                  )
+      VALUES
+                  (
+                   "토끼",
+                    1,
+                    "rabbit",
+                    1 
+                  )
+   </insert>
+   <!-- 11.1 팀수정하기 -->
+   <update id="teamUpdate" parameterType="TST_teamproject.team.model.TeamVo">
+      UPDATE 
+                  TST_TEAM
+      SET
+                  TST_USER_NICKNAME = #{ tst_user_nickname },
+                     TST_TEAM_CONTENT = #{ tst_team_content},
+                     TST_TEAM_AGE =  #{tst_team_age}
+      WHERE 
+                  TST_TEAM_NO = #{ tst_team_no }
+   </update>
+   <!-- 11.1 팀 권한  바꿔주기-->
+   <update id="teamAuthority" parameterType="TST_teamproject.team.model.MemberVo">
+      UPDATE 
+                  TST_USER_TEAM
+      SET
+                  TST_USER_TEAM_AUTHORITY = #{ tst_user_team_authority }
+       WHERE 
+                   TST_TEAM_NO = #{ tst_team_no }
+         AND 
+                     TST_USER_NICKNAME = #{ tst_user_nickname }
+   </update>
+   <!-- 11.02 팀 개수 새기 -->
+   <select id="listCount" resultType="int">
+      SELECT
+                  COUNT(*)
+      FROM
+                  TST_TEAM
+                  
+   <if test="keyword != null">
+      WHERE 
+      TST_TEAM_NAME 
+      LIKE CONCAT 
+                  ('%', #{keyword}, '%') 
+      OR 
+      TST_TEAM_TYPE 
+      LIKE CONCAT
+                  ('%', #{keyword}, '%')
+   </if>
+    </select>
+
+   <!-- SELECT A.TST_TEAM_TYPE, B.TST_USER_NICKNAME 
+   FROM TST_TEAM AS A INNER JOIN TST_USER_TEAM AS B ON A.TST_TEAM_NO=B.TST_TEAM_NO WHERE A.TST_TEAM_NO=1; -->
 </mapper>
