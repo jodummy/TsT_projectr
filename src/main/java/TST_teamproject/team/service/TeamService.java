@@ -31,7 +31,7 @@ public interface TeamService {
 	public TeamVo teamFindOne(int tst_team_no);
 	public void teamDelete(int tst_team_no);
 	public List<UserVo> memberList(int tst_team_no);
-	public void addmemberVo(MemberVo memberVo);
+
 	/*
 	 * 팀 목록
 	 * 11.01 팀 수정 
@@ -39,4 +39,12 @@ public interface TeamService {
 	 * @return int	 
 	 * */
 	public void teamUpdate(TeamVo teamVo, MemberVo memberVo_1, MemberVo memberVo_3);
+	
+	/*
+	 * 11.05
+	 * 팀 사이드바 출력.
+	 * @param  String
+	 * @return TeamVo
+	 */
+	public List<TeamVo> selectSideBarTeam(String tst_user_nickname);
 }

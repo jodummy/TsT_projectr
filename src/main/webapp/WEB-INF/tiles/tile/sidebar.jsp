@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,55 +44,7 @@
                     <!-- 상단바 -->
 
                     <ul id="js-nav-menu" class="nav-menu">
-                        <li>
-                            <a href="#" title="Application Intel" data-filter-tags="application intel">
-                                <i class="fal fa-info-circle"></i>
-                                <span class="nav-link-text" data-i18n="nav.application_intel">Application Intel</span>
-                            </a>
-                            <ul>
-<!--                              class="active" -->
-                                <li>
-                                    <a href="intel_analytics_dashboard.html" title="Analytics Dashboard"
-                                        data-filter-tags="application intel analytics dashboard">
-                                        <span class="nav-link-text"
-                                            data-i18n="nav.application_intel_analytics_dashboard">Analytics
-                                            Dashboard</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="intel_marketing_dashboard.html" title="Marketing Dashboard"
-                                        data-filter-tags="application intel marketing dashboard">
-                                        <span class="nav-link-text"
-                                            data-i18n="nav.application_intel_marketing_dashboard">Marketing
-                                            Dashboard</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="intel_introduction.html" title="Introduction"
-                                        data-filter-tags="application intel introduction">
-                                        <span class="nav-link-text"
-                                            data-i18n="nav.application_intel_introduction">Introduction</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="intel_privacy.html" title="Privacy"
-                                        data-filter-tags="application intel privacy">
-                                        <span class="nav-link-text"
-                                            data-i18n="nav.application_intel_privacy">Privacy</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="intel_build_notes.html" title="Build Notes"
-                                        data-filter-tags="application intel build notes">
-                                        <span class="nav-link-text" data-i18n="nav.application_intel_build_notes">Build
-                                            Notes</span>
-                                        <span class="">v4.0.2</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        
+                       
                         <li class="active open">
                          <a href="#" title="Application Intel" data-filter-tags="application intel">
                                  <i class="fal fa-table"></i>
@@ -119,20 +75,25 @@
                             </ul>
                         </li>
                         
-                        
                         <li class="active open">
+                         <a href="/teamList" title="Application Intel" data-filter-tags="application intel">
+                                 <i class="fal fa-window"></i>
+                                <span class="nav-link-text" data-i18n="nav.application_intel">Team list</span>
+                            </a>
+                        </li>
+                        
+                        <li>
                          <a href="#" title="Application Intel" data-filter-tags="application intel">
-                                 <i class="fal fa-table"></i>
+                                 <i class="fal fa-bolt"></i>
                                 <span class="nav-link-text" data-i18n="nav.application_intel">My Team</span>
                             </a>
-                            <ul>
+                            <ul id="list">
                             
-                            
-                             <li class="active">
-                                <a href="????" title="????" data-filter-tags="application intel analytics dashboard">
-                                   <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">??????</span>
-                                 </a>
-                             </li>
+<!--                              <li> -->
+<!--                                 <a href="????" title="????" data-filter-tags="application intel analytics dashboard"> -->
+<!--                                    <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">??????</span> -->
+<!--                                  </a> -->
+<!--                              </li> -->
                              
                              
                             </ul>
@@ -174,5 +135,38 @@
                     </ul>
                 </div> <!-- END NAV FOOTER -->
             </aside>
+            <sec:authentication var="principal" property="principal" />
+				<input type="hidden" value='${principal.username}' name="tst_user_nickname" id="tst_user_nickname">
 </body>
+<script type="text/javascript">
+
+function thisIsAll(){
+	let tst_user_nickname = $('#tst_user_nickname').val();
+	var elem = '';
+$.ajax({
+	async : true,
+	url : '${pageContext.request.contextPath}/sideBarList?tst_user_nickname='+tst_user_nickname,
+	type : 'GET',
+	success : function(data) {
+		for(var i = 0; i < data.length; i++){
+			 elem = elem + '<li><a href="teamDetailpage?tst_team_no=' + data[i].tst_team_no + '" title="????" data-filter-tags="application intel analytics dashboard"><span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">'+ data[i].tst_team_name +'</span></a></li>';
+		}
+		document.getElementById('list').innerHTML = elem;
+	},
+	error : function() {
+		console.log("실패");
+	}
+});
+
+
+} 
+
+$(document).ready(function() {
+	thisIsAll();
+});
+
+
+
+
+</script>
 </html>

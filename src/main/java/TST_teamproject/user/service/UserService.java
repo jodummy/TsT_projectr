@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import TST_teamproject.user.model.MessageVo;
 import TST_teamproject.user.model.UserVo;
 
 
@@ -25,4 +26,61 @@ public interface UserService {
 	  * @param vo
 	  */
 	 public void insertUser(UserVo vo);
+	 
+	 /**
+	  * 메세지 List
+	  * 11.07
+	  * @param tst_to_nicknmame
+	  * @return List<MessageVo> 
+	  */
+	 public List<MessageVo> listtMessageTo(String tst_to_nicknmame);
+	 
+	 /**
+	  * 메세지 detail
+	  * 11.13
+	  * @param tst_message_no
+	  * @return List<MessageVo> 
+	  */
+	 public MessageVo detailMessageTo (int tst_message_no);
+	 
+	 /**
+	  * 메세지 count
+	  * 11.15
+	  * @param tst_to_nicknmame
+	  * @return int
+	  */
+	 public int countMail(String tst_to_nicknmame);
+	 
+	 /**
+	  * header 메세지 List 
+	  * 11.07
+	  * @param tst_to_nicknmame
+	  * @return List<MessageVo> 
+	  */
+	 public List<MessageVo> HeaderListtMessageTo(String tst_to_nicknmame);
+	 
+	 /**
+	  * 메세지 count 
+	  * 11.18
+	  * @param tst_to_nicknmame
+	  * @return int 
+	  */
+	 public int countMailCheck(String tst_to_nicknmame);
+	 
+	 /**
+	  * 메세지 읽기
+	  *  11.18
+	  * @param tst_message_no
+	  * @return void
+	  */
+	 public void updateMailCheck(int tst_message_no);
+	 
+	 /**
+	  * 메세지 보내기
+	  *  11.18
+	  * @param MessageVo
+	  * @return void
+	  */
+	 public void insertMail(MessageVo vo);
+	 
 }

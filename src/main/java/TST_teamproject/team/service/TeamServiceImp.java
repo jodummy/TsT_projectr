@@ -28,7 +28,7 @@ public class TeamServiceImp implements TeamService{
 	@Override
 	public List<TeamVo> teamList(Search search) throws Exception {
 		return teamMapper.teamList(search);
-	}
+	} 
 
 	@Override
 	public int listCount(Search search) throws Exception {
@@ -58,12 +58,6 @@ public class TeamServiceImp implements TeamService{
 		return teamMapper.memberList(tst_team_no);
 	}
 
-
-	@Override
-	public void addmemberVo(MemberVo memberVo) {
-		teamMapper.addMember(memberVo);
-	}
-
 	@Transactional
 	@Override
 	public void teamUpdate(TeamVo teamVo, MemberVo memberVo_1, MemberVo memberVo_3) {
@@ -76,6 +70,11 @@ public class TeamServiceImp implements TeamService{
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	@Override
+	public List<TeamVo> selectSideBarTeam(String tst_user_nickname) {
+		return teamMapper.selectSideBarTeam(tst_user_nickname);
 	}
 	
 }

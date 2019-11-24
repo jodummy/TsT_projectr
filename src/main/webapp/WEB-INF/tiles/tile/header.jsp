@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -240,12 +243,12 @@
                             <div>
                                 <a href="#" class="header-icon" data-toggle="dropdown" title="You got 11 notifications">
                                     <i class="fal fa-bell"></i>
-                                    <span class="badge badge-icon">11</span>
+                                    <span class="badge badge-icon" id="countMail" name="countMail"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
                                     <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">
                                         <h4 class="m-0 text-center color-white">
-                                            11 New
+                                            	갯수
                                             <small class="mb-0 opacity-80">User Notifications</small>
                                         </h4>
                                     </div>
@@ -272,98 +275,25 @@
                                                 </small>
                                             </h5>
                                         </div>
+                                        
                                         <div class="tab-pane" id="tab-messages" role="tabpanel">
                                             <div class="custom-scroll h-100">
-                                                <ul class="notification">
-                                                    <li class="unread">
-                                                        <a href="#" class="d-flex align-items-center">
-                                                            <span class="status mr-2">
-                                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-c.png')"></span>
-                                                            </span>
-                                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                                <span class="name">Melissa Ayre <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">INBOX</span></span>
-                                                                <span class="msg-a fs-sm">Re: New security codes</span>
-                                                                <span class="msg-b fs-xs">Hello again and thanks for being part...</span>
-                                                                <span class="fs-nano text-muted mt-1">56 seconds ago</span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="unread">
-                                                        <a href="#" class="d-flex align-items-center">
-                                                            <span class="status mr-2">
-                                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-a.png')"></span>
-                                                            </span>
-                                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                                <span class="name">Adison Lee</span>
-                                                                <span class="msg-a fs-sm">Msed quia non numquam eius</span>
-                                                                <span class="fs-nano text-muted mt-1">2 minutes ago</span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="d-flex align-items-center">
-                                                            <span class="status status-success mr-2">
-                                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-b.png')"></span>
-                                                            </span>
-                                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                                <span class="name">Oliver Kopyuv</span>
-                                                                <span class="msg-a fs-sm">Msed quia non numquam eius</span>
-                                                                <span class="fs-nano text-muted mt-1">3 days ago</span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="d-flex align-items-center">
-                                                            <span class="status status-warning mr-2">
-                                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-e.png')"></span>
-                                                            </span>
-                                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                                <span class="name">Dr. John Cook PhD</span>
-                                                                <span class="msg-a fs-sm">Msed quia non numquam eius</span>
-                                                                <span class="fs-nano text-muted mt-1">2 weeks ago</span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="d-flex align-items-center">
-                                                            <span class="status status-success mr-2">
-                                                                <!-- <img src="img/demo/avatars/avatar-m.png" data-src="img/demo/avatars/avatar-h.png" class="profile-image rounded-circle" alt="Sarah McBrook" /> -->
-                                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-h.png')"></span>
-                                                            </span>
-                                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                                <span class="name">Sarah McBrook</span>
-                                                                <span class="msg-a fs-sm">Msed quia non numquam eius</span>
-                                                                <span class="fs-nano text-muted mt-1">3 weeks ago</span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="d-flex align-items-center">
-                                                            <span class="status status-success mr-2">
-                                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-m.png')"></span>
-                                                            </span>
-                                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                                <span class="name">Anothony Bezyeth</span>
-                                                                <span class="msg-a fs-sm">Msed quia non numquam eius</span>
-                                                                <span class="fs-nano text-muted mt-1">one month ago</span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="d-flex align-items-center">
-                                                            <span class="status status-danger mr-2">
-                                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('img/demo/avatars/avatar-j.png')"></span>
-                                                            </span>
-                                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                                <span class="name">Lisa Hatchensen</span>
-                                                                <span class="msg-a fs-sm">Msed quia non numquam eius</span>
-                                                                <span class="fs-nano text-muted mt-1">one year ago</span>
-                                                            </span>
-                                                        </a>
-                                                    </li>
+                                                <ul class="notification" id="listHeader">
+                                                
+<!--                                                     <li class="unread"> -->
+<!--                                                         <a href="#" class="d-flex align-items-center"> -->
+<!--                                                             <span class="d-flex flex-column flex-1 ml-1"> -->
+<!--                                                                 <span class="name">??? <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">INBOX</span></span> -->
+<!--                                                                 <span class="msg-a fs-sm">???</span> -->
+<!--                                                                 <span class="msg-b fs-xs">???</span> -->
+<!--                                                             </span> -->
+<!--                                                         </a> -->
+<!--                                                     </li> -->
+                                                   
                                                 </ul>
                                             </div>
                                         </div>
+                                        
                                         <div class="tab-pane" id="tab-feeds" role="tabpanel">
                                             <div class="custom-scroll h-100">
                                                 <ul class="notification">
@@ -621,37 +551,87 @@
                                         <span data-i18n="drpdwn.settings">Settings</span>
                                     </a>
                                     <div class="dropdown-divider m-0"></div>
-                                    <a href="#" class="dropdown-item" data-action="app-fullscreen">
-                                        <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
-                                        <i class="float-right text-muted fw-n">F11</i>
+                                    <a href="/mailList" class="dropdown-item">
+                                        <span>MailBox</span>
                                     </a>
                                     <a href="#" class="dropdown-item" data-action="app-print">
                                         <span data-i18n="drpdwn.print">Print</span>
                                         <i class="float-right text-muted fw-n">Ctrl + P</i>
                                     </a>
-                                    <div class="dropdown-multilevel dropdown-multilevel-left">
-                                        <div class="dropdown-item">
-                                            Language
-                                        </div>
-                                        <div class="dropdown-menu">
-                                            <a href="#?lang=fr" class="dropdown-item" data-action="lang" data-lang="fr">Français</a>
-                                            <a href="#?lang=en" class="dropdown-item active" data-action="lang" data-lang="en">English (US)</a>
-                                            <a href="#?lang=es" class="dropdown-item" data-action="lang" data-lang="es">Español</a>
-                                            <a href="#?lang=ru" class="dropdown-item" data-action="lang" data-lang="ru">Русский язык</a>
-                                            <a href="#?lang=jp" class="dropdown-item" data-action="lang" data-lang="jp">日本語</a>
-                                            <a href="#?lang=ch" class="dropdown-item" data-action="lang" data-lang="ch">中文</a>
-                                        </div>
-                                    </div>
                                     <div class="dropdown-divider m-0"></div>
-                                    <a class="dropdown-item fw-500 pt-3 pb-3" href="page_login_alt.html">
-                                        <span data-i18n="drpdwn.page-logout">Logout</span>
-                                        <span class="float-right fw-n">&commat;codexlantern</span>
-                                    </a>
+                                    
+                                    
+                                     <form action="/logout" method="POST" name="logOutForm">
+                      		 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                      		 			 <a class="dropdown-item fw-500 pt-3 pb-3"  onclick="submitAtag()">
+                                        	<span data-i18n="drpdwn.page-logout">Logout</span>
+                                        	<span class="float-right fw-n">&commat;codexlantern</span>
+                                    	 </a>
+                   					 </form>
+                   					 
+                                   
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
                     </header>
-                    <!-- END Page Header -->              
+                    <!-- END Page Header -->          
+                <sec:authentication var="principal" property="principal" />
+				<input type="hidden" value='${principal.username}' name="tst_user_nickname" id="tst_user_nickname">    
                       
 </body>
+<script type="text/javascript">
+   function submitAtag(){
+       let form = document.logOutForm;
+       form.submit();
+   }
+   
+   function thisIsAllHeader(){
+		let tst_user_nickname = $('#tst_user_nickname').val();
+		var elemH= '';
+		
+	$.ajax({
+		async : true,
+		url : '${pageContext.request.contextPath}/headerList?tst_user_nickname='+tst_user_nickname,
+		type : 'GET',
+		success : function(dataH) {
+			for(var i = 0; i < dataH.length; i++){
+				elemH = elemH + '<li class="unread"><a href="/mailList" class="d-flex align-items-center"><span class="d-flex flex-column flex-1 ml-1"><span class="name">'+ dataH[i].tst_from_nicname +' <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">INBOX</span></span><span class="msg-a fs-sm">'+ dataH[i].tst_message_title +'</span> <span class="msg-b fs-xs">'+ dataH[i].tst_message_content +'</span></span></a></li>';
+			}
+			document.getElementById('listHeader').innerHTML = elemH;
+		},
+		error : function() {
+			console.log("실패");
+		}
+	});
+	
+	} 
+
+   function countMailCheck(){
+	   let tst_user_nickname = $('#tst_user_nickname').val();
+	   
+	   $.ajax({
+			async : true,
+			url : '${pageContext.request.contextPath}/countMailCheck?tst_user_nickname='+tst_user_nickname,
+			type : 'GET',
+			success : function(dataH) {
+// 				alert(dataH);
+				$("#countMail").text(dataH);
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	   
+	   
+   }
+   
+	$(document).ready(function() {
+		thisIsAllHeader();
+		countMailCheck();
+	});
+
+</script>
 </html>

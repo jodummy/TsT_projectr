@@ -56,6 +56,13 @@ public interface TeamMapper {
 	 * @param  MemberVo
 	 */
 	public void teamAuthority(MemberVo memberVo);
-	
+
+	/*
+	 * 11.05
+	 * 팀 사이드바 출력.
+	 * @param  String
+	 * @return TeamVo
+	 */
+	public List<TeamVo> selectSideBarTeam(String tst_user_nickname);
 	
 } 

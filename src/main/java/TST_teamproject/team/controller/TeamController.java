@@ -1,6 +1,7 @@
 package TST_teamproject.team.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,12 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import TST_teamproject.common.Pagination;
 import TST_teamproject.common.Search;
 import TST_teamproject.team.model.MemberVo;
 import TST_teamproject.team.model.TeamVo;
 import TST_teamproject.team.service.TeamService;
+import TST_teamproject.user.model.UserVo;
 
 @Controller
 public class TeamController {
@@ -21,7 +24,7 @@ public class TeamController {
 	@Autowired 
 	TeamService teamService;
 	
-	
+	Principal principal;
 	/**
 	 * 팀 목록
 	 * 10.25
@@ -46,13 +49,13 @@ public class TeamController {
 			) throws Exception{
 		
 		Search search = new Search();
-		System.out.println(search.toString());
+//		System.out.println(search.toString());
 		search.setKeyword(keyword);
 		int listCount = teamService.listCount(search);
 		
 		Pagination pagination = new Pagination();
 		search.pageInfo(page, range, listCount);
-		System.out.println(pagination.toString());
+//		System.out.println(pagination.toString());
 		model.addAttribute("pagination", search);
 		model.addAttribute("teamList", teamService.teamList(search));
 		return "team.list";
@@ -128,9 +131,6 @@ public class TeamController {
 	public String teamUpdate(Model model, TeamVo teamVo) {
 		model.addAttribute("team", teamService.teamFindOne(teamVo.getTst_team_no()));
 		model.addAttribute("member", teamService.memberList(teamVo.getTst_team_no()));
-		System.out.println(teamService.teamFindOne(teamVo.getTst_team_no()));
-		System.out.println(teamService.memberList(teamVo.getTst_team_no()));
-
 		return "team.teamUpdate";
 	}
 	@RequestMapping(value="/teamUpdatePage", method=RequestMethod.POST)
@@ -142,4 +142,16 @@ public class TeamController {
 
 		return"redirect:/teamList";
 	}
+	
+	/**
+	 * 11.05
+	 * my team 출력
+	 * @return teamvo
+	 */
+	@RequestMapping(value="/sideBarList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<TeamVo> sideBarList(@RequestParam("tst_user_nickname") String tst_user_nickname) {
+		return teamService.selectSideBarTeam(tst_user_nickname);
+	}
+	
 }

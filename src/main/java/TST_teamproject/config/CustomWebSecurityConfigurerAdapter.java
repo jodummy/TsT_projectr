@@ -25,7 +25,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-        .antMatchers("/resources/**","/signUp","/overlapName","/page");
+        .antMatchers("/resources/**","/signUp","/overlapName","/page","/sideBarList","/headerList");
     }
     
     @Override
@@ -34,7 +34,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
          // ROLE_USER, ROLE_ADMIN으로 권한 분리 유알엘 정의 여기 밑에 넣으면 nav가 활성화가 된다. 위에는 그냥 참고만 하자 
 	         .antMatchers()
 	         .permitAll()
-//	         .antMatchers("/AdminManager","/NoticeInsert","/NoticeModify","/NoticeDelete").access("hasRole('ROLE_ADMIN')") //hasRole 이걸 붙이고 괄호 해주고 , ROLE_ <-이거 안붙ㅊ이면 오류가 발생한다. 이걸 몇일이나 고민하냐 '안에는 이걸 붙여주세요
+	         .antMatchers("/chat/**").access("hasRole('ROLE_USER')") //hasRole 이걸 붙이고 괄호 해주고 , ROLE_ <-이거 안붙ㅊ이면 오류가 발생한다. 이걸 몇일이나 고민하냐 '안에는 이걸 붙여주세요
 	         .anyRequest().authenticated() //나머지 요청에 대해서는 인증된  사용자만 접근이 되도록 설정하고 있다.
          .and().formLogin()
          	 .loginPage("/login")

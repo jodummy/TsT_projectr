@@ -45,9 +45,9 @@
 								<!-- datatable start -->
 								<div class="frame-heading mb-0">Select a cell below to see
 									events (you can also use your arrow keys once a cell is
-									selected)</div>
-								<table id="dt-basic-example" name="test"
-									class="table table-bordered table-hove	r table-striped w-100">
+									selected)
+								</div>
+								<table id="dt-basic-example" name="test" class="table table-bordered table-hove	r table-striped w-100">
 									<thead class="bg-primary-600">
 										<tr>
 											<th>no</th>
@@ -81,7 +81,7 @@
 							<div class="col-xl-5" id="test">
 							</div>
 
-
+							<input type="hidden" value="${userId }" name="userId" id="userId"/>
 							<!--                                 </div> -->
 							<!-- post comment - end -->
 
@@ -91,6 +91,43 @@
 			</div>
 		</div>
 	</div>
+	
+	
+<!-- 	여기 -->
+<!-- <div class="card mb-g"> -->
+<!--                                     <div class="card-body pb-0 px-4"> -->
+<!-- 			<div class="card-body py-0 px-4 border-faded border-right-0 border-bottom-0 border-left-0"> -->
+<!--                                         <div class="d-flex flex-column align-items-center"> -->
+<!--                                             comment -->
+<!--                                             <div class="d-flex flex-row w-100 py-4"> -->
+<!--                                                 <div class="d-inline-block align-middle status status-sm status-success mr-3"> -->
+<!--                                                     <span class="profile-image profile-image-md rounded-circle d-block mt-1" style="background-image:url('img/demo/avatars/avatar-c.png'); background-size: cover;"></span> -->
+<!--                                                 </div> -->
+<!--                                                 <div class="mb-0 flex-1 text-dark"> -->
+<!--                                                     <div class="d-flex"> -->
+<!--                                                         <a href="javascript:void(0);" class="text-dark fw-500"> -->
+<!--                                                             Test name -->
+<!--                                                         </a><span class="text-muted fs-xs opacity-70 ml-auto"> -->
+<!--                                                             15 minutes -->
+<!--                                                         </span> -->
+<!--                                                     </div> -->
+<!--                                                     <p class="mb-0"> -->
+<!--                                                         Excellent work, looking forward to it. -->
+<!--                                                     </p> -->
+<!--                                                 </div> -->
+<!--                                             </div> -->
+<!--                                             <hr class="m-0 w-100"> -->
+<!--                                             comment end -->
+                                          
+<!--                                             add comment -->
+<!--                                             <div class="py-3 w-100"> -->
+<!--                                                 <textarea class="form-control border-0 p-0" rows="2" placeholder="add a comment..."></textarea> -->
+<!--                                             </div> -->
+<!--                                             add comment end -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                     </div> -->
+<!--                                     </div> -->
 	</main>
 
 
@@ -114,32 +151,76 @@
 
 </body>
 <script type="text/javascript">
-
-
+var str= "";
+var replyCount = 0;
 function detail(no){
-	var str= "";
-
+	replyCount = 0;
+	str= "";
+// 	이거 닉네임으로 바꿔야됨
+	var value = $('#userId').val();
+	
 $.ajax({
     type: "GET",
     url : "/BoardDetail?tst_board_no="+no,
     success : function(result){
     	console.log(result);
-    	str += "<div class='card mb-g' style='margin-top: 2rem;'><div class='card-body pb-0 px-4' ><div class='d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0' ><div class='d-inline-block align-middle status status-success mr-3'><span class='profile-image rounded-circle d-block' style='background-image:url(${pageContext.request.contextPath}/resources/img/demo/avatars/avatar-e.png); background-size: cover;'></span>"
+    	str += "<div class='card mb-g' style='margin-top: 2rem; max-height:560px;overflow:auto; '><div class='card-body pb-0 px-4' ><div class='d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0' ><div class='d-inline-block align-middle status status-success mr-3'><span class='profile-image rounded-circle d-block' style='background-image:url(${pageContext.request.contextPath}/resources/img/demo/avatars/avatar-e.png); background-size: cover;'></span>"
     		+ "</div><h5 class='mb-0 flex-1 text-dark fw-500'>"+ result.tst_user_id +"<small class='m-0 l-h-n'>"+ result.tst_board_title +"</small></h5><span class='text-muted fs-xs opacity-70'>"+ result.tst_insert_date +"</span></div>"
     		+ "<div class='pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted'>"+ result.tst_board_contents +"</div>"
-    		+ "<div class='d-flex align-items-center demo-h-spacing py-3'><a href='javascript:void(0);' class='d-inline-flex align-items-center text-dark'><i class='fal fa-comment fs-xs mr-1'></i> <span>2 Comments</span></a></div></div></div>"
+//     		+ "<div class='d-flex align-items-center demo-h-spacing py-3' style='float:left;'><a class='d-inline-flex align-items-center text-dark'><i class='fal fa-comment fs-xs mr-1'></i> <span onclick='replyBoard(" + result.tst_board_no +")'>2 Comments</span></a></div>";
+    	
+//     		이거 닉네임으로 바꿔야됨
+    		if(result.tst_user_id == value){
+    			str+= "<button type='button' class='btn btn-sm btn-primary' onclick='deleteBoard(" + result.tst_board_no +")' style='margin-left:1rem; float:right; margin-top:1rem;'>삭제</button>"
+        		   + "<button type='button' class='btn btn-sm btn-primary' onclick='ModifyBoard(" + result.tst_board_no +")' style='margin-left:1rem; float:right; margin-top:1rem;'>수정</button>";
+    		}
     		
-    		+ "<button type='button' class='btn btn-sm btn-primary' onclick='deleteBoard(" + result.tst_board_no +")' style='margin-left:25rem'>삭제</button>"
-    		+ "<button type='button' class='btn btn-sm btn-primary' onclick='ModifyBoard(" + result.tst_board_no +")' style='margin-left:1rem'>수정</button>"
-//     		<input type="button" id="modifybutton" value="����" onclick="location.href='modifyBoard?tst_board_no=${detailBoard.tst_board_no}'">
-//     		+ "<input type='button' id='deletebutton' value='����' onclick='location.href='/BoardDelete?tst_board_no=${detailBoard.tst_board_no}''>"
-// 		+ "<input type='button' id='deletebutton' value='����' onclick='location.href='BoardDelete?tst_board_no= '+ result.tst_board_no +'>"
-//     		+ "<input type='button' id='listebutton' value='���' onclick='next()'>"
+    		
+    		
+    		//여기
+    		
+    	str += "<div class='d-flex align-items-center demo-h-spacing py-3' style='margin-top: 2rem;'><a href='javascript:void(0);' class='d-inline-flex align-items-center text-dark'><i class='fal fa-comment fs-xs mr-1'></i> <span onclick='replyBoard(" + result.tst_board_no +")'>2 Comments</span></a></div>"
+    		+ "<form action='/BoardReplyInsert' method='get'> <hr class='m-0 w-100'> <div class='py-3 w-90'> <textarea class='form-control p-0' rows='2' placeholder='add a comment...' style='width:90%;margin-bottom:1.5rem;float:left;'> </textarea> <button type='submit'  class='btn btn-sm btn-outline-dark' style='float:left;width:10%;height:2.4rem;padding:0;'>입력</button> </div> </form>"
+
     		$("#test").html(str);
     	}
     });
 }
 
+// function replyInsertBoard(tst_board_no){
+// 	 $.ajax({
+// 		    type: "GET",
+// 		    url : "/BoardReplyInsert?tst_board_no="+tst_board_no,
+// 		    success : function(result){
+// //		    	console.log(result);
+// 		    	alert("댓글입력");
+// // 		    	 location.href = "/BoardList?tst_board_category=" + result;
+// 		    	}
+// 		    });
+// }
+
+function replyBoard(tst_board_no){
+	
+	if(replyCount == 0){
+	 $.ajax({
+		    type: "GET",
+		    url : "/BoardReplyList?tst_board_no="+tst_board_no,
+		    success : function(result){
+		    	
+		    	for(var i=0; i < result.length; i++){
+		    	str += "</br> <div class='d-flex flex-row w-100 py-4'> <div class='d-inline-block align-middle status status-sm status-success mr-3'> <span class='profile-image profile-image-md rounded-circle d-block mt-1' style='background-image:url(${pageContext.request.contextPath}/resources/img/demo/avatars/avatar-e.png); background-size: cover;''></span>"
+	                + "</div> <div class='mb-0 flex-1 text-dark'> <div class='d-flex'> <a href='javascript:void(0);' class='text-dark fw-500'>"
+	                + result[i].tst_user_nickname + "</a><span class='text-muted fs-xs opacity-70 ml-auto'> " +result[i].tst_board_reply_date+ " </span> </div> <p class='mb-0'> " +result[i].tst_board_reply_content+ " + </p> </div> </div>"
+
+		    	}	
+		    	str += "</div></div>";
+		    	$("#test").html(str);
+		    	str = "";
+		    	replyCount = 1;
+		    	}
+		    });
+	}
+}
 
 
 function deleteBoard(no){

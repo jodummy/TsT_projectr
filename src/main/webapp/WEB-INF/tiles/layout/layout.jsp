@@ -1766,6 +1766,85 @@
                 });
 
             });
+            
+            
+            
+           /*  11.14 list setting   */ 
+            
+                deleteEmail = function(threadID)
+                {
+
+                    // delete after animation is complete
+                    threadID.animate(
+                    {
+                        height: 'toggle',
+                        opacity: 'toggle'
+                    }, '200', 'easeOutExpo', function()
+                    {
+                        //remove email after animation is complete
+                        $(this).remove();
+                        //update unread email count
+                        newEmailDisplayTab();
+                    });
+
+                    //we remove any tooltips (this is a bug with bootstrap where the tooltip stays on screen after removing parent)
+                    $('.tooltip').tooltip('dispose');
+
+                    //uncheck master select all
+                    if ($("#js-msg-select-all").is(":checked"))
+                    {
+                        $("#js-msg-select-all").prop('checked', false);
+                    }
+
+                    return this;
+                }
+
+            // select all component demo
+            $("#js-msg-select-all").on("change", function(e)
+            {
+                if (this.checked)
+                {
+                    $('#js-emails :checkbox').prop("checked", $(this).is(":checked")).closest("li").addClass("state-selected");
+                }
+                else
+                {
+                    $('#js-emails :checkbox').prop("checked", $(this).is(":checked")).closest("li").removeClass("state-selected");
+                }
+            });
+
+            // add or remove state-selected class to emails when they are checked
+            $('#js-emails :checkbox').on("change", function()
+            {
+
+                if ($("#js-msg-select-all").is(":checked"))
+                {
+                    $('#js-msg-select-all').prop('indeterminate', true);
+                }
+
+                if (this.checked)
+                {
+                    $(this).closest("li").addClass("state-selected");
+                }
+                else
+                {
+                    $(this).closest("li").removeClass("state-selected");
+                }
+
+            });
+
+            // email delete button triggers
+            $(".js-delete-email").on('click', function()
+            {
+                deleteEmail($(this).closest("li"));
+            })
+            $("#js-delete-selected").on('click', function()
+            {
+                deleteEmail($("#js-emails input:checked").closest("li"))
+            });
+
+
+            // show unread email count (once)
+            newEmailDisplayTab()
 
 
         </script>

@@ -391,8 +391,6 @@
 					});
 
 	function signUp() {
-		
-		
 		let form = document.userInsert;
 		for (var i = 0; i < 4; i++) {
 			if (arr[i] === false || arr.length != 4) {

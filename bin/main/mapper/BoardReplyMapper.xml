@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="TST_teamproject.Board.dao.BoardReplyMapper">
+
+<!-- 	11.04 -->
+	<select id="boardReplyList" resultType="TST_teamproject.Board.model.BoardReplyVo" parameterType="int">
+		
+		SELECT 
+						@rownum:=@rownum+1 NO,
+                    	TST_BOARD_REPLY_NO,
+                    	TST_BOARD_NO,
+                    	TST_USER_NICKNAME,
+                    	TST_BOARD_REPLY_CONTENT,
+                    	DATE_FORMAT(TST_BOARD_REPLY_DATE, '%Y-%m-%d') AS TST_BOARD_REPLY_DATE
+
+		FROM
+						TST_BOARD_REPLY,
+                    	(SELECT @rownum:=0) r
+
+		WHERE
+						TST_BOARD_REPLY_DEFLAG = 'N'
+					
+		AND 			TST_BOARD_NO = #{tst_board_no}
+                    
+		ORDER BY
+						NO DESC
+	</select>
+	
+	
+<!-- 	11.05 -->
+	<insert id="boardReplyInsert" parameterType="TST_teamproject.Board.model.BoardReplyVo">
+		
+		INSERT INTO 
+						TST_BOARD_REPLY (TST_BOARD_NO, TST_USER_NICKNAME, TST_BOARD_REPLY_CONTENT, TST_BOARD_REPLY_DATE)
+		VALUES
+						(#{tst_board_no}, #{tst_user_nickname}, #{tst_board_reply_content}, NOW())
+	</insert>
+	
+	
+	
+	
+	
+	
+</mapper>

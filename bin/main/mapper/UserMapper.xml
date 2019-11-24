@@ -73,7 +73,113 @@
 						DATE_FORMAT(NOW(), '%Y%m%d')-(#{tst_user_brith}*10000-10000))
     </insert>
     
+    <!-- 쪽지 구현 11-07-->
+    <select id="listtMessageTo" parameterType="String" resultType="TST_teamproject.user.model.MessageVo">
+    SELECT 
+    					TST_MESSAGE_NO,
+    					TST_FROM_NICNAME,
+    					TST_FROM_DATE,
+    					TST_MESSAGE_TITLE,
+    					TST_MESSAGE_CONTENT,
+    					TST_MESSAGE_CATEGORY
+	FROM 
+						TST_MESSAGE
+	WHERE 
+						TST_TO_DELFLAG = 'N'
+	AND 
+						TST_TO_NICNAME=#{tst_to_nicname}
+	ORDER BY 
+						TST_MESSAGE_NO DESC
+						
+    </select>
     
-  
+    <!-- 쪽지 구현 11-18-->
+    <select id="HeaderListtMessageTo" parameterType="String" resultType="TST_teamproject.user.model.MessageVo">
+    SELECT 
+    					TST_MESSAGE_NO,
+    					TST_FROM_NICNAME,
+    					TST_FROM_DATE,
+    					TST_MESSAGE_TITLE,
+    					TST_MESSAGE_CONTENT,
+    					TST_MESSAGE_CATEGORY
+	FROM 
+						TST_MESSAGE
+	WHERE 
+						TST_TO_DELFLAG = 'N'
+	AND 
+						TST_TO_NICNAME=#{tst_to_nicname}
+	AND
+						TST_MESSAGE_CHECK='N'
+	ORDER BY 
+						TST_MESSAGE_NO DESC
+						
+    </select>
+    
+    <!-- userMailDetail 11.13 -->
+    <select id="detailMessageTo" parameterType="int" resultType="TST_teamproject.user.model.MessageVo">
+    SELECT  
+    					TST_MESSAGE_NO,
+    					TST_FROM_NICNAME,
+    					TST_FROM_DATE,
+    					TST_MESSAGE_TITLE,
+    					TST_MESSAGE_CONTENT,
+    					TST_MESSAGE_CATEGORY
+	FROM 
+						TST_MESSAGE
+	WHERE 
+						TST_TO_DELFLAG = 'N'
+	AND 
+						TST_MESSAGE_NO=#{tst_message_no}
+    
+    </select>
+    
+    <!-- userMailDetail 11.15 -->
+    <select id="countMail" parameterType="String" resultType="int">
+    SELECT 
+    					COUNT(*)
+    FROM 
+    					TST_MESSAGE
+    WHERE 
+    					TST_TO_NICNAME = #{tst_to_nicname}
+    </select>
+    
+    <!-- 안읽은 메일 갯수 세기  11.18-->
+    <select id="countMailCheck" parameterType="String" resultType="int">
+    SELECT 
+    					COUNT(*)
+	FROM 
+						TST_MESSAGE
+	WHERE 
+						TST_TO_NICNAME=#{tst_to_nicname}
+	AND 
+						TST_MESSAGE_CHECK='N'
+    </select>
+    
+    <!-- 안읽은 메일 갯수 세기  11.18-->
+    <update id="updateMailCheck" parameterType="int">
+    UPDATE 
+    					TST_MESSAGE 
+    SET 
+  						TST_MESSAGE_CHECK='Y'
+	WHERE 
+						TST_MESSAGE_NO=#{tst_message_no}
+    </update>
 
+	<!-- 메일 보내기 -->
+	<insert id="insertMail" parameterType="TST_teamproject.user.model.MessageVo">
+	INSERT INTO 
+						TST_MESSAGE(
+						TST_TO_NICNAME,
+						TST_FROM_NICNAME,
+						TST_MESSAGE_TITLE,
+						TST_MESSAGE_CONTENT,
+						TST_MESSAGE_CATEGORY) 
+	VALUES
+						(#{tst_to_nicname}, 
+						#{tst_from_nicname},
+						#{tst_message_title},
+						#{tst_message_content},
+						'F')
+	
+	</insert>
 </mapper>

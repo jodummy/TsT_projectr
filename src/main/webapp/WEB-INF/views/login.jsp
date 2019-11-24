@@ -95,7 +95,7 @@
                                             <div class="form-group text-left">
                                                 <div class="custom-control custom-checkbox">
                                                		<c:if test="${param.error != null}"> 
-                                                    	<span class="text-danger">아ㅋ이디와 비밀번호가 잘못되었습니다.</span>
+                                                    	<span class="text-danger">아이디와 비밀번호가 잘못되었습니다.</span>
                                                 	</c:if>
                                                 </div>
                                             </div>
