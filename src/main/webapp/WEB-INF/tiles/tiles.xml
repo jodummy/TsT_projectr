@@ -44,8 +44,42 @@
       <put-attribute name="body" value ="/WEB-INF/views/team/TeamUpdate.jsp"/>
       <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
    </definition>
+
+<!-- 11.15 TeamNoticeInsert -->
+   <definition name ="team.noticeInsert" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/team/TeamNoticeInsert.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
+   
+      <!--수정 -->  <!--수정 -->
+   <!-- 11.20 TeamNoticeList 유진 -->
+   <definition name ="team.noticeList" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/team/TeamNoticeList.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
+   
+    <!-- 11.20 TeamNoticeDetail 유진 -->
+   <definition name ="team.noticeDetail" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/team/TeamNoticeDetail.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
+   
+   <!-- 11.25 TeamNoticeModify 유진 -->
+   <definition name ="team.noticeModify" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/team/TeamNoticeModify.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>	
 	
-	
+
+
 	
 	
 	

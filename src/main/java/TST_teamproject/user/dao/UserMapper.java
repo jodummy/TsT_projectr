@@ -94,4 +94,18 @@ public interface UserMapper {
 	  */
 	 public void insertMail(MessageVo vo);
 	 
+	 /*
+      * 하나의 유저 정보 빼오기
+      * 11.08
+      */
+    public UserVo findUserOne(String tst_user_nickname);
+    
+    
+    /*
+     * 하나의 유저 정보 빼오기
+     * 11.26
+     * @param tst_user_id
+     */
+    public int insertUserAuthority(String tst_user_id);
+	 
 }

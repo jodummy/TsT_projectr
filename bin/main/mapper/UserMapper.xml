@@ -93,6 +93,24 @@
 						
     </select>
     
+    <!-- 11.08 팀 멤버 채우기 위해 만듦 김태현 -->
+    <select id="findUserOne" parameterType="String" resultType="TST_teamproject.user.model.UserVo">
+        SELECT
+                    TST_USER_NICKNAME,
+                    TST_USER_ID,
+                    TST_USER_PW,
+                    TST_USER_EMAIL,
+                    TST_USER_ISACCOUNTNONEXPIRED,
+                    TST_USER_ISACCOUNTNONLOCKED,
+                    TST_USER_ISCREDENTIALSNONEXPIRED,
+                    TST_USER_ISENABLED,
+                    TST_USER_BLACK
+        FROM          
+                    TST_USER 
+        WHERE 
+                    TST_USER_NICKNAME = #{tst_user_nickname}
+   </select>
+    
     <!-- 쪽지 구현 11-18-->
     <select id="HeaderListtMessageTo" parameterType="String" resultType="TST_teamproject.user.model.MessageVo">
     SELECT 

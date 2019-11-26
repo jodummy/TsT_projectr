@@ -13,45 +13,85 @@
 <script type="text/javascript">
 
 function teamDelete(tst_team_no){
-	if(confirm("정말 삭제하시겠습니가?!") == true)
-		location.href ="/delete?tst_team_no="+tst_team_no;
-	else
-		return;
-}
-                    	
-function addMember(){
-	var member = prompt("초대할 사용자의 닉네임을 입력해주세요!",'');
-	document.write(member);
-}
-function teamUpdate(tst_team_no){
-	if(confirm("팀 수정을 원하시나요?") == true)
-		location.href ="/teamUpdate?tst_team_no="+tst_team_no;
-	else
-		return;
-}           	
+      if(confirm("정말 삭제하시겠습니가?!") == true)
+         location.href ="/delete?tst_team_no="+tst_team_no;
+      else
+         return;
+   }
+
+   /* 
+   function addMember(tst_team_no){
+      var tst_user_id = prompt("초대할 사용자의 닉네임을 입력해주세요!",'');
+      if (tst_user_id != null) 
+         location.href="/addTeamMember/"+tst_team_no+"?tst_user_id="+tst_user_id;
+      else return;
+         
+   } */ 
+
+           
+   function addMember(tst_team_no){
+      var tst_user_nickname = prompt("초대할 사용자의 로그인 ID를 입력해주세요!",'');
+      if (tst_user_nickname != null) {
+         $.ajax({
+            url : "${pageContext.request.contextPath}/overlapName_add/"+tst_team_no+"?tst_user_nickname="+ tst_user_nickname,
+            type : 'get',
+            success : function(data){
+               if(data === 1){ //해당 ID User가 전체 유저목록에 있을 때
+                  confirm
+                  location.href="/addTeamMember/"+tst_team_no+"?tst_user_nickname="+tst_user_nickname;
+                  }
+                else if(data === 2){
+                  alert(tst_user_nickname + " 에 대한 사용자가 존재합니다!!")
+               } 
+               else{
+                  alert(tst_user_nickname + " 사용자가 존재하지 않습니다!")
+               }
+            },
+            error : function() {
+               console.log("실패");
+            }
+         })
+      }
+      else return;
+   }
+   function teamUpdate(tst_team_no){
+      if(confirm("팀 수정을 원하시나요?") == true)
+         location.href ="/teamUpdate?tst_team_no="+tst_team_no;
+      else
+         return;
+   }
+   
+//  유진 함수
+// 공지사항 디테일
+ function noticeDetail(tst_team_notice_board_no){
+    location.href = "/teamNoticeDetail?tst_team_notice_board_no="+tst_team_notice_board_no;
+ }
+ 
+//  공지사항 입력
+ function noticeInsert(tst_team_no){
+    location.href = "/teamNoticeInsert?tst_team_no="+tst_team_no;
+ }
+ 
+//공지사항 삭제
+ function noticeDelete(tst_team_no){
+    location.href = "/teamNoticeDelete?tst_team_no="+tst_team_no;
+ }
 </script>
-					
-					<main id="js-page-content" role="main" class="page-content">
+               
+               <main id="js-page-content" role="main" class="page-content">
                         <ol class="breadcrumb page-breadcrumb">
-                        <!-- 
-                        	10.29 팀 삭제
-                        	팀의 방장 이름과 principal getname의 컬럼값이 다름.
-                        -->
-<%--                			<c:if test="${detailTeam.tst_user_nickname } == ${ login_user }">	 --%>
-                       		<li class="breadcrumb-item" onclick="teamDelete(${detailTeam.tst_team_no})">팀 삭제</li>
- 							<li class="breadcrumb-item active" onclick="teamUpdate(${detailTeam.tst_team_no})">팀 수정</li>
-                            <li class="breadcrumb-item" onclick="addMember()">팀원 초대하기</li>
-<%--  						</c:if> --%>
-                      	
-                            <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date">Tuesday, October 29, 2019</span></li>
+                           <!-- 팀장만 보이게 하기! 11.14 -->
+                                   <li class="breadcrumb-item" onclick="teamDelete(${detailTeam.tst_team_no})">팀 삭제</li>
+                            <li class="breadcrumb-item active" onclick="teamUpdate(${detailTeam.tst_team_no})">팀 수정</li>
+                                  <li class="breadcrumb-item" onclick="addMember(${detailTeam.tst_team_no})" id="addMember">팀원 초대하기</li>
                         </ol>
                     
                         <div class="subheader">
                             <h1 class="subheader-title">
-                                <i class="fal fa-th-list text-primary"></i> Basic tables
-                                <small>
-                                    Documentation and examples for opt-in styling of tables (given their prevelant use in JavaScript plugins) with Bootstrap.
-                                </small>
+                                <i class="fal fa-th-list text-primary"></i> MY TEAM
+<!--                                 <small> -->
+<!--                                     Documentation and examples for opt-in styling of tables (given their prevelant use in JavaScript plugins) with Bootstrap. -->
+<!--                                 </small> -->
                             </h1>
                         </div>
                         <div class="row">
@@ -60,9 +100,9 @@ function teamUpdate(tst_team_no){
                                 
                                 <div id="panel-1" class="panel">
                                     <div class="panel-hdr">
-                                		<!-- 10.29 -->
+                                      <!-- 10.29 -->
                                         <h2>
-                                           	팀 정보
+                                              팀 정보
                                         </h2>
                                         <div class="panel-toolbar">
                                             <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -118,190 +158,10 @@ function teamUpdate(tst_team_no){
                                         </div>
                                     </div>
                                 </div>
-                                <!--Table head-->
-                                <div id="panel-2" class="panel">
-                                    <div class="panel-hdr">
-                                        <h2>
-                                            Table <span class="fw-300"><i>head</i></span>
-                                        </h2>
-                                        <div class="panel-toolbar">
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="panel-container show">
-                                        <div class="panel-content">
-                                            <div class="panel-tag">
-                                                Similar to default and inverse tables, use one of two modifier classes to make <code>&lt;thead&gt;</code>s appear custom, dark gray, white and themed.
-                                            </div>
-                                            <h5 class="frame-heading">
-                                                Inverse
-                                            </h5>
-                                            <div class="frame-wrap">
-                                                <table class="table m-0">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <h5 class="frame-heading">
-                                                Custom <a href="utilities_color_pallet.html" title="Color Pallets"><i class="fal fa-reply"></i> </a>
-                                            </h5>
-                                            <div class="frame-wrap">
-                                                <table class="table m-0">
-                                                    <thead class="bg-fusion-50">
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <h5 class="frame-heading">
-                                                Dark
-                                            </h5>
-                                            <div class="frame-wrap">
-                                                <table class="table m-0">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <h5 class="frame-heading">
-                                                Themed
-                                            </h5>
-                                            <div class="frame-wrap">
-                                                <table class="table m-0">
-                                                    <thead class="thead-themed">
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">3</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Table rows-->
-                                <div id="panel-3" class="panel">
-                                    <div class="panel-hdr">
-                                        <h2>
-                                            Table <span class="fw-300"><i>rows</i></span>
-                                        </h2>
-                                        <div class="panel-toolbar">
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="panel-container show">
-                                        <div class="panel-content">
-                                            <div class="panel-tag">
-                                                Add <code>.table-striped</code> to add zebra-striping to any table, and add <code>.table-dark</code> for inverse pattern
-                                            </div>
-                                            <h5 class="frame-heading">
-                                                Pattern
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+
                             </div>
+                            <input type="hidden" value="${tst_team_no }" name="tst_team_no" id="tst_team_no"/>
                             <div class="col-lg-12 col-xl-6">
                                 <!--Table bordered-->
                                 <div id="panel-4" class="panel">
@@ -325,106 +185,107 @@ function teamUpdate(tst_team_no){
                                                             <th>position</th>
                                                         </tr>
                                                     </thead>
-                                                    <c:forEach var="members" items="${member}">
+                                                  <c:forEach var="members" items="${member}">
                                                     <tbody>
                                                         <tr>
                                                             <td>${ members.tst_user_nickname }</td>
                                                             <td>${ members.tst_user_location } </td>
                                                             <td>${ members.tst_user_brith }</td>
+                                                           <!-- 팀장인지 팀원인지 구별할 수 있게 함 -->
+                                                           <c:if test="${detailTeam.tst_user_nickname == members.tst_user_nickname }">
+                                                            <td>주장입니다~</td>
+                                                           </c:if>
+                                                           <c:if test="${detailTeam.tst_user_nickname != members.tst_user_nickname }">
+                                                            <td>회원입니다~</td>
+                                                           </c:if>
                                                         </tr>
                                                     </tbody>
                                                     </c:forEach>
                                                 </table>
                                             </div>
                                 </div>
-                                <!--Table hover-->
-                                <div id="panel-5" class="panel">
+                      </div>
+
+               </div>
+               
+               </br>
+                        <div class="subheader">
+                            <h1 class="subheader-title">
+<!--                                 <i class='subheader-icon fal fa-table'></i> 팀 공지 게시판 -->
+<!--                                 <small> -->
+<!--                                           팀 공지 게시판을 확인 해 주세요. -->
+<!--                                 </small> -->
+                            </h1>
+                        </div>
+                     <c:forEach var="members" items="${member}">
+				<c:if test="${members.tst_user_nickname  == login_user}">
+                        <div class="col-xl-12">
+                            <div>
+                                <div id="panel-1" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
-                                            Table <span class="fw-300"><i>Hover</i></span>
+                                            TeamNotice <span class="fw-300"><i>Table</i></span>
                                         </h2>
                                         <div class="panel-toolbar">
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                                            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                            <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
                                         </div>
                                     </div>
                                     <div class="panel-container show">
                                         <div class="panel-content">
-                                            <div class="panel-tag">
-                                                Add <code>.table-hover</code> to enable a hover state on table rows within a <code>&lt;tbody&gt;</code>
-                                            </div>
-                                            <h5 class="frame-heading">
-                                                Hoverable
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Contextual classes-->
-                                <div id="panel-6" class="panel">
-                                    <div class="panel-hdr">
-                                        <h2>
-                                            Contextual <span class="fw-300"><i>classes</i></span>
-                                        </h2>
-                                        <div class="panel-toolbar">
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="panel-container show">
-                                        <div class="panel-content">
-                                            <div class="panel-tag">
-                                                Use contextual classes to color table rows or individual cells. See the full list of <a href="utilities_color_pallet.html" title="Color Pallets" target="_blank">color selection</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Table small-->
-                                <div id="panel-7" class="panel">
-                                    <div class="panel-hdr">
-                                        <h2>
-                                            Table <span class="fw-300"><i>Small</i></span>
-                                        </h2>
-                                        <div class="panel-toolbar">
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="panel-container show">
-                                        <div class="panel-content">
-                                            <div class="panel-tag">
-                                                Add <code> .table-sm</code> to make tables more compact by cutting cell padding in half. See the full list of <a href="utilities_color_pallet.html" title="Color Pallets">color selection</a> to add backgrounds as well
-                                            </div>
-                                            <h5 class="frame-heading">
-                                                Compact
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Table responsive-->
-                                <div id="panel-8" class="panel">
-                                    <div class="panel-hdr">
-                                        <h2>
-                                            Table <span class="fw-300"><i>Responsive</i></span>
-                                        </h2>
-                                        <div class="panel-toolbar">
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="panel-container show">
-                                        <div class="panel-content">
-                                            <div class="panel-tag">
-                                                Make table responsive with <code>.table-responsive</code>. Maximum breakpoint can be applied by adding <code>.table-responsive-sm</code>, <code>.table-responsive-ms</code>, <code>.table-responsive-lg</code>, <code>.table-responsive-xl</code>
-                                            </div>
+                                            
+                              <!-- datatable start -->
+                              <c:if test="${login_user == detailTeam.tst_user_nickname}">
+                              <button type="button" class="btn btn-outline-warning" onclick="noticeInsert(${detailTeam.tst_team_no})">게시글 입력</button>
+                              </c:if>
+					<table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                                                <thead class="bg-primary-600" style="line-height: 0.5;">
+                                                    <tr>
+                                                        <th>no</th>
+                                                        <th>tst_team_notice_board_title</th>
+                                                        <th>tst_user_nickname</th>
+                                                        <th>tst_team_notice_board_view</th>
+                                                        <th>tst_team_notice_insert_date</th>
+                                                    </tr>
+                                                </thead>
+                           <tbody>
+                              <c:forEach var="row" items="${TeamBoardList}">
+                              <tr onclick="noticeDetail(${row.tst_team_notice_board_no})" style="line-height: 1.1; bo">
+                                    <td>${row.no }</td>
+                                    <td>
+                                       <ol class="breadcrumb page-breadcrumb"
+                                          style="margin: 1rem;">
+                                          <li class="breadcrumb-item">${row.tst_team_notice_board_title}</li>
+                                       </ol>
+                                    </td>
+                                    <td>${row.tst_user_nickname}</td>
+                                    <td>${row.team_members_view} / ${row.teammembers}</td>
+                                    <td>${row.tst_team_notice_insert_date}</td>
+                              </tr>
+                              </c:forEach>
+                           </tbody>
+                                               
+					</table>
+                                            
+                                            <!-- datatable end -->
+                                            
+<!--                                             </div> -->
+                              <div class="col-xl-5" id="test">
+                              
+                              </div>
+                              <input type="hidden" value="${userId}" name="userId" id="userId"/>
+                              
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+				</c:if>
+</c:forEach>
+                          
+                           
+                     
                     </main>
                     
 </body>

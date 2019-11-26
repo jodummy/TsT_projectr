@@ -13,7 +13,6 @@ public class MessageVo {
 	private char tst_form_delflag;
 	private String tst_message_category;
 
-	
 
 	public String getTst_message_category() {
 		return tst_message_category;

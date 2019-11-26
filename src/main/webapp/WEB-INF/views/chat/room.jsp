@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
-  <head>
+<html>
+<head>
     <title>Websocket Chat</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -35,7 +35,7 @@
         </div>
         <ul class="list-group">
             <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.roomId" v-on:click="enterRoom(item.roomId, item.name)">
-                {{item.name}}
+                <h6>{{item.name}} <span class="badge badge-info badge-pill">{{item.userCount}}</span></h6>
             </li>
         </ul>
     </div>
@@ -55,7 +55,11 @@
             },
             methods: {
                 findAllRoom: function() {
-                    axios.get('/chat/rooms').then(response => { this.chatrooms = response.data; });
+                    axios.get('/chat/rooms').then(response => {
+                        // prevent html, allow json array
+                        if(Object.prototype.toString.call(response.data) === "[object Array]")
+                            this.chatrooms = response.data;
+                    });
                 },
                 createRoom: function() {
                     if("" === this.room_name) {

@@ -27,6 +27,12 @@ public interface UserService {
 	  */
 	 public void insertUser(UserVo vo);
 	 
+	 /*
+      * 하나의 유저 정보 빼오기
+      * 11.08
+      */
+    public UserVo findUserOne(String tst_user_nickname);
+	 
 	 /**
 	  * 메세지 List
 	  * 11.07

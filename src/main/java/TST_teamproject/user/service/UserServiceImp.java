@@ -32,6 +32,8 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public void insertUser(UserVo vo) {
+		//테스트 안함
+		userMapper.insertUserAuthority(vo.getTst_user_id());
 		userMapper.insertUser(vo);
 	}
 
@@ -69,6 +71,12 @@ public class UserServiceImp implements UserService {
 	public void insertMail(MessageVo vo) {
 		userMapper.insertMail(vo);
 	}
+
+	@Override
+	   public UserVo findUserOne(String tst_user_nickname) {
+	      return userMapper.findUserOne(tst_user_nickname);
+	   }
+
 
 
 	

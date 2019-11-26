@@ -11,6 +11,10 @@
 </head>
 <body>
 
+
+ <sec:authentication var="principal" property="principal" />
+				<input type="hidden" value='${principal.username}' name="tst_user_nickname" id="tst_user_nickname">    
+
              <!-- BEGIN Page Header -->
                     <header class="page-header" role="banner">
                         <!-- we need this logo when user switches to nav-function-top -->
@@ -62,12 +66,6 @@
                                 </a>
                             </div>
                             <!-- app settings -->
-                            <div class="hidden-md-down">
-                                <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-settings">
-                                    <i class="fal fa-cog"></i>
-                                </a>
-                            </div>
-                            <!-- app shortcuts -->
                             <div>
                                 <a href="#" class="header-icon" data-toggle="dropdown" title="My Apps">
                                     <i class="fal fa-cube"></i>
@@ -75,8 +73,8 @@
                                 <div class="dropdown-menu dropdown-menu-animated w-auto h-auto">
                                     <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top">
                                         <h4 class="m-0 text-center color-white">
-                                            Quick Shortcut
-                                            <small class="mb-0 opacity-80">User Applications & Addons</small>
+                                            Quick Menu
+                                            <small class="mb-0 opacity-80">User Applications</small>
                                         </h4>
                                     </div>
                                     <div class="custom-scroll h-100">
@@ -578,8 +576,7 @@
                         </div>
                     </header>
                     <!-- END Page Header -->          
-                <sec:authentication var="principal" property="principal" />
-				<input type="hidden" value='${principal.username}' name="tst_user_nickname" id="tst_user_nickname">    
+               
                       
 </body>
 <script type="text/javascript">

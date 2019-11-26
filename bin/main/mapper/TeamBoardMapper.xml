@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="TST_teamproject.team.dao.TeamBoardMapper">
+<!-- 11.14 팀 공지 리스트 -->
+<!-- 11.24 teamMembers 수정 -->
+    <select id="teamBoardList" resultType="TST_teamproject.team.model.TeamBoardVo" >
+   
+	SELECT 
+	               @rownum:=@rownum+1 NO,
+	               TST_TEAM_NOTICE_BOARD_NO,
+	               TST_USER_NICKNAME,
+	               TST_TEAM_NOTICE_BOARD_TITLE,
+	               TST_TEAM_NOTICE_BOARD_CONTENT,
+	               TST_TEAM_NO,
+	               TST_TEAM_NOTICE_BOARD_VIEW,
+	               TST_TEAM_NOTICE_BOARD_MAX ,
+	               TST_TEAM_NOTICE_BOARD_DEL,
+	               DATE_FORMAT(TST_TEAM_NOTICE_INSERT_DATE, '%Y-%m-%d') AS TST_TEAM_NOTICE_INSERT_DATE,
+	               DATE_FORMAT(TST_TEAM_NOTICE_MODIFY_DATE, '%Y-%m-%d') AS TST_TEAM_NOTICE_MODIFY_DATE,
+	               TEAMMEMBERS,
+	               TEAM_MEMBERS_VIEW
+	FROM 
+	               (SELECT @rownum:=0) r,
+	               TST_TEAM_NOTICE_BOARD
+                  
+	WHERE               
+	               TST_TEAM_NOTICE_BOARD_DEL ='N' AND TST_TEAM_NO=#{tst_team_no}
+	ORDER BY     
+	               NO DESC
+    </select>
+    
+    <insert id="teamBoardInsert" parameterType="TST_teamproject.team.model.TeamBoardVo">
+    
+      INSERT INTO 
+                  TST_TEAM_NOTICE_BOARD (TST_USER_NICKNAME,
+                                    TST_TEAM_NOTICE_BOARD_TITLE,
+                                    TST_TEAM_NOTICE_BOARD_CONTENT,
+                                    TST_TEAM_NO,
+                                    TST_TEAM_NOTICE_BOARD_MAX,
+                                    TST_TEAM_NOTICE_INSERT_DATE)
+      VALUES
+               (#{tst_user_nickname} , #{tst_team_notice_board_title}, #{tst_team_notice_board_content} , #{tst_team_no}, #{tst_team_notice_board_max}, now())
+
+    </insert>
+    
+    
+    
+    <select id="teamMembers" parameterType="int" resultType="int">
+       SELECT 
+                COUNT(TST_TEAM_NO) TEAMMEMBERS 
+       FROM 
+                TST_USER_TEAM
+       WHERE 
+                TST_TEAM_NO = #{tst_team_no}
+    </select>
+    
+    <!-- 11.22 공지사항 디테일 -->
+    <select id="noticeDetail" resultType="TST_teamproject.team.model.TeamBoardVo" >
+   
+        SELECT 
+                   TST_TEAM_NOTICE_BOARD_NO,
+	               TST_USER_NICKNAME,
+	               TST_TEAM_NOTICE_BOARD_TITLE,
+	               TST_TEAM_NOTICE_BOARD_CONTENT,
+	               TST_TEAM_NO,
+	               TST_TEAM_NOTICE_BOARD_VIEW,
+	               TST_TEAM_NOTICE_BOARD_MAX ,
+	               TST_TEAM_NOTICE_BOARD_DEL,
+	               DATE_FORMAT(TST_TEAM_NOTICE_INSERT_DATE, '%Y-%m-%d') AS TST_TEAM_NOTICE_INSERT_DATE,
+	               DATE_FORMAT(TST_TEAM_NOTICE_MODIFY_DATE, '%Y-%m-%d') AS TST_TEAM_NOTICE_MODIFY_DATE
+      	FROM 
+	               TST_TEAM_NOTICE_BOARD
+        WHERE               
+                 TST_TEAM_NOTICE_BOARD_NO=#{tst_team_notice_board_no}
+        
+    </select>
+  
+	<!--11.22 공지사항 삭제 -->
+    <update id="noticeDelete" parameterType="int">
+    
+    	UPDATE 
+    				TST_TEAM_NOTICE_BOARD 
+        SET 
+        			TST_TEAM_NOTICE_BOARD_DEL = 'Y'
+        WHERE 
+        			TST_TEAM_NOTICE_BOARD_NO = #{tst_team_notice_board_no}
+    
+    </update>
+    
+<!--     11.24 공지사항 전체 팀원들 (조회수) -->
+    <select id="noticeView" parameterType="int" resultType="int">
+    
+    	SELECT 
+    				COUNT(TST_TEAM_NO) TEAMMEMBERS 
+    	FROM 
+    				TST_USER_TEAM
+    	WHERE 
+    				TST_TEAM_NO = #{tst_team_no};
+    </select>
+    
+<!--     11.24 공지사항 멤버들 읽음(조회수) -->
+    <select id="noticeViewCount" parameterType="TST_teamproject.team.model.TeamNoticeCheckVo" resultType="int">
+	    SELECT 
+	    			COUNT(TST_USER_NICKNAME) COUNT
+		FROM 
+					TST_TEAM_NOTICE_BOARD_CHECK
+		WHERE 
+					TST_TEAM_NOTICE_BOARD_NO=#{tst_team_notice_board_no}
+		AND 
+					TST_USER_NICKNAME=#{tst_user_nickname}
+    </select>
+<!--     11.24 공지사항 멤버들 읽음(조회수) -->
+    <insert id="noticeViewInsert" parameterType="TST_teamproject.team.model.TeamNoticeCheckVo">
+		INSERT INTO 
+					TST_TEAM_NOTICE_BOARD_CHECK(TST_TEAM_NOTICE_BOARD_NO,
+												TST_USER_NICKNAME,
+												TST_TEAM_NOTICE_BOARD_CHECK_DATE)
+		VALUES
+					(#{tst_team_notice_board_no},#{tst_user_nickname} ,now())
+    </insert>
+    
+<!--     11.25 공지사항 읽은 멤버들 업데이트 (조회수) -->
+    <update id="noticeViewUpdate" parameterType="int">
+    
+    	UPDATE 
+						TST_TEAM_NOTICE_BOARD 
+		SET 
+						TEAM_MEMBERS_VIEW = (SELECT count(*) 
+												FROM TST_TEAM_NOTICE_BOARD_CHECK 
+                                                   WHERE TST_TEAM_NOTICE_BOARD_NO=#{tst_team_notice_board_no}) 
+		WHERE 
+						TST_TEAM_NOTICE_BOARD_NO = #{tst_team_notice_board_no}
+    
+    </update>
+    
+    
+    <update id="noticeModify" parameterType="TST_teamproject.team.model.TeamBoardVo">
+    
+        UPDATE 
+							TST_TEAM_NOTICE_BOARD 
+        SET 
+							TST_TEAM_NOTICE_BOARD_TITLE =#{tst_team_notice_board_title},
+                            TST_TEAM_NOTICE_BOARD_CONTENT=#{tst_team_notice_board_content},
+                            TST_TEAM_NOTICE_MODIFY_DATE = NOW()
+		WHERE
+							TST_TEAM_NOTICE_BOARD_NO = #{tst_team_notice_board_no}
+    
+    </update>
+    
+    
+</mapper>

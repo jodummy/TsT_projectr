@@ -103,7 +103,7 @@
                        
                         
                         
-                    </ul>
+<!--                     </ul> -->
                     <div class="filter-message js-filter-message bg-success-600"></div>
                 </nav>
                 <!-- END PRIMARY NAVIGATION -->
@@ -114,7 +114,7 @@
                         <i class="ni ni-chevron-right"></i>
                         <i class="ni ni-chevron-right"></i>
                     </a>
-                    <ul class="list-table m-auto nav-footer-buttons">
+<!--                     <ul class="list-table m-auto nav-footer-buttons"> -->
                         <li>
                             <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat logs">
                                 <i class="fal fa-comments"></i>

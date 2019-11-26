@@ -93,6 +93,24 @@
 						
     </select>
     
+    <!-- 11.08 팀 멤버 채우기 위해 만듦 김태현 -->
+    <select id="findUserOne" parameterType="String" resultType="TST_teamproject.user.model.UserVo">
+        SELECT
+                    TST_USER_NICKNAME,
+                    TST_USER_ID,
+                    TST_USER_PW,
+                    TST_USER_EMAIL,
+                    TST_USER_ISACCOUNTNONEXPIRED,
+                    TST_USER_ISACCOUNTNONLOCKED,
+                    TST_USER_ISCREDENTIALSNONEXPIRED,
+                    TST_USER_ISENABLED,
+                    TST_USER_BLACK
+        FROM          
+                    TST_USER 
+        WHERE 
+                    TST_USER_NICKNAME = #{tst_user_nickname}
+   </select>
+    
     <!-- 쪽지 구현 11-18-->
     <select id="HeaderListtMessageTo" parameterType="String" resultType="TST_teamproject.user.model.MessageVo">
     SELECT 
@@ -165,7 +183,7 @@
 						TST_MESSAGE_NO=#{tst_message_no}
     </update>
 
-	<!-- 메일 보내기 -->
+	<!-- 쪽지 보내기 -->
 	<insert id="insertMail" parameterType="TST_teamproject.user.model.MessageVo">
 	INSERT INTO 
 						TST_MESSAGE(
@@ -180,6 +198,17 @@
 						#{tst_message_title},
 						#{tst_message_content},
 						'F')
+	
+	</insert>
+	
+	<!-- 권한 세팅  -->
+	<insert id="insertUserAuthority" parameterType="String">
+	INSERT INTO 
+						TST_AUTHORITY(
+						TST_USER_ID,
+						TST_AUTHORITY_NAME) 
+	VALUES
+						(${tst_user_id},'USER')
 	
 	</insert>
 </mapper>

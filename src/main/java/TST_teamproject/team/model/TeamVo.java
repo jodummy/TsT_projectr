@@ -89,12 +89,8 @@ public class TeamVo {
 		return "TeamVo [tst_team_no=" + tst_team_no + ", tst_team_name=" + tst_team_name + ", tst_team_type="
 				+ tst_team_type + ", tst_team_location=" + tst_team_location + ", tst_user_nickname="
 				+ tst_user_nickname + ", tst_team_content=" + tst_team_content + ", tst_team_win=" + tst_team_win
-				+ ", tst_team_lose=" + tst_team_lose + ", tst_team_age=" + tst_team_age + ", getTst_team_age()="
-				+ getTst_team_age() + ", getTst_team_no()=" + getTst_team_no() + ", getTst_team_name()="
-				+ getTst_team_name() + ", getTst_team_type()=" + getTst_team_type() + ", getTst_team_location()="
-				+ getTst_team_location() + ", getTst_user_nickname()=" + getTst_user_nickname()
-				+ ", getTst_team_content()=" + getTst_team_content() + ", getTst_team_win()=" + getTst_team_win()
-				+ ", getTst_team_lose()=" + getTst_team_lose() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", tst_team_lose=" + tst_team_lose + ", tst_team_age=" + tst_team_age + "]";
 	}
+
+
 }
