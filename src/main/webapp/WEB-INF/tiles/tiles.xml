@@ -6,8 +6,14 @@
 <tiles-definitions>
 
 	<!-- tiles layout 적용 정의부  test부분-->
-	<definition name ="blank.test" template ="/WEB-INF/tiles/layout/layout.jsp">
-		<put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+<!-- 	<definition name ="blank.test" template ="/WEB-INF/tiles/layout/layout.jsp"> -->
+<!--  		<put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/> --> 
+<!-- 		<put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/> -->
+<!-- 		<put-attribute name="body" value ="/WEB-INF/views/main/blank.jsp"/> -->
+<!-- 		<put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/> -->
+<!-- 	</definition> -->
+	
+	<definition name ="blank.test" template ="/WEB-INF/tiles/layout/layout2.jsp">
 		<put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
 		<put-attribute name="body" value ="/WEB-INF/views/main/blank.jsp"/>
 		<put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
@@ -149,5 +155,6 @@
       <put-attribute name="body" value ="/WEB-INF/views/user/UserMailDetail.jsp"/>
       <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
    </definition>
+   
 	
 </tiles-definitions>

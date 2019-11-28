@@ -149,7 +149,7 @@ $.ajax({
 	type : 'GET',
 	success : function(data) {
 		for(var i = 0; i < data.length; i++){
-			 elem = elem + '<li><a href="teamDetailpage?tst_team_no=' + data[i].tst_team_no + '" title="????" data-filter-tags="application intel analytics dashboard"><span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">'+ data[i].tst_team_name +'</span></a></li>';
+			 elem = elem + '<li><a href="/teamDetailpage?tst_team_no=' + data[i].tst_team_no + '" title="????" data-filter-tags="application intel analytics dashboard"><span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">'+ data[i].tst_team_name +'</span></a></li>';
 		}
 		document.getElementById('list').innerHTML = elem;
 	},

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
+
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -246,7 +251,7 @@
                                 <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
                                     <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">
                                         <h4 class="m-0 text-center color-white">
-                                            	갯수
+                                            	${principal.username}
                                             <small class="mb-0 opacity-80">User Notifications</small>
                                         </h4>
                                     </div>
@@ -412,10 +417,15 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        
+                                        
+                                        
                                         <div class="tab-pane" id="tab-events" role="tabpanel">
                                             <div class="d-flex flex-column h-100">
                                                 <div class="h-auto">
-                                                    <table class="table table-bordered table-calendar m-0 w-100 h-100 border-0">
+                                                
+                                                
+                                                    <table id="calendar" class="table table-bordered table-calendar m-0 w-100 h-100 border-0">
                                                         <tr>
                                                             <th colspan="7" class="pt-3 pb-2 pl-3 pr-3 text-center">
                                                                 <div class="js-get-date h5 mb-2">[your date here]</div>
@@ -430,83 +440,30 @@
                                                             <th>Fri</th>
                                                             <th>Sat</th>
                                                         </tr>
-                                                        <tr>
-                                                            <td class="text-muted bg-faded">30</td>
-                                                            <td>1</td>
-                                                            <td>2</td>
-                                                            <td>3</td>
-                                                            <td>4</td>
-                                                            <td>5</td>
-                                                            <td><i class="fal fa-birthday-cake mt-1 ml-1 position-absolute pos-left pos-top text-primary"></i> 6</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>7</td>
-                                                            <td>8</td>
-                                                            <td>9</td>
-                                                            <td class="bg-primary-300 pattern-0">10</td>
-                                                            <td>11</td>
-                                                            <td>12</td>
-                                                            <td>13</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>14</td>
-                                                            <td>15</td>
-                                                            <td>16</td>
-                                                            <td>17</td>
-                                                            <td>18</td>
-                                                            <td>19</td>
-                                                            <td>20</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>21</td>
-                                                            <td>22</td>
-                                                            <td>23</td>
-                                                            <td>24</td>
-                                                            <td>25</td>
-                                                            <td>26</td>
-                                                            <td>27</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>28</td>
-                                                            <td>29</td>
-                                                            <td>30</td>
-                                                            <td>31</td>
-                                                            <td class="text-muted bg-faded">1</td>
-                                                            <td class="text-muted bg-faded">2</td>
-                                                            <td class="text-muted bg-faded">3</td>
-                                                        </tr>
+                                                         <tbody id="calendar-body" class="calendar-body"></tbody>
                                                     </table>
+                                                    
+                                                    
+                                                    
                                                 </div>
                                                 <div class="flex-1 custom-scroll">
                                                     <div class="p-2">
                                                         <div class="d-flex align-items-center text-left mb-3">
                                                             <div class="width-5 fw-300 text-primary l-h-n mr-1 align-self-start fs-xxl">
-                                                                15
+                                                                14
                                                             </div>
                                                             <div class="flex-1">
                                                                 <div class="d-flex flex-column">
                                                                     <span class="l-h-n fs-md fw-500 opacity-70">
-                                                                        October 2020
+                                                                        December 2019
                                                                     </span>
                                                                     <span class="l-h-n fs-nano fw-400 text-secondary">
-                                                                        Friday
+                                                                        SunDay
                                                                     </span>
                                                                 </div>
                                                                 <div class="mt-3">
                                                                     <p>
-                                                                        <strong>2:30PM</strong> - Doctor's appointment
-                                                                    </p>
-                                                                    <p>
-                                                                        <strong>3:30PM</strong> - Report overview
-                                                                    </p>
-                                                                    <p>
-                                                                        <strong>4:30PM</strong> - Meeting with Donnah V.
-                                                                    </p>
-                                                                    <p>
-                                                                        <strong>5:30PM</strong> - Late Lunch
-                                                                    </p>
-                                                                    <p>
-                                                                        <strong>6:30PM</strong> - Report Compression
+                                                                        <strong>2:30PM</strong> - 유자와 아이들
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -625,10 +582,61 @@
 	   
    }
    
+   var currentTitle = document.getElementById('current-year-month');
+   var calendarBody = document.getElementById('calendar-body');
+   var today = new Date();
+   var first = new Date(today.getFullYear(), today.getMonth(),1);
+   var dayList = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+   var monthList = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+   var leapYear=[31,29,31,30,31,30,31,31,30,31,30,31];
+   var notLeapYear=[31,28,31,30,31,30,31,31,30,31,30,31];
+   var pageFirst = first;
+   var pageYear;
+   if(first.getFullYear() % 4 === 0){
+       pageYear = leapYear;
+   }else{
+       pageYear = notLeapYear;
+   }
+
+   function showCalendar(){
+       let monthCnt = 100;
+       let cnt = 1;
+       for(var i = 0; i < 6; i++){
+           var $tr = document.createElement('tr');
+           $tr.setAttribute('id', monthCnt);   
+           for(var j = 0; j < 7; j++){
+               if((i === 0 && j < first.getDay()) || cnt > pageYear[first.getMonth()]){
+                   var $td = document.createElement('td');
+                   $tr.appendChild($td);     
+               }else{
+                   var $td = document.createElement('td');
+                   $td.textContent = cnt;
+                   $td.setAttribute('id', cnt);                
+                   $tr.appendChild($td);
+                   cnt++;
+               }
+           }
+           monthCnt++;
+           calendarBody.appendChild($tr);
+       }
+   }
+
+   var section1s = document.getElementsByClassName("js-get-date h5 mb-2");
+
+
+  
+   var today = new Date();
+   var dd = today.getDate();
+   
+   
+   
 	$(document).ready(function() {
 		thisIsAllHeader();
 		countMailCheck();
+		showCalendar();
+		$( '#'+dd ).addClass( 'bg-primary-300 pattern-0' );
 	});
-
+	
+	
 </script>
 </html>

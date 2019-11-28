@@ -3,10 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
     <!DOCTYPE html>
 <html lang="en">
-    
-  
-    
-    
     <head>
         <meta charset="utf-8">
         <title>
@@ -104,12 +100,40 @@
                                                     <button id="js-login-btn" type="submit" class="btn btn-success btn-block btn-lg">login</button>
                                                 </div>
                                                  <div class="col-lg-6 pl-lg-1 my-2">
-                                                    <button id="js-login-btn" type="button" class="btn btn-danger btn-block btn-lg" onclick="location.href='/signUp'">Sign Up</button>
+                                                    <button id="js-login-btn" type="button" class="btn btn-danger btn-block btn-lg" onclick="location.href='${pageContext.request.contextPath}/signUp'">Sign Up</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
+                                
+							
+								<c:if test="${key == 1}"> 
+							
+                                  <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto" style="padding-top: 20px;">
+                                		 <div class="alert alert-primary">
+                                    <div class="d-flex flex-start w-100">
+                                        <div class="d-flex align-center mr-2 hidden-sm-down">
+                                            <span class="icon-stack icon-stack-lg">
+                                                <i class="base-7 icon-stack-3x color-primary-400"></i>
+                                                <i class="base-7 icon-stack-2x color-primary-600 opacity-70"></i>
+                                                <i class="fal fa-key icon-stack-1x text-white opacity-90"></i>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex flex-fill">
+                                            <div class="flex-fill">
+                                                <span class="h5">Get early access!</span>
+                                                <br> 
+                                                	인증 성공
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+		                          </div>
+		                          
+		                        </c:if>
+		                        
+		                        
                             </div>
                             <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
                             </div>

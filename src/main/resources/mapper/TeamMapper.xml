@@ -184,4 +184,19 @@
 	WHERE 
 					a.TST_USER_NICKNAME = #{ tst_user_nickname }
     </select>
+    
+     <!--11.28 조준서 작성  -->
+    <select id="selectMainTeam" resultType="TST_teamproject.team.model.TeamBoardVo">
+  	SELECT 
+  							TST_TEAM_NAME,
+  							TST_TEAM_TYPE,
+  							TST_TEAM_LOCATION,
+  							TST_USER_NICKNAME,
+  							TST_TEAM_WIN,
+  							TST_TEAM_LOSE,
+  							TST_TEAM_AGE 
+  	FROM 
+  							TST_TEAM 
+  							ORDER BY TST_TEAM_NO DESC LIMIT 4
+    </select>
 </mapper>

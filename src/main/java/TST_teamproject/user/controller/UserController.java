@@ -36,26 +36,27 @@ public class UserController {
 	
 	//10.20
 	//수정
-	@RequestMapping(value = "/login" , method= {RequestMethod.GET})
-	public String login() {
+	@RequestMapping(value = "/login" , method={ RequestMethod.GET, RequestMethod.POST })
+	public String login(Model model) {
+		model.addAttribute("key", 2 );
 		return "/login";
 	}
 	
 	//11.01
-	@RequestMapping(value = "/signUp" , method= {RequestMethod.GET})
+	@RequestMapping(value = "/signUp" , method= { RequestMethod.GET, RequestMethod.POST })
 	public String signUp() {
 		return "/signUp";
 	}
 	
 	//10.28
-	@RequestMapping(value = "/overlapName" , method= {RequestMethod.GET})
+	@RequestMapping(value = "/overlapName" , method= { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public int overlapName(UserVo vo) {
 		return service.overlapName(vo);
 	}
 	
 	//11.04
-	@RequestMapping(value = "/page" , method= RequestMethod.GET)
+	@RequestMapping(value = "/page" , method={ RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public int page(UserVo vo) {
 		vo.setTst_user_pw(cipal.encode(vo.getTst_user_pw()));
@@ -104,10 +105,17 @@ public class UserController {
 	@RequestMapping(value = "/insertMessage" , method= {RequestMethod.GET})
 	public String insertMessage(MessageVo vo, Principal cipal) {
 		vo.setTst_from_nicname(cipal.getName());
-		System.out.println(vo.toString());
 		service.insertMail(vo);
 		return "redirect:mailList";
 	}
 	
+	//11.26 인증메일 보냈다는 페이지
+	@RequestMapping(value = "/emailCheck" , method= { RequestMethod.GET, RequestMethod.POST })
+	public String email(Model model, UserVo vo) {
+		model.addAttribute("key", 1 );
+		System.out.println(vo.toString());
+		service.updateUserAuthority(vo);
+		return "/login";
+	}
 	
 }

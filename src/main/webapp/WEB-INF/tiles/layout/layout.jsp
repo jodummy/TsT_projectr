@@ -113,6 +113,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-right">
             <div class="modal-content h-100">
+               
                 <div class="dropdown-header bg-trans-gradient d-flex align-items-center w-100">
                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                         <span class="mr-2">
@@ -138,6 +139,7 @@
                         <span aria-hidden="true"><i class="fal fa-times"></i></span>
                     </button>
                 </div>
+                
                 <div class="modal-body p-0 h-100 d-flex">
                     <!-- BEGIN msgr-list -->
     <div

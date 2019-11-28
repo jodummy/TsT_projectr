@@ -107,5 +107,14 @@ public interface UserMapper {
      * @param tst_user_id
      */
     public int insertUserAuthority(String tst_user_id);
+    
+    /*
+     * 권한 인증 완료
+     * 11.27
+     * @param UserVo
+     */
+    public void updateUserAuthority(UserVo vo);
+    
+  
 	 
 }

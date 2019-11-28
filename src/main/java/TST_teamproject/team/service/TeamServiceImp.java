@@ -94,5 +94,10 @@ public class TeamServiceImp implements TeamService{
 	   // TODO Auto-generated method stub
 	   return teamMapper.swichTeamname(tst_team_name);
    }
+
+	@Override
+	public List<TeamVo> selectMainTeam(){
+		return teamMapper.selectMainTeam();
+	}
    
 }

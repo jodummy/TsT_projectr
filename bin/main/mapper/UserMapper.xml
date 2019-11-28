@@ -20,6 +20,8 @@
         				TST_USER 
         WHERE 
         				TST_USER_ID = #{tst_user_id}
+        AND
+        				TST_USER_KEY = 'Y'
     </select>
     
     
@@ -62,7 +64,8 @@
     					TST_USER_EMAIL,
     					TST_USER_PW,
     					TST_USER_GENDER,
-    					TST_USER_BRITH)
+    					TST_USER_BRITH,
+    					TST_USER_KEY)
 	values
 						(
 						#{tst_user_nickname},
@@ -70,7 +73,8 @@
 						#{tst_user_email},
 						#{tst_user_pw},
 						#{tst_user_gender},
-						DATE_FORMAT(NOW(), '%Y%m%d')-(#{tst_user_brith}*10000-10000))
+						DATE_FORMAT(NOW(), '%Y%m%d')-(#{tst_user_brith}*10000-10000),
+						#{tst_user_key})
     </insert>
     
     <!-- 쪽지 구현 11-07-->
@@ -183,7 +187,7 @@
 						TST_MESSAGE_NO=#{tst_message_no}
     </update>
 
-	<!-- 메일 보내기 -->
+	<!-- 쪽지 보내기 -->
 	<insert id="insertMail" parameterType="TST_teamproject.user.model.MessageVo">
 	INSERT INTO 
 						TST_MESSAGE(
@@ -200,4 +204,30 @@
 						'F')
 	
 	</insert>
+	
+	<!-- 권한 세팅  -->
+	<insert id="insertUserAuthority" parameterType="String">
+	INSERT INTO 
+						TST_AUTHORITY(
+						TST_USER_ID,
+						TST_AUTHORITY_NAME) 
+	VALUES
+						(#{tst_user_id},'USER')
+	
+	</insert>
+	
+	
+	<update id="updateUserAuthority" parameterType="TST_teamproject.user.model.UserVo">
+	UPDATE 
+	TST_USER 
+						set TST_USER_KEY ='Y'
+	WHERE 
+						TST_USER_ID = #{tst_user_id}
+	AND 
+						TST_USER_KEY = #{tst_user_key}
+	AND 
+						TST_USER_EMAIL = #{tst_user_email}
+	</update>
+	
+	
 </mapper>

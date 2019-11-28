@@ -76,5 +76,12 @@ public interface TeamMapper {
     * @return TeamVo
     */
    public TeamVo swichTeamname(String tst_team_name);
-
+   
+   
+   /*
+    * main 페이지  team list
+    * 11.28
+    * @return TeamVo
+    */
+   public List<TeamVo> selectMainTeam();
 } 

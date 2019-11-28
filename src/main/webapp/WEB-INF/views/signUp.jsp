@@ -77,7 +77,7 @@
 										지연시간이 생길 수 있어 10분정도 기다려주시면 감사드리겠습니다.
 									</div>
 
-									<form id="js-login" method="post" name="userInsert" action="/login">
+									<form id="js-login" method="post" name="userInsert">
 
 										<div class="form-group row">
 											<label class="col-xl-12 form-label" for="fname">ID</label>
@@ -406,9 +406,8 @@
                      timer: 1500
                  }).then((value) => {
                 	 form.submit();
+                	 location.href="/login";
                  });
-		
-		
 		
 	}
 
@@ -416,7 +415,7 @@
 		$.ajax({
 			async : true,
 			url : '${pageContext.request.contextPath}/page',
-			type : 'GET',
+			type : 'POST',
 			data : {
 				tst_user_id : $('#tst_user_id').val(),
 				tst_user_pw : $('#tst_user_pw').val(),
