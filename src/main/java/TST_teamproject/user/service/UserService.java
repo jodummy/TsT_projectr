@@ -90,10 +90,10 @@ public interface UserService {
 	 public void insertMail(MessageVo vo);
 	 
 	 /*
-	     * 권한 인증 완료
-	     * 11.27
-	     * @param UserVo
-	     */
-	    public void updateUserAuthority(UserVo vo);
+	  * 권한 인증 완료
+	  * 11.27
+	  * @param UserVo
+	  */
+	 public void updateUserAuthority(UserVo vo);
 	 
 }

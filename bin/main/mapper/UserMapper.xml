@@ -197,11 +197,13 @@
 						TST_MESSAGE_CONTENT,
 						TST_MESSAGE_CATEGORY) 
 	VALUES
-						(#{tst_to_nicname}, 
+						(
+						#{tst_to_nicname}, 
 						#{tst_from_nicname},
 						#{tst_message_title},
 						#{tst_message_content},
-						'F')
+						#{tst_message_category}
+						)
 	
 	</insert>
 	

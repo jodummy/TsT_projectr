@@ -7,7 +7,7 @@ public class MemberVo {
    private int tst_user_team_escape;
    private int   tst_user_team_authority;
    
-   public MemberVo(int tst_team_no, String tst_user_nickname ,int   tst_user_team_authority){
+   public MemberVo(int tst_team_no, String tst_user_nickname ,int tst_user_team_authority){
       this.tst_team_no = tst_team_no;
       this.tst_user_nickname = tst_user_nickname;
       this.tst_user_team_authority = tst_user_team_authority;

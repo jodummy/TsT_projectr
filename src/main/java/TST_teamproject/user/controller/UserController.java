@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import TST_teamproject.team.model.MemberVo;
 import TST_teamproject.team.model.TeamVo;
+import TST_teamproject.team.service.TeamService;
 import TST_teamproject.user.model.MessageVo;
 import TST_teamproject.user.model.UserVo;
 import TST_teamproject.user.service.UserService;
@@ -25,7 +27,8 @@ public class UserController {
 
 	@Autowired
 	UserService service;
-	
+	@Autowired 
+	TeamService teamService;
 	BCryptPasswordEncoder cipal = new BCryptPasswordEncoder();
 	
 	//10.18
@@ -104,11 +107,26 @@ public class UserController {
 	//11.18
 	@RequestMapping(value = "/insertMessage" , method= {RequestMethod.GET})
 	public String insertMessage(MessageVo vo, Principal cipal) {
-		vo.setTst_from_nicname(cipal.getName());
-		service.insertMail(vo);
-		return "redirect:mailList";
+	   vo.setTst_from_nicname(cipal.getName());
+	   vo.setTst_message_category("F");
+	   service.insertMail(vo);
+	   return "redirect:mailList";
 	}
 	
+	//11.18 수정
+	@RequestMapping(value = "/insertMessageT" , method= RequestMethod.GET)
+	@ResponseBody
+	public void insertMessage(TeamVo vo, @RequestParam("tst_from_nicname") String tst_from_nicname) {
+	   vo=teamService.teamFindOne(vo.getTst_team_no());
+	   MessageVo messageVo = new MessageVo();
+	   messageVo.setTst_to_nicname(vo.getTst_user_nickname());
+	   messageVo.setTst_from_nicname(tst_from_nicname);
+	   messageVo.setTst_message_title(vo.getTst_team_name() +"팀 신청 드립니다");
+	   messageVo.setTst_message_content("잘 부탁드립니다");
+	   messageVo.setTst_message_category("T");
+	   
+	   service.insertMail(messageVo);
+	}
 	//11.26 인증메일 보냈다는 페이지
 	@RequestMapping(value = "/emailCheck" , method= { RequestMethod.GET, RequestMethod.POST })
 	public String email(Model model, UserVo vo) {
@@ -118,4 +136,16 @@ public class UserController {
 		return "/login";
 	}
 	
+	//11.19 
+	@RequestMapping(value = "/addMember" , method= {RequestMethod.GET})
+	public String addMember(Principal cipal, @RequestParam("tst_from_nicname") String tst_from_nicname,@RequestParam("tst_message_title") String tst_message_title) {
+	   System.out.println("from : "+tst_from_nicname);
+	   System.out.println(tst_message_title);
+	   //swichTeamname 팀번호 & 팀장이름 -> id에 넣어줘 ->TeamVo
+	   //addMember 보낸 사람 이름 권한1 1
+	   TeamVo tVo = teamService.swichTeamname(tst_message_title);
+	   System.out.println(tVo.getTst_team_no() + " ............................" + tVo.getTst_user_nickname());
+	   teamService.addMember(new MemberVo(tVo.getTst_team_no(), tst_from_nicname, tVo.getTst_user_nickname(), 1, 1));
+	   return "redirect:mailList";
+	}
 }

@@ -23,6 +23,7 @@ import TST_teamproject.team.model.TeamNoticeCheckVo;
 import TST_teamproject.team.model.TeamVo;
 import TST_teamproject.team.service.TeamBoardService;
 import TST_teamproject.team.service.TeamService;
+import TST_teamproject.user.model.MessageVo;
 import TST_teamproject.user.model.UserVo;
 import TST_teamproject.user.service.UserService;
 
@@ -160,6 +161,7 @@ public class TeamController {
       public List<TeamVo> sideBarList(@RequestParam("tst_user_nickname") String tst_user_nickname) {
          return teamService.selectSideBarTeam(tst_user_nickname);
       }
+      
       /*
        * 11.09
        * 팀 생성과 동시에 로그인 중인 유저를 멤버에 추가함.
@@ -254,4 +256,5 @@ public class TeamController {
     	  teamBoardService.noticeModify(teamVo);
          return "redirect:teamDetailpage?tst_team_no="+teamVo.getTst_team_no();
       }
+      
 }

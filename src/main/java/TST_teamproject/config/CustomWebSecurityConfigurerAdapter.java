@@ -25,7 +25,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-        .antMatchers("/resources/**","/signUp","/overlapName","/page","/sideBarList","/headerList","/emailCheck");
+        .antMatchers("/resources/**","/signUp","/overlapName","/page","/sideBarList","/headerList","/emailCheck","/testinsert");
     }
     
     @Override

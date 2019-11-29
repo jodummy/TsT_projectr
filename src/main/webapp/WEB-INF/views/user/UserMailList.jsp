@@ -112,27 +112,27 @@
                                                 
                                                 <!-- 내용  id="js-sweetalert2-example-8"-->
                                                   <c:forEach var="mailList" items="${mailList}">
-	                                                <li class="unread">
-	                                                    <div class="d-flex align-items-center px-3 px-sm-4 px-lg-5 py-1 py-lg-0 height-4 height-mobile-auto">
-	                                                        <div class="custom-control custom-checkbox mr-3 order-1">
-	                                                            <input type="checkbox" class="custom-control-input" id="msg-${mailList.tst_message_no }">
-	                                                            <label class="custom-control-label" for="msg-${mailList.tst_message_no }"></label>
-	                                                        </div>
-	                                                        <div class="d-flex flex-row flex-wrap flex-1 align-items-s	tretch align-self-stretch order-2 order-lg-3" >
-	                                                            <div class="row w-100">
-																	<c:if test="${mailList.tst_message_category eq 'T'}">
-																	 	<a onclick="test('${mailList.tst_message_no }')" class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">${mailList.tst_from_nicname }</a>
-		                                                                <a onclick="test('${mailList.tst_message_no }')" class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">${mailList.tst_message_title }</a>
-																	</c:if>
-																	<c:if test="${mailList.tst_message_category eq 'F'}">
-																	 	<a onclick="messageTest('${mailList.tst_message_content }','${mailList.tst_from_nicname }','${mailList.tst_message_no }')" class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">${mailList.tst_from_nicname }</a>
-		                                                                <a onclick="messageTest('${mailList.tst_message_content }','${mailList.tst_from_nicname }','${mailList.tst_message_no }')" class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">${mailList.tst_message_title }</a>
-																	</c:if>
-	                                                            </div>
-	                                                        </div>
-	                                                        <div class="fs-sm text-muted ml-auto hide-on-hover-parent order-4 position-on-mobile-absolute pos-top pos-right mt-2 mr-3 mr-sm-4 mt-lg-0 mr-lg-0">${mailList.tst_from_date }</div>
-	                                                    </div>
-	                                                </li>
+                                                   <li class="unread">
+                                                       <div class="d-flex align-items-center px-3 px-sm-4 px-lg-5 py-1 py-lg-0 height-4 height-mobile-auto">
+                                                           <div class="custom-control custom-checkbox mr-3 order-1">
+                                                               <input type="checkbox" class="custom-control-input" id="msg-${mailList.tst_message_no }">
+                                                               <label class="custom-control-label" for="msg-${mailList.tst_message_no }"></label>
+                                                           </div>
+                                                           <div class="d-flex flex-row flex-wrap flex-1 align-items-s   tretch align-self-stretch order-2 order-lg-3" >
+                                                               <div class="row w-100">
+                                                   <c:if test="${mailList.tst_message_category eq 'T'}">
+                                                       <a onclick="test('${mailList.tst_message_no }','${mailList.tst_from_nicname }','${mailList.tst_message_title }')" class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">${mailList.tst_from_nicname }</a>
+                                                                      <a onclick="test('${mailList.tst_message_no }','${mailList.tst_from_nicname }','${mailList.tst_message_title }')" class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">${mailList.tst_message_title }</a>
+                                                   </c:if>
+                                                   <c:if test="${mailList.tst_message_category eq 'F'}">
+                                                       <a onclick="messageTest('${mailList.tst_message_content }','${mailList.tst_from_nicname }','${mailList.tst_message_no }')" class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">${mailList.tst_from_nicname }</a>
+                                                                      <a onclick="messageTest('${mailList.tst_message_content }','${mailList.tst_from_nicname }','${mailList.tst_message_no }')" class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">${mailList.tst_message_title }</a>
+                                                   </c:if>
+                                                               </div>
+                                                           </div>
+                                                           <div class="fs-sm text-muted ml-auto hide-on-hover-parent order-4 position-on-mobile-absolute pos-top pos-right mt-2 mr-3 mr-sm-4 mt-lg-0 mr-lg-0">${mailList.tst_from_date }</div>
+                                                       </div>
+                                                   </li>
                                                   </c:forEach>
                                               
                                               
@@ -214,8 +214,8 @@
                                     
                                 </div>
                             </div> 
-                            	<!-- end compose message -->
-                            	
+                               <!-- end compose message -->
+                               
                         </div>
                     </main>
    
@@ -224,23 +224,26 @@
 </body>
 <script type="text/javascript">
 
-function test(no){
-	
+function test(no,tst_from_nicname,tst_message_title){
+   
 //읽기 체크 
-	$.ajax({
-		async : true,
-		url : '${pageContext.request.contextPath}/updateMailCheck?tst_message_no='+no,
-		type : 'GET',
-		success : function() {
-		},
-		error : function() {
-			console.log("실패");
-		}
-	});
-	
-	
-	
-	let swalWithBootstrapButtons = Swal.mixin(
+   $.ajax({
+      async : true,
+      url : '${pageContext.request.contextPath}/updateMailCheck?tst_message_no='+no,
+      type : 'GET',
+      success : function() {
+      },
+      error : function() {
+         console.log("실패");
+      }
+   });
+   
+   let str = tst_message_title;
+//    alert(tst_from_nicname);
+//    alert(   str.substring( 0, str.lastIndexOf("팀") ));
+
+   
+   let swalWithBootstrapButtons = Swal.mixin(
             {
                 customClass:
                 {
@@ -253,7 +256,7 @@ function test(no){
                 .fire(
                 {
                     title: "사용자 가입을 수락하시겠어요?",
-                    text: "자기 팀명",
+                    text: tst_from_nicname,
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Yes!",
@@ -269,6 +272,7 @@ function test(no){
                             "함께 잘해봐요 :)",
                             "success"
                         );
+                     location.href="${pageContext.request.contextPath}/addMember?tst_from_nicname="+tst_from_nicname+"&tst_message_title="+str.substring( 0, str.lastIndexOf("팀") );
                     }
                     else if (
                         // Read more about handling dismissals
@@ -285,28 +289,28 @@ function test(no){
 }
 
 function content(){
-	let tst_message_content = $('#fake_textarea').text();
-	let tst_to_nicname = $('#message-to').val();
-	let tst_message_title = $('#message-title').val();
-	
-	location.href = "${pageContext.request.contextPath}/insertMessage?tst_message_content="+tst_message_content+"&tst_to_nicname="+tst_to_nicname+"&tst_message_title="+tst_message_title;
+   let tst_message_content = $('#fake_textarea').text();
+   let tst_to_nicname = $('#message-to').val();
+   let tst_message_title = $('#message-title').val();
+   
+   location.href = "${pageContext.request.contextPath}/insertMessage?tst_message_content="+tst_message_content+"&tst_to_nicname="+tst_to_nicname+"&tst_message_title="+tst_message_title;
 }
 
 function messageTest(content,from,no){
-	
-	//읽기 체크 
-	$.ajax({
-		async : true,
-		url : '${pageContext.request.contextPath}/updateMailCheck?tst_message_no='+no,
-		type : 'GET',
-		success : function() {
-		},
-		error : function() {
-			console.log("실패");
-		}
-	});
-	
-	 Swal.fire(
+   
+   //읽기 체크 
+   $.ajax({
+      async : true,
+      url : '${pageContext.request.contextPath}/updateMailCheck?tst_message_no='+no,
+      type : 'GET',
+      success : function() {
+      },
+      error : function() {
+         console.log("실패");
+      }
+   });
+   
+    Swal.fire(
              {
                  title: content,
                  text: from,
@@ -316,11 +320,11 @@ function messageTest(content,from,no){
              {
                  if (result.value)
                  {
-                	 $("#compose").trigger("click");
-                	 $('#message-to').val(from);
+                    $("#compose").trigger("click");
+                    $('#message-to').val(from);
                  }
              });
-	 
+    
 
 }
 

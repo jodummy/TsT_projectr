@@ -110,21 +110,25 @@
    </delete>
    
    
-   <insert id="addMember">
+    <insert id="addMember">
       INSERT 
       INTO 
-      TST_USER_TEAM( 
-                  TST_USER_NICKNAME, 
-                  TST_TEAM_NO, 
-                  TST_USER_ID
-                  )
+                  TST_USER_TEAM( 
+                     TST_USER_NICKNAME, 
+                     TST_TEAM_NO, 
+                     TST_USER_ID,
+                     TST_USER_TEAM_AUTHORITY,
+                     TST_USER_TEAM_ESCAPE
+                     )
       VALUES
-                  (
-                   "토끼",
-                    1,
-                    "rabbit",
-                    1 
-                  )
+                     (
+                     #{tst_user_nickname},
+                     #{tst_team_no},
+                     #{tst_user_id},
+                     #{tst_user_team_authority},
+                     #{tst_user_team_escape}
+                     )
+                     
    </insert>
    
    <!-- 11.1 팀수정하기 -->
@@ -183,6 +187,18 @@
 					TST_TEAM b ON a.TST_TEAM_NO=b.TST_TEAM_NO
 	WHERE 
 					a.TST_USER_NICKNAME = #{ tst_user_nickname }
+    </select>
+    
+     <!-- 11.09 조준서 -->
+    <select id="swichTeamname" resultType="TST_teamproject.team.model.TeamVo" parameterType="String">
+    SELECT 
+                TST_TEAM_NO,
+                TST_USER_NICKNAME
+   FROM 
+               TST_TEAM
+   WHERE 
+               TST_TEAM_NAME=#{tst_team_name}
+    
     </select>
     
      <!--11.28 조준서 작성  -->

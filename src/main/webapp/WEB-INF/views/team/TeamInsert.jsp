@@ -26,22 +26,42 @@
                      <label class="form-label" for="simpleinput">팀 명</label> 
                      <input type="text" id="simpleinput" class="form-control" id="tst_team_name" name="tst_team_name" >
                   </div>
-                  <div class="form-group">
-                     <label class="form-label" for="simpleinput">종목</label> 
-                     <input type="text" id="simpleinput" class="form-control" id="tst_team_type" name="tst_team_type">
-                  </div>
-                  <div class="form-group">
-                     <label class="form-label" for="simpleinput">주 위치</label> 
-                     <input type="text" id="simpleinput" class="form-control" id="tst_team_location" name="tst_team_location">
-                  </div>
-                  <div class="form-group">
+
+               <div class="form-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01" style="border: none; background: none; padding: 0px;">종목</label>
+                    </div>
+                    <select class="custom-select" id="tst_team_type" name="tst_team_type">
+               <option value='축구'>축구</option>
+               <option value='농구'>농구</option>
+               <option value='야구'>야구</option>
+               <option value='리그오브레전드'>리그오브레전드</option>
+               <option value='배틀그라운드'>배틀그라운드</option>
+                    </select>
+                </div>                                     
+            <div class="form-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01" style="border: none; background: none; padding: 0px;">위치</label>
+                    </div>
+                    <select class="custom-select" id="tst_team_location" name="tst_team_location">
+               <option value='서울'>서울</option>
+               <option value='부산'>부산</option>
+               <option value='인천'>인천</option>
+               <option value='일산'>일산</option>
+               <option value='수원'>수원</option>
+               <option value='대구'>대구</option>
+               <option value='울산'>울산</option>                                       
+                    </select>
+                </div>   
+               
+                <div class="form-group">
                      <label class="form-label" for="simpleinput">팀장</label> 
                      <input type="text" class="form-control" id="tst_user_nickname" name="tst_user_nickname" value="${tst_user_nickname}" disabled="disabled" >
-                  </div>
-                  <div class="form-group">
+                </div>
+                <div class="form-group">
                      <label class="form-label" for="simpleinput">나이</label> 
-                     <input type="text" id="simpleinput" class="form-control" id="tst_team_age" name="tst_team_age"  >
-                  </div>
+                     <input type="number" id="simpleinput" class="form-control" id="tst_team_age" name="tst_team_age"  >
+                </div>
                   <div class="form-group">
                      <label class="form-label" for="example-textarea">팀 소개글</label>
                      <textarea class="form-control" id="simpleinput" id="tst_team_content" name="tst_team_content"rows="5" ></textarea>

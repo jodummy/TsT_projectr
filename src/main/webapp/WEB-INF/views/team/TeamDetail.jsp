@@ -242,11 +242,11 @@ function teamDelete(tst_team_no){
 					<table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
                                                 <thead class="bg-primary-600" style="line-height: 0.5;">
                                                     <tr>
-                                                        <th>no</th>
-                                                        <th>tst_team_notice_board_title</th>
-                                                        <th>tst_user_nickname</th>
-                                                        <th>tst_team_notice_board_view</th>
-                                                        <th>tst_team_notice_insert_date</th>
+                                                        <th>No</th>
+                                                        <th>Title</th>
+                                                        <th>Nickname</th>
+                                                        <th>UserView</th>
+                                                        <th>Date</th>
                                                     </tr>
                                                 </thead>
                            <tbody>

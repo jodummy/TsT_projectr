@@ -10,6 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Team List</title>
 
+    <link rel="stylesheet" media="screen, print" href="${pageContext.request.contextPath}/resources/css/notifications/sweetalert2/sweetalert2.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="${pageContext.request.contextPath}/resources/css/theme-demo.css">
+
 </head>
 <body>
    <main id="js-page-content" role="main" class="page-content">
@@ -158,6 +161,8 @@
 <sec:authentication var="principal" property="principal" />
 <input type="hidden" value='${principal.username}' name="tst_from_nicname" id="tst_from_nicname">
 
+<script src="${pageContext.request.contextPath}/resources/js/notifications/sweetalert2/sweetalert2.bundle.js"></script>
+
 </body>
 
    <script type="text/javascript">
@@ -207,7 +212,17 @@
       location.href= "/teamInsert";
    }
    
-   
+//    var click = true;
+//    function overClick() {
+//         if (click) {
+//              console.log("클릭됨");
+//              click = !click;
+//         } else {
+//              console.log("중복됨");
+//         }
+//    }
+
+
    /*11.18 조준서 수정  */
    function insertMessage(tst_team_no){
 	   let tst_from_nicname = $('#tst_from_nicname').val();

@@ -43,18 +43,18 @@
 						<div class="row">
 							<div class="col-xl-7">
 								<!-- datatable start -->
-								<div class="frame-heading mb-0">Select a cell below to see
-									events (you can also use your arrow keys once a cell is
-									selected)
+								<div class="frame-heading mb-0">
 								</div>
 								<table id="dt-basic-example" name="test" class="table table-bordered table-hove	r table-striped w-100">
 									<thead class="bg-primary-600">
 										<tr>
-											<th>no</th>
-											<th>category</th>
-											<th>title</th>
-											<th>name</th>
-											<th>insert_date</th>
+											<th>No</th>
+											<th>Category</th>
+											<th>Title</th>
+											<c:if test="${category != '블랙리스트 게시판' }">
+											<th>UserId</th>
+											</c:if>
+											<th>Date</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -68,7 +68,9 @@
 														<li class="breadcrumb-item">${row.tst_board_title}</li>
 													</ol>
 												</td>
+												<c:if test="${row.tst_board_category != '블랙리스트 게시판' }">
 												<td>${row.tst_user_id}</td>
+												</c:if>
 												<td>${row.tst_insert_date}</td>
 											</tr>
 										</c:forEach>
@@ -146,7 +148,7 @@
 		class="fal fa-expand"></i>
 	</a> <a href="/BoardInsert?tst_board_category=${category }"
 		class="menu-item btn" title="BoardInsert"> <i
-		class="fal fa-microphone"></i> <!--             <i class='subheader-icon fal fa-plus-circle'></i> -->
+		class="fal fa-microphone"></i>
 	</a> </nav>
 
 </body>
