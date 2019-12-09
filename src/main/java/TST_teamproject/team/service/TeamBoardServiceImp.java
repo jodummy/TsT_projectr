@@ -57,4 +57,9 @@ public class TeamBoardServiceImp implements TeamBoardService {
 		teamBoardMapper.noticeModify(teamVo);
 	}
 
+	@Override
+	public List<TeamNoticeCheckVo> selectListMember(int tst_team_notice_board_no) throws Exception {
+		return teamBoardMapper.selectListMember(tst_team_notice_board_no);
+	}
+
 }

@@ -7,6 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+
+::-webkit-scrollbar{
+  width:20px;
+} 
+
+::-webkit-scrollbar-thumb{
+   background-color: rgba(255,255,255,1);
+
+}  
+
+
+</style>
+
 
 
 
@@ -69,78 +83,35 @@
                                                 </div>
                                             </div>
                                             <input type="hidden" value="${noticeDetail.tst_team_no }" name="team_no" id="team_no">
-<!--                                             여기까지 -->
 
 
-                       
-
-
-<!-- 					<table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100"> -->
-<!--                               <thead class="bg-primary-600" style="line-height: 1;"> -->
-<!--                                   <tr> -->
-<!--                                       <th>no</th> -->
-<!--                                       <th>tst_team_notice_board_title</th> -->
-<!--                                       <th>tst_user_nickname</th> -->
-<!--                                       <th>tst_team_notice_board_view</th> -->
-<!--                                       <th>tst_team_notice_insert_date</th> -->
-<!--                                   </tr> -->
-<!--                               </thead> -->
-<!--                            <tbody> -->
-<%--                               <c:forEach var="row" items="${TeamBoardList}"> --%>
-<%--                               <tr onclick="noticeDetail(${row.tst_team_notice_board_no})" style="line-height: 1.1; bo"> --%>
-<%--                                     <td>${row.no }</td> --%>
-<!--                                     <td> -->
-<!--                                        <ol class="breadcrumb page-breadcrumb" -->
-<!--                                           style="margin: 1rem;"> -->
-<%--                                           <li class="breadcrumb-item">${row.tst_team_notice_board_title}</li> --%>
-<!--                                        </ol> -->
-<!--                                     </td> -->
-<%--                                     <td>${row.tst_user_nickname}</td> --%>
-<%--                                     <td>${row.team_members_view} / ${row.teammembers}</td> --%>
-<%--                                     <td>${row.tst_team_notice_insert_date}</td> --%>
-<!--                               </tr> -->
-<%--                               </c:forEach> --%>
-<!--                            </tbody> -->
-                                               
-<!-- 					</table> -->
-
-
-
-<%-- 								<c:forEach var="row" items="${member}"> --%>
-                                            <div class="col-8 col-md-3 hidden-md-down">
-                                                <div class="p-3 p-md-3">
-                                                    <div class="d-flex align-items-center">
+                                            <div class="col-8 col-md-3 hidden-md-down" style="width:410px;height:200px;overflow-y:overlay;position:relative;">
+                                                <div class="p-3 p-md-3" >
+                                                
+                                                
+                                                
+                                                <c:forEach var="check" items="${check}">
+                                                    <div class="d-flex align-items-center" >
                                                         <div class="d-inline-block align-middle status status-success status-sm mr-2">
                                                             <span class="profile-image-md rounded-circle d-block" style="background-image:url('img/demo/avatars/avatar-d.png'); background-size: cover;"></span>
                                                         </div>
-                                                        
-                                                        
-                                                        
-												<!--  반복구간 -->
-												<c:forEach var="row" items="${member}">
                                                         <div class="flex-1 min-width-0">
-                                                            <a href="javascript:void(0)" class="d-block text-truncate">
-                                                            fdgsdgsgd
-                                                               ${row.tst_user_nickname}
+                                                            <a href="javascript:void(0)">
+                                                            ${check.tst_user_nickname}
                                                             </a>
                                                             <div class="text-muted small text-truncate">
-                                                                Today, 08:13 <a href="javascript:void(0)" class="text-info">erakalambert</a>
+                                                                ${check.tst_team_notice_board_check_date} <a href="javascript:void(0)" class="text-info"></a>
                                                             </div>
                                                         </div>
-                                                 </c:forEach>      
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
                                                     </div>
+                                                  </c:forEach>
+                                                    
+                                                    
+                                                    
                                                 </div>
                                             </div>
-<%--                                 </c:forEach> --%>
-                                                    
-                                                    
-                                                    
-                                                    
+                                            
+                                            
                                                     
                                                 </div>
                                             </div>

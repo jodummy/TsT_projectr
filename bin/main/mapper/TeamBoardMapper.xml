@@ -150,4 +150,15 @@
     
     </update>
     
+    
+    <!-- 12.01 조준서 서유진이 못짜서 짜는중 -->
+    <select id="selectListMember" parameterType="int" resultType="TST_teamproject.team.model.TeamNoticeCheckVo">
+     SELECT 
+     						TST_USER_NICKNAME,
+     						TST_TEAM_NOTICE_BOARD_CHECK_DATE
+     FROM 
+     						TST_TEAM_NOTICE_BOARD_CHECK
+     WHERE 
+     						TST_TEAM_NOTICE_BOARD_NO = #{tst_team_notice_board_no}
+    </select>
 </mapper>

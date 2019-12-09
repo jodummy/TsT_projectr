@@ -39,9 +39,27 @@
 						(#{tst_board_no}, #{tst_user_nickname}, #{tst_board_reply_content}, NOW())
 	</insert>
 	
+	<!--    11.29 댓글 카운트 유진 -->
+   <select id="boardReplyCount" parameterType="int" resultType="int">
+      SELECT 
+                  COUNT(TST_BOARD_REPLY_NO) TST_REPLY_COUNT 
+       FROM 
+                   TST_BOARD_REPLY
+       WHERE 
+                   TST_BOARD_NO = #{tst_board_no} AND TST_BOARD_REPLY_DEFLAG='N'
+   </select>
 	
-	
-	
+	<!--    11.10 -->
+   <update id="boardReplyDelete" parameterType="int">
+    
+       UPDATE              
+                      TST_BOARD_REPLY 
+       SET                 
+                      TST_BOARD_REPLY_DEFLAG = "Y" 
+       WHERE               
+                      TST_BOARD_REPLY_NO = #{tst_board_reply_no}
+    
+    </update>
 	
 	
 </mapper>

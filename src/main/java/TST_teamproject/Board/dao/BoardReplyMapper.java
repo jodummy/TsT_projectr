@@ -22,12 +22,21 @@ public interface BoardReplyMapper {
 	 * @return String
 	 * @param BoardReplyVo vo
 	 */
-	public String boardReplyInsert(BoardReplyVo vo) throws Exception;
+	public void boardReplyInsert(BoardReplyVo vo) throws Exception;
 	
-	
-//	public int insertReply(BoardReplyVo vo) throws Exception;
-//	
-//	public int deleteReply(int reply_no) throws Exception;
-//	
-//	public int updateReply(BoardReplyVo vo) throws Exception;
+   /**
+    * boardReplyCount
+    * 11.29 
+    * @return int
+    * @param int tst_board_no
+    */
+   public int boardReplyCount(int tst_board_no) throws Exception;
+   
+   /**
+    * boardReplyDelete
+    * 11.10 
+    * @return int
+    * @param int tst_board_reply_no 
+    */
+   public int boardReplyDelete(int tst_board_reply_no) throws Exception;
 }

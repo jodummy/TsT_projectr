@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import TST_teamproject.team.model.MatchingAcceptVo;
 import TST_teamproject.team.model.MemberVo;
 import TST_teamproject.team.model.TeamVo;
 import TST_teamproject.team.service.TeamService;
@@ -78,7 +79,6 @@ public class UserController {
 	//11.10
 	@RequestMapping(value = "/UserMailDetail" , method= {RequestMethod.GET})
 	public String UserMailDetail(Model model, MessageVo vo) {
-		System.out.println(vo.getTst_message_no());
 //		model.addAttribute("mailDetail",service.detailMessageTo(vo.getTst_message_no()));
 		return "user.mailDetail";
 	}
@@ -117,6 +117,7 @@ public class UserController {
 	@RequestMapping(value = "/insertMessageT" , method= RequestMethod.GET)
 	@ResponseBody
 	public void insertMessage(TeamVo vo, @RequestParam("tst_from_nicname") String tst_from_nicname) {
+	
 	   vo=teamService.teamFindOne(vo.getTst_team_no());
 	   MessageVo messageVo = new MessageVo();
 	   messageVo.setTst_to_nicname(vo.getTst_user_nickname());
@@ -124,14 +125,46 @@ public class UserController {
 	   messageVo.setTst_message_title(vo.getTst_team_name() +"팀 신청 드립니다");
 	   messageVo.setTst_message_content("잘 부탁드립니다");
 	   messageVo.setTst_message_category("T");
-	   
+	
 	   service.insertMail(messageVo);
 	}
+	
+	//매칭 신청
+	@RequestMapping(value = "/insertMessageC" , method= RequestMethod.GET)
+	@ResponseBody
+	public void insertMessageC(@RequestParam("tst_team_no") String tst_team_no,@RequestParam("myTeamNo") String myTeamNo) {
+	   //상대팀 정보
+	   TeamVo vo=teamService.teamFindOne(Integer.parseInt(tst_team_no));
+	   //내팀 정보
+	   TeamVo vo2 = teamService.teamFindOne(Integer.parseInt(myTeamNo));
+	   
+	   System.out.println("남 :"+vo.toString());
+	   System.out.println("내 : "+vo2.toString());
+	  
+		MatchingAcceptVo matchingAcceptVo = new MatchingAcceptVo();
+		matchingAcceptVo.setTst_my_team_no(Integer.parseInt(myTeamNo));
+		System.out.println(myTeamNo);
+		matchingAcceptVo.setTst_your_team_no(Integer.parseInt(tst_team_no));
+		System.out.println(tst_team_no);
+		teamService.insertAccept(matchingAcceptVo);
+		
+	   MessageVo messageVo = new MessageVo();
+	   
+	   messageVo.setTst_to_nicname(vo.getTst_user_nickname());
+	   messageVo.setTst_from_nicname(vo2.getTst_user_nickname());
+	   messageVo.setTst_message_title(vo2.getTst_team_name() +"경기 신청합니다.");
+	   messageVo.setTst_message_content("잘 부탁드립니다.=>"+vo.getTst_team_name());
+	   messageVo.setTst_message_category("C");
+	   service.insertMail(messageVo);
+	   
+	   //여기서 디비 세팅을 해야해 넣어야지
+	}
+	
+	
 	//11.26 인증메일 보냈다는 페이지
 	@RequestMapping(value = "/emailCheck" , method= { RequestMethod.GET, RequestMethod.POST })
 	public String email(Model model, UserVo vo) {
 		model.addAttribute("key", 1 );
-		System.out.println(vo.toString());
 		service.updateUserAuthority(vo);
 		return "/login";
 	}
@@ -139,13 +172,26 @@ public class UserController {
 	//11.19 
 	@RequestMapping(value = "/addMember" , method= {RequestMethod.GET})
 	public String addMember(Principal cipal, @RequestParam("tst_from_nicname") String tst_from_nicname,@RequestParam("tst_message_title") String tst_message_title) {
-	   System.out.println("from : "+tst_from_nicname);
-	   System.out.println(tst_message_title);
 	   //swichTeamname 팀번호 & 팀장이름 -> id에 넣어줘 ->TeamVo
 	   //addMember 보낸 사람 이름 권한1 1
 	   TeamVo tVo = teamService.swichTeamname(tst_message_title);
-	   System.out.println(tVo.getTst_team_no() + " ............................" + tVo.getTst_user_nickname());
 	   teamService.addMember(new MemberVo(tVo.getTst_team_no(), tst_from_nicname, tVo.getTst_user_nickname(), 1, 1));
 	   return "redirect:mailList";
 	}
+	
+	@RequestMapping(value = "/maching" , method= {RequestMethod.GET})
+	public String maching(@RequestParam("tst_from_nicname") String tst_from_nicname,@RequestParam("tst_message_title") String tst_your_title ,@RequestParam("tst_my_team") String tst_my_team) {
+		System.out.println("안녕");
+		
+		TeamVo yourVo = teamService.swichTeamname(tst_my_team);
+		TeamVo myVo = teamService.swichTeamname(tst_your_title);
+		MatchingAcceptVo vo = new MatchingAcceptVo();
+
+		vo.setTst_my_team_no(myVo.getTst_team_no());
+		vo.setTst_your_team_no(yourVo.getTst_team_no());
+		teamService.updateAccept(vo);
+	   return "redirect:mailList";
+	}
+	
+	
 }

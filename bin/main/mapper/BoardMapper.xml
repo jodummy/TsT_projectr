@@ -5,97 +5,122 @@
     
 <mapper namespace="TST_teamproject.Board.dao.BoardMapper">
 
-	<select id="boardList" resultType="TST_teamproject.Board.model.BoardVo" parameterType="String">
-		SELECT
+   <select id="boardList" resultType="TST_teamproject.Board.model.BoardVo" parameterType="String">
+      SELECT
                            @rownum:=@rownum+1 NO,
-							TST_BOARD_NO,
+                     TST_BOARD_NO,
                             TST_BOARD_CATEGORY, 
                             TST_BOARD_TITLE,
                             TST_BOARD_CONTENTS,
-                            TST_USER_ID,
+                            TST_USER_NICKNAME,
                             TST_BOARD_DELFLAG,
-							DATE_FORMAT(TST_INSERT_DATE, '%Y-%m-%d') AS TST_INSERT_DATE,
-							DATE_FORMAT(TST_MODIFY_DATE, '%Y-%m-%d') AS TST_MODIFY_DATE
+                     DATE_FORMAT(TST_INSERT_DATE, '%Y-%m-%d') AS TST_INSERT_DATE,
+                     DATE_FORMAT(TST_MODIFY_DATE, '%Y-%m-%d') AS TST_MODIFY_DATE
                           
-		FROM 
+      FROM 
                             TST_BOARD,
                             (SELECT @rownum:=0) r
                             
-		WHERE               TST_BOARD_DELFLAG ='N' AND TST_BOARD_CATEGORY=#{tst_board_category}
+      WHERE               TST_BOARD_DELFLAG ='N' AND TST_BOARD_CATEGORY=#{tst_board_category}
  
-		ORDER BY        	NO DESC
-	</select>
+      ORDER BY           NO DESC
+   </select>
 
 
+<!-- 12.05 유진수정 닉네임 -->
+   <insert id="boardInsert" parameterType="TST_teamproject.Board.model.BoardVo">
 
-	<insert id="boardInsert" parameterType="TST_teamproject.Board.model.BoardVo">
-
-		INSERT INTO
-							 TST_BOARD(
-							 TST_BOARD_CATEGORY, 
-							 TST_BOARD_TITLE, 
-							 TST_BOARD_CONTENTS, 
-							 TST_USER_ID, 
-							 TST_INSERT_DATE, 
-							 TST_MODIFY_DATE)
-							 
-							 
-  		VALUES 		
-						   (#{tst_board_category}, 
-							#{tst_board_title}, 
-							#{tst_board_contents}, 
-							#{tst_user_id}, 
-							NOW(), 
-							NOW())
-		
-	</insert>
+      INSERT INTO
+                      TST_BOARD(
+                      TST_BOARD_CATEGORY, 
+                      TST_BOARD_TITLE, 
+                      TST_BOARD_CONTENTS, 
+                      TST_USER_NICKNAME, 
+                      TST_INSERT_DATE, 
+                      TST_MODIFY_DATE)
+                      
+                      
+        VALUES       
+                     (#{tst_board_category}, 
+                     #{tst_board_title}, 
+                     #{tst_board_contents}, 
+                     #{tst_user_nickname}, 
+                     NOW(), 
+                     NOW())
+      
+   </insert>
 
 
-	<select id="boardDetail" parameterType="int" resultType="TST_teamproject.Board.model.BoardVo" >
-	
-	
-	 SELECT
+   <select id="boardDetail" parameterType="int" resultType="TST_teamproject.Board.model.BoardVo" >
+   
+   
+    SELECT
                             TST_BOARD_NO,
                             TST_BOARD_CATEGORY, 
                             TST_BOARD_TITLE,
                             TST_BOARD_CONTENTS,
-                            TST_USER_ID,
-							DATE_FORMAT(TST_INSERT_DATE, '%Y-%m-%d') AS TST_INSERT_DATE,
-							DATE_FORMAT(TST_MODIFY_DATE, '%Y-%m-%d') AS TST_MODIFY_DATE
+                            TST_USER_NICKNAME,
+                     DATE_FORMAT(TST_INSERT_DATE, '%Y-%m-%d') AS TST_INSERT_DATE,
+                     DATE_FORMAT(TST_MODIFY_DATE, '%Y-%m-%d') AS TST_MODIFY_DATE
                           
- 		FROM 
+       FROM 
                             TST_BOARD
-		WHERE 
-							TST_BOARD_DELFLAG = 'N'
-		AND 
-							TST_BOARD_NO = #{tst_board_no}
-	
-	
-	</select>
+      WHERE 
+                     TST_BOARD_DELFLAG = 'N'
+      AND 
+                     TST_BOARD_NO = #{tst_board_no}
+   
+   
+   </select>
 
 
-	<update id="boardDelete" parameterType="int">
-		
-		UPDATE 
-							TST_BOARD
-		SET 		
-							TST_BOARD_DELFLAG ='Y'
-		WHERE
-							TST_BOARD_NO = #{tst_board_no}
-	
-	</update>
+   <update id="boardDelete" parameterType="int">
+      
+      UPDATE 
+                     TST_BOARD
+      SET       
+                     TST_BOARD_DELFLAG ='Y'
+      WHERE
+                     TST_BOARD_NO = #{tst_board_no}
+   
+   </update>
 
-	<update id="boardModify" parameterType="TST_teamproject.Board.model.BoardVo" >
-	
-		UPDATE 
-							TST_BOARD 
-		SET 
-							TST_BOARD_TITLE = #{tst_board_title}, 
-							TST_BOARD_CONTENTS = #{tst_board_contents}, 
-							TST_MODIFY_DATE = NOW() 
-		WHERE 
-							TST_BOARD_NO = #{tst_board_no}
-						
-	</update>
+   <update id="boardModify" parameterType="TST_teamproject.Board.model.BoardVo" >
+   
+      UPDATE 
+                     TST_BOARD 
+      SET 
+                     TST_BOARD_TITLE = #{tst_board_title}, 
+                     TST_BOARD_CONTENTS = #{tst_board_contents}, 
+                     TST_MODIFY_DATE = NOW() 
+      WHERE 
+                     TST_BOARD_NO = #{tst_board_no}
+                  
+   </update>
 
+<!-- 12.04 내 게시물 -->
+   <select id="boardMyList" parameterType="String" resultType="TST_teamproject.Board.model.BoardVo">
+   
+      SELECT
+                           @rownum:=@rownum+1 NO,
+                     TST_BOARD_NO,
+                            TST_BOARD_CATEGORY, 
+                            TST_BOARD_TITLE,
+                            TST_BOARD_CONTENTS,
+                            TST_USER_NICKNAME,
+                            TST_BOARD_DELFLAG,
+                     DATE_FORMAT(TST_INSERT_DATE, '%Y-%m-%d') AS TST_INSERT_DATE,
+                     DATE_FORMAT(TST_MODIFY_DATE, '%Y-%m-%d') AS TST_MODIFY_DATE
+                          
+      FROM 
+                            TST_BOARD,
+                            (SELECT @rownum:=0) r
+                            
+      WHERE               
+                     TST_USER_NICKNAME=#{tst_user_nickname} AND TST_BOARD_DELFLAG ='N' 
+ 
+      ORDER BY           
+                     NO DESC
+   
+   </select>
 </mapper>

@@ -2,7 +2,7 @@ package TST_teamproject.team.service;
 
 import java.util.List;
 
-
+import TST_teamproject.team.model.MatchingAcceptVo;
 import TST_teamproject.team.model.TeamBoardVo;
 import TST_teamproject.team.model.TeamNoticeCheckVo;
 import TST_teamproject.team.model.UserTeamVo;
@@ -69,5 +69,14 @@ public interface TeamBoardService {
 	 * @return TeamBoardVo teamVo
 	 * */
 	public void noticeModify(TeamBoardVo teamVo) throws Exception;
+	
+	/*
+	 * team check list
+	 * 12.01
+	 * @param int tst_team_notice_board_no
+	 * @return List<TeamNoticeCheckVo>
+	 * */
+	public List<TeamNoticeCheckVo> selectListMember(int tst_team_notice_board_no) throws Exception;
 
+	
 }

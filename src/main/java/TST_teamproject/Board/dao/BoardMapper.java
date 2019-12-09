@@ -48,4 +48,12 @@ public interface BoardMapper {
 //	void BoardInsert(BoardVo vo)throws Exception;
 //	void BoardDelete(int tst_board_no)throws Exception;
 //	void BoardModify(BoardVo vo)throws Exception;
+
+	/**
+	 * boardMyList
+	 * 12.02 
+	 * @return BoardVo vo
+	 * @param String tst_user_id
+	 */
+	 public List<BoardVo> boardMyList(String tst_user_nickname)throws Exception;
 }

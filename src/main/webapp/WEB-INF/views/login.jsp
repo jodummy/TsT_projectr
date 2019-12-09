@@ -133,7 +133,6 @@
 		                          
 		                        </c:if>
 		                        
-		                        
                             </div>
                             <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
                             </div>
@@ -142,6 +141,7 @@
                 </div>
             </div>
         </div>
+        
         <script src="${pageContext.request.contextPath}/resources/js/vendors.bundle.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/app.bundle.js"></script>
         <script>
@@ -158,6 +158,15 @@
                 form.addClass('was-validated');
             });
 
+            
+            //영어라 몰라 그냥 감으로 치는중
+            $.get("/user", function(data) {
+                $("#user").html(data.userAuthentication.details.name);
+                $(".unauthenticated").hide()
+                $(".authenticated").show()
+            });
+            
+            
         </script>
     </body>
 </html>

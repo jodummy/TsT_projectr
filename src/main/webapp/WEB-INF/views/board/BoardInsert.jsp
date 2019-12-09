@@ -37,7 +37,7 @@
                                     </br>
                                      <div class="col-xl-12">
                                       <ol class="breadcrumb page-breadcrumb">
-                                     <li class="breadcrumb-item "><a href="javascript:void(0);"style="font-size: 1.2em;">작성자 : ${boardVo.tst_user_id }</a></li>
+                                     <li class="breadcrumb-item "><a href="javascript:void(0);"style="font-size: 1.2em;">작성자 : ${boardVo.tst_user_nickname }</a></li>
                                      <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"style="font-size: 1.2em;"></span></li>
                                    </ol>
                                    </div> 
@@ -56,13 +56,13 @@
 
 
 <!--                               이쪽 css수정하고  -->
-							<div class="col-xl-12" style="margin-top:1rem;">
+                     <div class="col-xl-12" style="margin-top:1rem;">
                               <div class="form-group">
                                                     <label class="form-label" for="simpleinput" style="font-size: 2em;">Contents</label>
 <!--                                                     <textarea rows="" cols="" name="tst_board_contents" id="tst_board_contents"></textarea> -->
-														<div class="panel-content" style="padding:0;">
-														<div class="js-summernote" id="saveToLocal" ></div>
-														</div>
+                                          <div class="panel-content" style="padding:0;">
+                                          <div class="js-summernote" id="saveToLocal" ></div>
+                                          </div>
                                         </div>
                              </div>
 
@@ -75,7 +75,7 @@
                        
                        
                        <input type="hidden" name="tst_board_category" id="tst_board_category" value="${boardVo.tst_board_category }" />
-                       <input type="hidden" name="tst_user_id" id="tst_user_id" value="${boardVo.tst_user_id }" />
+                       <input type="hidden" name="tst_user_nickname" id="tst_user_nickname" value="${boardVo.tst_user_nickname }" />
                        <p id="contentsId" />
                        
                         <div class="demo">
@@ -97,7 +97,7 @@ $("#contentsId").html(contentsHtml);
 }
 
 // function list(boardVo){
-// 	location.href="/BoardList";
+//    location.href="/BoardList";
 // }
 </script>
 </html>

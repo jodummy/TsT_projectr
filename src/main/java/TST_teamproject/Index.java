@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
@@ -49,5 +50,12 @@ public class Index {
 		resolver.setViewClass(TilesView.class);
 		return resolver;
 	}
+	
+	
+	//범인
+	@Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
 
 }

@@ -111,8 +111,9 @@ public class UserServiceImp implements UserService {
 		userMapper.updateUserAuthority(vo);
 	}
 
-
-
-	
+	@Override
+	public UserVo myPage(String tst_user_nickname) {
+	   return userMapper.myPage(tst_user_nickname);
+	}
 
 }

@@ -84,4 +84,12 @@ public interface TeamBoardMapper {
 	 * */
 	public void noticeModify(TeamBoardVo teamVo) throws Exception;
 	
+	/*
+	 * team check list
+	 * 12.01
+	 * @param int tst_team_notice_board_no
+	 * @return List<TeamNoticeCheckVo>
+	 * */
+	public List<TeamNoticeCheckVo> selectListMember(int tst_team_notice_board_no) throws Exception;
+	
 }

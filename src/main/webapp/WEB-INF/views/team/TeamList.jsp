@@ -64,7 +64,26 @@
          <!--       여기는 사용자 사용  이름 누르면 나오는 메뉴-->
             <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                <div class="d-flex flex-row align-items-center">
-                  <span > <span class="rounded-circle profile-image d-block "style="background-image: url('img/demo/avatars/avatar-b.png'); background-size: cover;"></span>
+                  <span > 
+                  
+                  <c:if test="${ teamList.tst_team_type =='축구'}">
+                  <span class="rounded-circle profile-image d-block "style="background-image: url('${pageContext.request.contextPath}/resources/img/soccer.png'); background-size: cover; height: 3rem;background-size: 100%;"></span>
+                  </c:if>
+                  <c:if test="${ teamList.tst_team_type =='농구'}">
+                  <span class="rounded-circle profile-image d-block "style="background-image: url('${pageContext.request.contextPath}/resources/img/basketball.png'); background-size: cover; height: 3.2rem; background-size: 100%;"></span>
+                  </c:if>
+                  <c:if test="${ teamList.tst_team_type =='야구'}">
+                  <span class="rounded-circle profile-image d-block "style="background-image: url('${pageContext.request.contextPath}/resources/img/baseball.png'); background-size: cover; height: 2.8rem;background-size: 100%;"></span>
+                  </c:if>
+                  <c:if test="${ teamList.tst_team_type =='배틀그라운드'}">
+                  <span class="rounded-circle profile-image d-block "style="background-image: url('${pageContext.request.contextPath}/resources/img/battleground.png'); background-size: cover; height: 2.8rem;background-size: 100%;"></span>
+                  </c:if>
+                  <c:if test="${ teamList.tst_team_type =='리그오브레전드'}">
+                  <span class="rounded-circle profile-image d-block "style="background-image: url('${pageContext.request.contextPath}/resources/img/lol.png'); background-size: cover; height: 3.2rem;background-size: 100%;"></span>
+                  </c:if>
+                  
+                  
+                  <span class="rounded-circle profile-image d-block "style="background-image: url('img/demo/avatars/avatar-b.png'); background-size: cover;"></span>
                   </span>
                   <div class="info-card-text flex-1">
                      <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false"> ${teamList.tst_team_name}
@@ -72,9 +91,9 @@
                      </a>
                      <div class="dropdown-menu">
                      	<!-- 11.18 조준서 수정 -->
-                        <a class="dropdown-item" onclick="insertMessage(${teamList.tst_team_no })">참가 신청</a> <a
-                           class="dropdown-item" href="#">매칭 신청</a> <a
-                           class="dropdown-item" href="#">Block</a>
+                        <a class="dropdown-item" onclick="overClick(${teamList.tst_team_no })">참가 신청</a> 
+                        <a class="dropdown-item" onclick="overClick2(${teamList.tst_team_no })">매칭 신청</a> 
+                           
                      </div>
                      <span class="text-truncate text-truncate-xl">${teamList.tst_team_content}</span>
                   </div>
@@ -136,10 +155,7 @@
         <label for="menu_open" class="menu-open-button ">
             <span class="app-shortcut-icon d-block"></span>
         </label>
-        <a href="#" class="menu-item btn" data-toggle="tooltip" data-placement="left" title="Scroll Top">
-            <i class="fal fa-arrow-up"></i>
-        </a>
-        <a href="page_login_alt.html" class="menu-item btn" data-toggle="tooltip" data-placement="left" title="Logout">
+        <a href="/logout" class="menu-item btn" data-toggle="tooltip" data-placement="left" title="Logout">
             <i class="fal fa-sign-out"></i>
         </a>
         <a href="#" class="menu-item btn" data-action="app-fullscreen" data-toggle="tooltip" data-placement="left"
@@ -151,7 +167,7 @@
             <i class="fal fa-print"></i>
         </a>
         <a onclick="teamInsert()" class="menu-item btn" data-action="app-board" data-toggle="tooltip" data-placement="left" title="New Team">
-            <i class="fal fa-microphone"></i>
+            <i class="fal fa-arrow-up"></i>
 <!--             <i class='subheader-icon fal fa-plus-circle'></i> -->
         </a>
     </nav>
@@ -212,15 +228,55 @@
       location.href= "/teamInsert";
    }
    
-//    var click = true;
-//    function overClick() {
-//         if (click) {
-//              console.log("클릭됨");
-//              click = !click;
-//         } else {
-//              console.log("중복됨");
-//         }
-//    }
+   var click = true;
+   function overClick(tst_team_no) {
+        if (click) {
+        	insertMessage(tst_team_no);
+           console.log("클릭됨");
+           click = !click;
+           
+           // 타이밍 추가
+           setTimeout(function () {
+               click = true;
+           }, 100000)
+           
+        } else {
+        	
+        	  Swal.fire(
+                      {
+                          type: "error",
+                          title: "이미 신청 되었습니다.",
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+           console.log("중복됨");
+        }
+   }
+   
+   function overClick2(tst_team_no) {
+	   if (click) {
+       	insertMessage2(tst_team_no);
+          console.log("클릭됨");
+          click = !click;
+          
+          // 타이밍 추가
+          setTimeout(function () {
+              click = true;
+          }, 100000)
+          
+       } else {
+       	
+       	  Swal.fire(
+                     {
+                         type: "error",
+                         title: "이미 신청 되었습니다.",
+                         showConfirmButton: false,
+                         timer: 1500
+                     })
+          console.log("중복됨");
+       }
+   }
+   
 
 
    /*11.18 조준서 수정  */
@@ -229,6 +285,30 @@
 	   $.ajax({
 			async : true,
 			url : '${pageContext.request.contextPath}/insertMessageT?tst_team_no='+tst_team_no +"&tst_from_nicname="+tst_from_nicname,
+			type : 'GET',
+			success : function() {
+			},
+			error : function() {
+				console.log("실패");
+			}
+		});
+	   
+	   Swal.fire(
+               {
+                   type: "success",
+                   title: "신청이 완료 되었습니다.",
+                   showConfirmButton: false,
+                   timer: 1500
+               })
+	   
+   }
+   
+   //수정
+   function insertMessage2(tst_team_no){
+	   let tst_from_nicname = $('#tst_from_nicname').val();
+	   $.ajax({
+			async : true,
+			url : '${pageContext.request.contextPath}/insertMessageC?tst_team_no='+tst_team_no +"&tst_from_nicname="+tst_from_nicname,
 			type : 'GET',
 			success : function() {
 			},

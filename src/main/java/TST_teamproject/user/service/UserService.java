@@ -96,4 +96,12 @@ public interface UserService {
 	  */
 	 public void updateUserAuthority(UserVo vo);
 	 
+	  /*
+	   * 마이페이지(메인)
+	   * 12.04
+	   * @param String tst_user_nickname
+	   * @return UserVo
+	   */
+	  public UserVo myPage(String tst_user_nickname);
+	 
 }

@@ -36,7 +36,7 @@
       <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
    </definition>
    <!-- TeamDetail -->
-   <definition name ="team.detailTeam" template ="/WEB-INF/tiles/layout/layout.jsp">
+   <definition name ="team.detailTeam" template ="/WEB-INF/tiles/layout/layout2.jsp">
       <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
       <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
       <put-attribute name="body" value ="/WEB-INF/views/team/TeamDetail.jsp"/>
@@ -156,5 +156,43 @@
       <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
    </definition>
    
+   <!--12.01 Map -->
+    <definition name ="maps" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/Maps.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
+   
+   <!--11.21 팀 매칭 신청 페이지 김태현 -->
+    <definition name ="team.teamMatching" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/team/TeamMatching.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
+   
+   <!--11.27 팀 매칭 리스트 페이지 김태현 -->
+    <definition name ="team.teamMatchingList" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/team/TeamMatchingList.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
+   
+   <definition name ="TsT" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/etc/TsT.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
+	
+	<!--12.05 팀 랜덤 매칭 리스트 페이지 김태현 -->
+    <definition name ="team.teamRandomList" template ="/WEB-INF/tiles/layout/layout.jsp">
+      <put-attribute name="sidebar" value ="/WEB-INF/tiles/tile/sidebar.jsp"/>
+      <put-attribute name="header" value ="/WEB-INF/tiles/tile/header.jsp"/>
+      <put-attribute name="body" value ="/WEB-INF/views/team/TeamRandomList.jsp"/>
+      <put-attribute name="footer" value ="/WEB-INF/tiles/tile/footer.jsp"/>
+   </definition>
 	
 </tiles-definitions>

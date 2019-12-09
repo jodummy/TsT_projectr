@@ -33,7 +33,6 @@ dependencies {
  compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
     testCompile group: 'junit', name: 'junit', version: '4.+'
      
-    //�߰� ����
     providedCompile "javax.servlet:javax.servlet-api:3.1.0"
     compile "org.springframework:spring-webmvc:4.1.6.RELEASE"
     compile "org.springframework.boot:spring-boot-starter-web:2.0.1.RELEASE"
@@ -100,7 +99,19 @@ dependencies {
  	//4단계
  	implementation 'io.jsonwebtoken:jjwt:0.9.1'
  	
- 	
+ 	//로그인 라이브러리
+	// https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2
+	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.5.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
+	compile group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.1.1.RELEASE'
+	
+	// https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure
+	compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.0.1.RELEASE'
+	
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+	//compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.4.RELEASE'
+	
+
  	
 	[compileJava, compileTestJava]*.options*.encoding = 'UTF-8' 
 }

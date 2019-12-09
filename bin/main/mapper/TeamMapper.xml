@@ -47,7 +47,6 @@
                   TST_USER_NICKNAME, 
                   TST_TEAM_CONTENT,
                   TST_TEAM_AGE
-                  
                   )
       VALUES
                   (
@@ -60,12 +59,13 @@
                   )
    </insert>
    
+<!--    12.09 유진수정 -->
    	<!-- 10.28 팀 멤버 목록 -->
     <select id="memberList" resultType="TST_teamproject.user.model.UserVo">
       SELECT 
       
                   A.TST_USER_NICKNAME,
-                  A.TST_USER_BRITH, 
+                  YEAR(NOW()) - YEAR(A.TST_USER_BRITH) +1 AS TST_USER_BRITH, 
                   A.TST_USER_LOCATION,
                   A.TST_USER_ID
                   
@@ -80,24 +80,31 @@
                          
     </select>
     
+<!--     12.09 유진수정 -->
    <!-- 10.28 팀 디테일 생성 -->
    <select id="teamFindOne" resultType="TST_teamproject.team.model.TeamVo">
-      SELECT
-                  TST_TEAM_NO,
-                  TST_TEAM_NAME, 
-                  TST_TEAM_TYPE, 
-                  TST_TEAM_LOCATION, 
-                  TST_TEAM_CONTENT, 
-                  TST_TEAM_WIN, 
-                  TST_TEAM_LOSE,
-                  TST_USER_NICKNAME,
-                  TST_TEAM_AGE
-                  
+      SELECT 
+             	 	A.TST_TEAM_NO,
+                 	A.TST_TEAM_NAME, 
+                  	A.TST_TEAM_TYPE, 
+                 	A.TST_TEAM_LOCATION, 
+                  	A.TST_TEAM_CONTENT, 
+                  	A.TST_TEAM_WIN, 
+                  	A.TST_TEAM_LOSE,
+                  	B.TST_USER_NICKNAME,
+               		avg( YEAR(NOW()) - YEAR(C.TST_USER_BRITH) +1 ) as TST_TEAM_AVGAGE
       FROM 
-                  TST_TEAM             
-      WHERE
-      
-                  TST_TEAM_NO = #{ TST_TEAM_NO }
+                  	TST_TEAM AS A 
+      INNER JOIN 
+                  	TST_USER_TEAM B 
+      ON 
+                   	A.TST_TEAM_NO=B.TST_TEAM_NO
+      INNER JOIN 
+               		TST_USER C
+      ON
+                   	B.TST_USER_NICKNAME = C.TST_USER_NICKNAME
+      WHERE 
+                  	A.TST_TEAM_NO =#{ TST_TEAM_NO }
    </select>
    
    <!-- 10.29 팀 삭제 -->
@@ -131,11 +138,12 @@
                      
    </insert>
    
-   <!-- 11.1 팀수정하기 -->
+ <!-- 11.1 팀수정하기 -->
    <update id="teamUpdate" parameterType="TST_teamproject.team.model.TeamVo">
       UPDATE 
                   TST_TEAM
       SET
+                 TST_TEAM_NAME = #{tst_team_name },
                   TST_USER_NICKNAME = #{ tst_user_nickname },
                   TST_TEAM_CONTENT = #{ tst_team_content},
                   TST_TEAM_AGE =  #{tst_team_age}
@@ -201,8 +209,105 @@
     
     </select>
     
+    
+    <!-- 11.27 매칭 정보 입력 kth -->
+    <insert id="insertTeamMatchingData" parameterType="TST_teamproject.team.model.MatchingVo">
+   INSERT 
+   INTO 
+               TST_TEAM_CON_MATCHING
+            (
+               TST_TEAM_NO,
+               TST_TEAM_NAME,
+               TST_TEAM_CON_MATCHING_LOCATION,
+               TST_TEAM_CON_MATCHING_AGE,
+               TST_TEAM_CON_MATCHING_GENDER,
+               TST_TEAM_CON_MATCHING_DATE,
+               TST_TEAM_CON_MATCHING_TYPE
+            )
+   VALUES
+            (
+               #{tst_team_no},
+               #{tst_team_name},
+               #{tst_team_con_matching_location},
+               #{tst_team_con_matching_age},
+               #{tst_team_con_matching_gender},
+               #{tst_team_con_matching_date},    
+               #{tst_team_con_matching_type}
+            )
+   </insert>
+   
+   <!-- 11.28 KTH 매칭 리스트 -->
+   <select id="matchingList" resultType="TST_teamproject.team.model.MatchingVo">
+   <![CDATA[
+   SELECT
+               TST_TEAM_NO,
+               TST_TEAM_NAME,
+                 TST_TEAM_CON_MATCHING_LOCATION,
+                 TST_TEAM_CON_MATCHING_AGE,
+                 TST_TEAM_CON_MATCHING_TYPE,
+                 TST_TEAM_CON_MATCHING_GENDER,
+                 TST_TEAM_CON_MATCHING_DATE
+
+   
+   FROM   
+               TST_TEAM_CON_MATCHING 
+   
+   WHERE
+               TST_TEAM_CON_MATCHING_AGE >= #{tst_team_con_matching_age}
+   
+   AND 
+               TST_TEAM_CON_MATCHING_DATE = #{tst_team_con_matching_date}
+   
+   AND 
+               TST_TEAM_CON_MATCHING_LOCATION = #{tst_team_con_matching_location}
+   
+   AND   
+               TST_TEAM_CON_MATCHING_TYPE = #{tst_team_con_matching_type}
+   AND
+               TST_TEAM_NO != #{tst_team_no}
+   ]]>
+   </select>
+   
+   <!-- 11.29 하나의 팀에 대한 매칭 정보 출력 -->
+   <select id="findTeamMatchingData" resultType="TST_teamproject.team.model.MatchingVo">
+   SELECT
+               TST_TEAM_NO,
+               TST_TEAM_NAME,
+                 TST_TEAM_CON_MATCHING_LOCATION,
+                 TST_TEAM_CON_MATCHING_AGE,
+                 TST_TEAM_CON_MATCHING_TYPE,
+                 TST_TEAM_CON_MATCHING_GENDER,
+                 TST_TEAM_CON_MATCHING_DATE
+   FROM
+               TST_TEAM_CON_MATCHING
+   WHERE
+               TST_TEAM_NO = #{tst_team_no}
+   </select>
+   
+   <select id="countMatchingTeam" resultType="int">
+   SELECT
+               COUNT(*)
+   FROM
+               TST_TEAM_CON_MATCHING
+   WHERE
+               TST_TEAM_NO = #{tst_team_no}
+   </select>
+   
+   <update id="teamMatchingUpdate" parameterType="TST_teamproject.team.model.MatchingVo" >
+      UPDATE 
+                     TST_TEAM_CON_MATCHING
+      SET
+                  TST_TEAM_CON_MATCHING_TYPE = #{tst_team_con_matching_type},
+                     TST_TEAM_CON_MATCHING_LOCATION = #{ tst_team_con_matching_location },
+                     TST_TEAM_CON_MATCHING_AGE = #{ tst_team_con_matching_age },
+                     TST_TEAM_CON_MATCHING_GENDER = #{ tst_team_con_matching_gender },
+                     TST_TEAM_CON_MATCHING_DATE = #{ tst_team_con_matching_date }
+      WHERE 
+                  TST_TEAM_NO = #{ tst_team_no }
+   </update>
+    
      <!--11.28 조준서 작성  -->
-    <select id="selectMainTeam" resultType="TST_teamproject.team.model.TeamBoardVo">
+    <select id="selectMainTeam" resultType="TST_teamproject.team.model.TeamVo">
   	SELECT 
   							TST_TEAM_NAME,
   							TST_TEAM_TYPE,
@@ -215,4 +320,174 @@
   							TST_TEAM 
   							ORDER BY TST_TEAM_NO DESC LIMIT 4
     </select>
+    
+    <!-- 12.05 KTH 랜덤 리스트 -->
+   <select id="teamRandomMatching" resultType="TST_teamproject.team.model.MatchingVo">
+   <![CDATA[
+   SELECT
+               TST_TEAM_NO,
+               TST_TEAM_NAME,
+               TST_TEAM_CON_MATCHING_LOCATION,
+               TST_TEAM_CON_MATCHING_AGE,
+               TST_TEAM_CON_MATCHING_TYPE,
+               TST_TEAM_CON_MATCHING_GENDER,
+               TST_TEAM_CON_MATCHING_DATE
+   
+      FROM   
+                  TST_TEAM_CON_MATCHING 
+      
+   WHERE
+                  TST_TEAM_CON_MATCHING_LOCATION = #{tst_team_con_matching_location}
+      
+   AND   
+                  TST_TEAM_CON_MATCHING_TYPE = #{tst_team_con_matching_type}
+   AND
+                  TST_TEAM_NO != #{tst_team_no}
+   ]]>
+   </select>
+   
+   <delete id="teamLeave">
+   delete 
+   from 
+               TST_USER_TEAM 
+   where
+               TST_USER_NICKNAME = #{tst_user_nickname}
+   AND
+               TST_TEAM_NO=#{tst_team_no}
+   </delete>
+   <delete id="teamDeleteAll">
+   delete
+   from
+               TST_USER_TEAM
+   where
+               TST_TEAM_NO = #{tst_team_no}
+   </delete>
+   <select id="teamMemberOverlap" resultType="int">
+   select 
+               count(*) 
+   from 
+               TST_USER_TEAM 
+   where 
+               TST_USER_NICKNAME = #{tst_user_nickname} 
+   and 
+               TST_TEAM_NO = #{tst_team_no}
+   </select>
+   
+   
+   <insert id="insertAccept" parameterType="TST_teamproject.team.model.MatchingAcceptVo">
+   INSERT INTO 
+   				TST_TEAM_MATCHING_ACCEPT(
+   				TST_MY_TEAM_NO, 
+   				TST_YOUR_TEAM_NO,
+   				TST_DATE)
+
+	VALUES(
+				#{tst_my_team_no},
+				#{tst_your_team_no},
+				SYSDATE()
+				)
+   </insert>
+    
+    <update id="updateAccept" parameterType="TST_teamproject.team.model.MatchingAcceptVo">
+    UPDATE 		
+    			TST_TEAM_MATCHING_ACCEPT 
+   	SET 
+   				TST_TEAM_ACCEPT='Y'
+                            
+    WHERE 
+    			TST_MY_TEAM_NO = #{tst_my_team_no} 
+    AND 
+    			TST_YOUR_TEAM_NO = #{tst_your_team_no}
+
+    </update>
+    
+    
+    
+    <!-- 상대팀 검색  -->
+    <select id="selectYourTeam" parameterType="map" resultType="TST_teamproject.team.model.MatchingAcceptVo">
+     SELECT 
+     DISTINCT 
+     					 	B.TST_TEAM_NAME,
+     					 	date_format(A.TST_DATE, '%Y-%m-%d') TST_DATE,
+     					 	TST_TEAM_ACCEPT,
+     					 	TST_WIN,
+                            A.TST_MY_TEAM_NO,
+                            A.TST_YOUR_TEAM_NO
+     					 	
+     FROM 
+     						TST_TEAM_MATCHING_ACCEPT A, 
+     						TST_TEAM B  
+     WHERE 
+     						A.TST_YOUR_TEAM_NO = B.TST_TEAM_NO 
+     AND 
+     						A.TST_MY_TEAM_NO = #{tst_my_team_no} 
+     AND 
+     						A.TST_TEAM_ACCEPT != 'N'
+     UNION
+                            
+                             SELECT 
+     DISTINCT 
+     					 	B.TST_TEAM_NAME,
+     					 	date_format(A.TST_DATE, '%Y-%m-%d') TST_DATE,
+     					 	TST_TEAM_ACCEPT,
+     					 	TST_WIN,
+                            A.TST_MY_TEAM_NO,
+                            A.TST_YOUR_TEAM_NO
+     FROM 
+     						TST_TEAM_MATCHING_ACCEPT A, 
+     						TST_TEAM B  
+     WHERE 
+     						A.TST_MY_TEAM_NO = B.TST_TEAM_NO 
+     AND 
+     						A.TST_YOUR_TEAM_NO = #{tst_your_team_no} 
+     AND 
+     						A.TST_TEAM_ACCEPT != 'N'
+    </select>
+    
+    <update id="updateResult" parameterType="TST_teamproject.team.model.MatchingAcceptVo">
+    UPDATE 
+     						TST_TEAM_MATCHING_ACCEPT 
+    SET 					
+     						TST_WIN = #{tst_my_team_no},
+     						TST_TEAM_ACCEPT = 'E'
+	WHERE 
+							(TST_MY_TEAM_NO = #{tst_my_team_no} OR TST_YOUR_TEAM_NO = #{tst_my_team_no})
+    AND 
+    						(TST_MY_TEAM_NO = #{tst_your_team_no} OR TST_YOUR_TEAM_NO = #{tst_your_team_no})
+    </update>
+    
+    <update id="updateTeamResult" parameterType="int">
+    UPDATE 
+    						TST_TEAM 
+    SET 
+							TST_TEAM_WIN = (
+											SELECT 
+															COUNT(*) 
+											FROM 
+															TST_TEAM_MATCHING_ACCEPT 
+											WHERE 
+															TST_WIN = #{tst_team_no}),
+							TST_TEAM_LOSE = ((
+											SELECT 
+															COUNT(*) 
+											FROM 
+															TST_TEAM_MATCHING_ACCEPT 
+											WHERE (
+															TST_YOUR_TEAM_NO = #{tst_team_no} 
+											OR 
+															TST_MY_TEAM_NO = #{tst_team_no} ) 
+											AND 
+															TST_TEAM_ACCEPT='E') - (
+																						SELECT 
+																										COUNT(*) 
+																						FROM 
+																										TST_TEAM_MATCHING_ACCEPT 
+																						WHERE 
+																										TST_WIN = #{tst_team_no}
+											))
+	WHERE 
+						TST_TEAM_NO = #{tst_team_no}
+    
+    </update>
+    
 </mapper>

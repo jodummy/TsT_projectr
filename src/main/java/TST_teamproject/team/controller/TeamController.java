@@ -1,7 +1,9 @@
 package TST_teamproject.team.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import TST_teamproject.Board.model.BoardVo;
 import TST_teamproject.common.Pagination;
 import TST_teamproject.common.Search;
 import TST_teamproject.team.dao.TeamBoardMapper;
+import TST_teamproject.team.model.MatchingAcceptVo;
+import TST_teamproject.team.model.MatchingVo;
 import TST_teamproject.team.model.MemberVo;
 import TST_teamproject.team.model.TeamBoardVo;
 import TST_teamproject.team.model.TeamNoticeCheckVo;
@@ -34,8 +38,6 @@ public class TeamController {
    @Autowired TeamBoardService teamBoardService;
    @Autowired UserService userService;
    Principal principal;
-     
-      
       /*
        * 팀 목록
        * 10.25
@@ -44,7 +46,6 @@ public class TeamController {
        * @return
        * @throws Exception 
        */
-      
       @RequestMapping(value="/teamList", method=RequestMethod.GET)
       public String teamList(Model model, TeamVo teamVo
             , @RequestParam(required = false, defaultValue="1") int page
@@ -96,9 +97,11 @@ public class TeamController {
          int score = 0;
          String login_user = principal.getName();
          TeamVo teamVo = teamService.teamFindOne(tst_team_no);
-         model.addAttribute("detailTeam", teamVo);
+         model.addAttribute("detailTeam", teamService.teamFindOne(tst_team_no));
          model.addAttribute("member", teamService.memberList(tst_team_no));
          model.addAttribute("login_user", login_user);
+         model.addAttribute("tst_team_no", tst_team_no);
+         
          
          if( teamVo.getTst_team_lose() != 0 && teamVo.getTst_team_win() != 0)
             score = (teamVo.getTst_team_win()/(teamVo.getTst_team_win()+teamVo.getTst_team_lose()))*100;
@@ -118,7 +121,27 @@ public class TeamController {
          
          
          model.addAttribute("TeamBoardList", arr);
-//         System.out.println(arr.get(1).getTeam_members_view());
+         
+      
+         
+         
+         //준서 작성
+         MatchingAcceptVo mVo= new MatchingAcceptVo();
+         mVo.setTst_my_team_no(tst_team_no);
+         mVo.setTst_your_team_no(tst_team_no);
+//         mVo.setJjs_team_name(teamVo.getTst_team_name());
+        List<MatchingAcceptVo> list = teamService.selectYourTeam(mVo);
+         for (int i = 0; i < list.size(); i++) {
+        	 list.get(i).setJjs_team_name(teamVo.getTst_team_name());
+		}
+//         System.out.println(list.toString());
+         model.addAttribute("selectYourTeam", list);
+         
+         
+         System.out.println("default :"+tst_team_no);
+         System.out.println("mvo team :" + mVo.getTst_my_team_no());
+         System.out.println("나가는 값 :"+list.toString());
+         
          return"team.detailTeam";
       }
       
@@ -143,12 +166,16 @@ public class TeamController {
          return "team.teamUpdate";
       }
 
-      @RequestMapping(value="/teamUpdatePage", method=RequestMethod.POST)
-      public String teamUpdatePage(TeamVo teamVo, Principal principal) {
-         MemberVo memberVo_1 = new MemberVo(teamVo.getTst_team_no(), principal.getName(), 1);
+      @RequestMapping(value="/teamUpdatePage/{tst_team_no}", method=RequestMethod.POST)
+      public String teamUpdatePage(TeamVo teamVo, Principal principal, @PathVariable("tst_team_no") int tst_team_no) {
+        TeamVo team = teamService.teamFindOne(tst_team_no);
+        teamVo.setTst_team_no(tst_team_no);
+        teamVo.setTst_team_location(team.getTst_team_location());
+        teamVo.setTst_team_type(team.getTst_team_type());
+        MemberVo memberVo_1 = new MemberVo(teamVo.getTst_team_no(), principal.getName(), 1);
          MemberVo memberVo_3 = new MemberVo(teamVo.getTst_team_no(), teamVo.getTst_user_nickname(), 3);
          teamService.teamUpdate(teamVo,memberVo_1, memberVo_3);
-         return"redirect:/teamList";
+         return "redirect:/teamDetailpage?tst_team_no="+tst_team_no;
       }
       
       /*
@@ -216,20 +243,63 @@ public class TeamController {
    // 11.18   
       @RequestMapping(value="/teamNoticeInsertPage" , method = RequestMethod.GET)
       public String teamNoticeInsertPage(Model model, TeamBoardVo teamVo, Principal principal)  throws Exception{
-         
          teamVo.setTst_user_nickname(principal.getName());
          teamBoardService.teamBoardInsert(teamVo);
          return "redirect:teamDetailpage?tst_team_no="+teamVo.getTst_team_no();
       }
       
+      //11.23 kth 메칭 페이지 열어주기
+      @RequestMapping(value="/insertTeamData/{tst_team_no}")
+      public String teamMatchingPage(Model model, @PathVariable("tst_team_no") int tst_team_no) {
+         TeamVo teamVo = teamService.teamFindOne(tst_team_no);
+         model.addAttribute("count", teamService.countMatchingTeam(tst_team_no));
+        model.addAttribute("matchingVo",teamService.findTeamMatchingData(tst_team_no));
+         model.addAttribute("teamVo", teamVo);
+         return "team.teamMatching";
+      }
+      
+      //11.24 kth 매칭 정보를 입력
+      @RequestMapping(value="/insertTeamMatching/{tst_team_no}", method= {RequestMethod.POST, RequestMethod.GET})
+      public String InsertTeamMatching( MatchingVo matchingVo, @PathVariable("tst_team_no") int tst_team_no) {
+         TeamVo teamVo = teamService.teamFindOne(tst_team_no);
+         matchingVo.setTst_team_no(tst_team_no);
+         matchingVo.setTst_team_name(teamVo.getTst_team_name());
+         System.out.println(matchingVo.toString());
+         teamService.insertTeamMatchingData(matchingVo);
+         return "redirect:/insertTeamData/"+matchingVo.getTst_team_no();
+      }
+      
+      //11.27 매칭 시 매칭 팀 리스트 출력
+      @RequestMapping(value="/matchingList/{tst_team_no}", method=RequestMethod.GET)
+      public String matchingList(Model model, @PathVariable("tst_team_no") int tst_team_no, TeamVo teamVo) throws Exception {
+         MatchingVo matchingVo = teamService.findTeamMatchingData(tst_team_no);
+         System.out.println("sadasdasd" + matchingVo.toString());
+         model.addAttribute("matchingVo", teamService.matchingList(matchingVo));
+         model.addAttribute("myTeamNo", tst_team_no);
+         return "team.teamMatchingList";
+      }
+      
+      //12.01 매칭 정보 수정
+      @RequestMapping(value="/matchingUpdate/{tst_team_no}", method={RequestMethod.POST, RequestMethod.GET})
+      public String matchingUpdate(@PathVariable("tst_team_no") int tst_team_no, MatchingVo matchingVo) {
+         TeamVo teamVo = teamService.teamFindOne(tst_team_no);
+         matchingVo.setTst_team_no(tst_team_no);
+         matchingVo.setTst_team_name(teamVo.getTst_team_name());
+         System.out.println(matchingVo.toString());
+         teamService.teamMatchingUpdate(matchingVo);
+         return "redirect:/insertTeamData/"+matchingVo.getTst_team_no();
+      }
+      
    // 11.20 유진
-   // 11.25 유진 수정
+   // 11.25 유진 수정 준서 추가
+   // 11.29
       @RequestMapping(value="/teamNoticeDetail" , method = RequestMethod.GET)
       public String teamNoticeDetail(Model model, TeamBoardVo teamVo, Principal principal)  throws Exception{
     	  if(!teamBoardService.noticeDetail(teamVo.getTst_team_notice_board_no()).getTst_user_nickname().equals(principal.getName()))
     		  teamBoardService.noticeMemberCount(new TeamNoticeCheckVo(teamVo.getTst_team_notice_board_no(),principal.getName()), teamVo.getTst_team_notice_board_no());
     	  model.addAttribute("user_nickname",principal.getName());
     	  model.addAttribute("noticeDetail", teamBoardService.noticeDetail(teamVo.getTst_team_notice_board_no()));
+    	  model.addAttribute("check",teamBoardService.selectListMember(teamVo.getTst_team_notice_board_no()));
          return "team.noticeDetail";
       }
       
@@ -256,5 +326,44 @@ public class TeamController {
     	  teamBoardService.noticeModify(teamVo);
          return "redirect:teamDetailpage?tst_team_no="+teamVo.getTst_team_no();
       }
+      
+    //12.05 랜덤 매칭 리스트 
+      @RequestMapping(value="/randomMatchingList/{tst_team_no}", method = RequestMethod.GET)
+      public String teamRandomMatching(Model model, @PathVariable("tst_team_no") int tst_team_no) {
+         MatchingVo matchingVo = teamService.findTeamMatchingData(tst_team_no);
+         model.addAttribute("matchingVo", teamService.teamRandomMatching(matchingVo));
+         return "team.teamRandomList";
+      }
+      
+      //12.06 팀 강퇴하기 or 나가기.
+      @RequestMapping(value="/teamLeave/{tst_team_no}", method= RequestMethod.GET)
+      public String teamLeave(@PathVariable("tst_team_no") int tst_team_no, @RequestParam("tst_user_nickname")String tst_user_nickname) {
+         MemberVo memberVo = new MemberVo(tst_team_no, tst_user_nickname);
+         System.out.println(tst_user_nickname + tst_team_no);
+         teamService.teamLeave(memberVo);
+         return "redirect:/teamDetailpage?tst_team_no="+tst_team_no;
+      }
+      
+    //12.06 팀 강퇴하기 or 나가기.
+      @RequestMapping(value="/leaveTeam/{tst_team_no}", method= RequestMethod.GET)
+      public String leaveTeam(@PathVariable("tst_team_no") int tst_team_no, @RequestParam("tst_user_nickname")String tst_user_nickname) {
+         MemberVo memberVo = new MemberVo(tst_team_no, tst_user_nickname);
+         System.out.println(tst_user_nickname + tst_team_no);
+         teamService.teamLeave(memberVo);
+         return "redirect:/teamList";
+      }
+      
+      @RequestMapping(value = "/resultSet" , method= {RequestMethod.GET})
+      @ResponseBody
+      public void resultSet(@RequestParam("win_no") int win_no, @RequestParam("loseNo") int loseNo, @RequestParam("myTeam") int myTeam) {
+    	  MatchingAcceptVo mVo= new MatchingAcceptVo();
+    	  mVo.setTst_my_team_no(win_no);
+    	  mVo.setTst_your_team_no(loseNo);
+    	  teamService.updateResult(mVo);
+    	  
+    	  teamService.updateTeamResult(win_no);
+    	  teamService.updateTeamResult(loseNo);
+      }
+      
       
 }

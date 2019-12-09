@@ -128,6 +128,10 @@
                                                        <a onclick="messageTest('${mailList.tst_message_content }','${mailList.tst_from_nicname }','${mailList.tst_message_no }')" class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">${mailList.tst_from_nicname }</a>
                                                                       <a onclick="messageTest('${mailList.tst_message_content }','${mailList.tst_from_nicname }','${mailList.tst_message_no }')" class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">${mailList.tst_message_title }</a>
                                                    </c:if>
+                                                    <c:if test="${mailList.tst_message_category eq 'C'}">
+                                                       <a onclick="maching('${mailList.tst_message_no }','${mailList.tst_from_nicname }','${mailList.tst_message_title }','${mailList.tst_message_content }')" class="name d-flex width-sm align-items-center pt-1 pb-0 py-lg-1 col-12 col-lg-auto">${mailList.tst_from_nicname }</a>
+                                                                      <a onclick="maching('${mailList.tst_message_no }','${mailList.tst_from_nicname }','${mailList.tst_message_title }','${mailList.tst_message_content }')" class="name d-flex align-items-center pt-0 pb-1 py-lg-1 flex-1 col-12 col-lg-auto">${mailList.tst_message_title }</a>
+                                                   </c:if>
                                                                </div>
                                                            </div>
                                                            <div class="fs-sm text-muted ml-auto hide-on-hover-parent order-4 position-on-mobile-absolute pos-top pos-right mt-2 mr-3 mr-sm-4 mt-lg-0 mr-lg-0">${mailList.tst_from_date }</div>
@@ -225,7 +229,6 @@
 <script type="text/javascript">
 
 function test(no,tst_from_nicname,tst_message_title){
-   
 //읽기 체크 
    $.ajax({
       async : true,
@@ -287,6 +290,69 @@ function test(no,tst_from_nicname,tst_message_title){
                     }
                 });
 }
+
+
+function maching(no,tst_from_nicname,tst_message_title,tst_message_content){
+	//읽기 체크 
+	   $.ajax({
+	      async : true,
+	      url : '${pageContext.request.contextPath}/updateMailCheck?tst_message_no='+no,
+	      type : 'GET',
+	      success : function() {
+	      },
+	      error : function() {
+	         console.log("실패");
+	      }
+	   });
+	   let str = tst_message_title;
+	   let swalWithBootstrapButtons = Swal.mixin(
+	            {
+	                customClass:
+	                {
+	                    confirmButton: "btn btn-primary",
+	                    cancelButton: "btn btn-danger mr-2"
+	                },
+	                buttonsStyling: false
+	            });
+	            swalWithBootstrapButtons
+	                .fire(
+	                {
+	                    title: "매칭을 수락하시겠어요?",
+	                    text: tst_from_nicname,
+	                    type: "warning",
+	                    showCancelButton: true,
+	                    confirmButtonText: "Yes!",
+	                    cancelButtonText: "No!",
+	                    reverseButtons: true
+	                })
+	                .then(function(result)
+	                {
+	                    if (result.value)
+	                    {
+	                        swalWithBootstrapButtons.fire(
+	                            "수락하였습니다!",
+	                            "즐거운 경기해요! :)",
+	                            "success"
+	                        );
+	            alert(tst_message_content.substring(tst_message_content.lastIndexOf('>')+1,tst_message_content.length));
+	                        location.href="/maching?tst_from_nicname="+tst_from_nicname +"&tst_message_title="+str.substring(0,str.lastIndexOf('경'))+"&tst_my_team="+tst_message_content.substring(tst_message_content.lastIndexOf('>')+1,tst_message_content.length);
+	                        
+	                    }
+	                    else if (
+	                        // Read more about handling dismissals
+	                        result.dismiss === Swal.DismissReason.cancel
+	                    )
+	                    {
+	                        swalWithBootstrapButtons.fire(
+	                            "거절하였습니다.",
+	                            "다음 기회에 잘 부탁드려요 :)",
+	                            "error"
+	                        );
+	                    }
+	                });
+	}
+
+
 
 function content(){
    let tst_message_content = $('#fake_textarea').text();

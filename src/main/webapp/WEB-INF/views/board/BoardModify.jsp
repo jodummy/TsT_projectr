@@ -36,7 +36,7 @@
                                     </br>
                                      <div class="col-xl-12">
                                       <ol class="breadcrumb page-breadcrumb">
-                                     <li><a href="javascript:void(0);"style="font-size: 1.2em;">작성자 : ${detail.tst_user_id }</a></li>
+                                     <li><a href="javascript:void(0);"style="font-size: 1.2em;">작성자 : ${detail.tst_user_nickname }</a></li>
                                      <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class=""style="font-size: 1.2em;">${detail.tst_modify_date }</span></li>
                                    </ol>
                                    </div> 
@@ -55,13 +55,13 @@
 
 
 <!--                               이쪽 css수정하고  -->
-							<div class="col-xl-12" style="margin-top:1rem;">
+                     <div class="col-xl-12" style="margin-top:1rem;">
                               <div class="form-group">
                                                     <label class="form-label" for="simpleinput" style="font-size: 2em;">Contents</label>
 <!--                                                     <textarea rows="" cols="" name="tst_board_contents" id="tst_board_contents"></textarea> -->
-														<div class="panel-content" style="padding:0;">
-														<div class="js-summernote" id="saveToLocal"></div>
-														</div>
+                                          <div class="panel-content" style="padding:0;">
+                                          <div class="js-summernote" id="saveToLocal"></div>
+                                          </div>
                                         </div>
                              </div>
 
@@ -99,23 +99,22 @@ $.ajax({
     type: "GET",
     url : "/BoardModifyPage",
     data : {
-    	tst_board_no : "${detail.tst_board_no }",
-    	tst_user_id : "${detail.tst_user_id }" ,
-    	tst_board_category : "${detail.tst_board_category }",
-    	tst_board_title : modifyTitle,
-    	tst_board_contents : modifyContetns,
+       tst_board_no : "${detail.tst_board_no }",
+       tst_user_id : "${detail.tst_user_nickname }" ,
+       tst_board_category : "${detail.tst_board_category }",
+       tst_board_title : modifyTitle,
+       tst_board_contents : modifyContetns,
     },
     success : function(result){
-    	alert("수정 되었습니다.");
-    	 location.href = "/BoardList?tst_board_category=" + result;
-    	}
+        location.href = "/BoardList?tst_board_category=" + result;
+       }
     });
 
 }
 
 
 window.onload = function () {
-	document.getElementById('test').innerHTML = "${detail.tst_board_contents }";
+   document.getElementById('test').innerHTML = "${detail.tst_board_contents }";
 }
 
 

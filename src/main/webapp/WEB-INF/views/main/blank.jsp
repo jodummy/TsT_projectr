@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,10 +77,45 @@
             /** 
              * Reset settings
              **/
+             
             var resetSettings = function()
             {
                 localStorage.setItem("themeSettings", "");
             }
+            
+
+var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391459480be52aabcd8dc7b0f5a0b"  
+          $.ajax({
+            url : apiURI,
+            method : 'GET',
+            success :  (data)=> {
+              var temp = String((data.main.temp - 272)).substring(0,3); // 온도
+              var location = data.name; // 지역이름 
+              $('#chatLog').append(temp　+ "도입니다. "+'\n');
+//               var imgURL = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+//               alert(data.weather[0].icon);
+              50n
+              
+              let result = '';
+              if(data.weather[0].icon == '01d' ||data.weather[0].icon == '01n'){
+            	  result= '01d';
+              }else if(data.weather[0].icon =='02d'|| data.weather[0].icon =='02n'){
+            	  result= '02d';
+              }else if(data.weather[0].icon == '03d' || data.weather[0].icon == '03n'){
+            	  result= '03d';
+              }else if(data.weather[0].icon == '04d' || data.weather[0].icon == '50n'){
+            	  result= '04d';
+              }else if(data.weather[0].icon == '09d'|| data.weather[0].icon == '09n'){
+            	  result= '09d';
+              }else if(data.weather[0].icon == '11d' || data.weather[0].icon == '11n'){
+            	  result= '11d';
+              }else if(data.weather[0].icon == '13d'||data.weather[0].icon == '13n'){
+            	  result= '13d';
+              }
+              
+              $('#img').attr("src", "${pageContext.request.contextPath}/resources/img/"+result+".png");
+            }
+          });  
 
         </script>
 <body>
@@ -87,30 +123,31 @@
                 <main id="js-page-content" role="main" class="page-content">
                 
                 
-                        <div class="subheader">
+                    <div class="subheader">
                             <div class="d-flex mr-0">
                                 <div class="mr-2">
-                                    <span class="peity-donut" data-peity="{ &quot;fill&quot;: [&quot;#2196F3&quot;, &quot;#9acffa&quot;],  &quot;innerRadius&quot;: 14, &quot;radius&quot;: 20 }">3/10</span>
+<!--                                     <span class="peity-donut" data-peity="{ &quot;fill&quot;: [&quot;#2196F3&quot;, &quot;#9acffa&quot;],  &quot;innerRadius&quot;: 14, &quot;radius&quot;: 20 }">3/10</span> -->
+   <img src="" id="img"width="100" height="70"></img>
                                 </div>
                                 <div>
-                                    <label class="fs-sm mb-0 mt-2 mt-md-0">Notice Views</label>
-                                    <h4 class="font-weight-bold mb-0">갯수</h4>
+                                    <label class="fs-sm mb-0 mt-2 mt-md-0">온도</label>
+                                    <h4 class="font-weight-bold mb-0" id="chatLog"></h4>
                                 </div>
                             </div>
                         </div>
-                        
+
                      
                         <div class="row">
                         
                             <div class="col-sm-6 col-xl-3">
                                 <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                                     <div class="">
-                                        <h3 class="display-4 d-block l-h-n m-0 fw-500">
-<%--                                             ${teamLsit0.tst_team_name } --%>
-                                            <small class="m-0 l-h-n">users signed up</small>
+                                       <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                           유자와 아이들
+                                            <small class="m-0 l-h-n">팀원 많은 팀</small>
                                         </h3>
                                     </div>
-                                    <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
+                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="https://tistory4.daumcdn.net/tistory/2924964/skin/images/lol192x192.png">
                                 </div>
                             </div>
                             
@@ -118,11 +155,13 @@
                                 <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
                                     <div class="">
                                         <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                            $10,203
-                                            <small class="m-0 l-h-n">Visual Index Figure</small>
+                                        
+                                         집 나오면 고생이다
+                                            <small class="m-0 l-h-n">승률이 좋은 팀</small>
+                                           
                                         </h3>
                                     </div>
-                                    <i class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
+                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="${pageContext.request.contextPath}/resources/img/battle.png">
                                 </div>
                             </div>
                             
@@ -130,11 +169,11 @@
                                 <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
                                     <div class="">
                                         <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                            - 103.72
-                                            <small class="m-0 l-h-n">Offset Balance Ratio</small>
+                     	낮에 만나
+                                            <small class="m-0 l-h-n">팀원 교류가 많은 팀 </small>
                                         </h3>
                                     </div>
-                                    <i class="fal fa-lightbulb position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
+                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="${pageContext.request.contextPath}/resources/img/battle.png">
                                 </div>
                             </div>
                             
@@ -142,13 +181,14 @@
                                 <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                                     <div class="">
                                         <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                            +40%
-                                            <small class="m-0 l-h-n">Product level increase</small>
+                                            롤신병자
+                                            <small class="m-0 l-h-n">현재 팀원 모집</small>
                                         </h3>
                                     </div>
-                                    <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4" style="font-size: 6rem;"></i>
+                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="https://tistory4.daumcdn.net/tistory/2924964/skin/images/lol192x192.png">
                                 </div>
                             </div>
+                            
                             
                         </div>
                         
@@ -157,26 +197,20 @@
                                 <div id="panel-1" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
-                                            Marketing profits
+                                            Team profits
                                         </h2>
                                     </div>
                                     <div class="panel-container show">
                                         <div class="panel-content bg-subtlelight-fade">
-                                            <div id="js-checkbox-toggles" class="d-flex mb-3">
-                                                <div class="custom-control custom-switch mr-2">
-                                                    <input type="checkbox" class="custom-control-input" name="gra-0" id="gra-0" checked="checked">
-                                                    <label class="custom-control-label" for="gra-0">Target Profit</label>
-                                                </div>
-                                                <div class="custom-control custom-switch mr-2">
-                                                    <input type="checkbox" class="custom-control-input" name="gra-1" id="gra-1" checked="checked">
-                                                    <label class="custom-control-label" for="gra-1">Actual Profit</label>
-                                                </div>
-                                                <div class="custom-control custom-switch mr-2">
-                                                    <input type="checkbox" class="custom-control-input" name="gra-2" id="gra-2" checked="checked">
-                                                    <label class="custom-control-label" for="gra-2">User Signups</label>
-                                                </div>
+                                            <div id="flot-toggles" class="w-100 mt-4" style="height: 250px">
+                                            
+	                                        <a href="${pageContext.request.contextPath}/teamList?page=1&range=1&keyword=배틀그라운드">		<img alt="battle" 	width="200" height="230"	src="${pageContext.request.contextPath}/resources/img/battle.png">                         		</a>
+	                                         <a href="${pageContext.request.contextPath}/teamList?page=1&range=1&keyword=리그오브레전드">	<img alt="lol" 	width="200" height="230"	src="https://tistory4.daumcdn.net/tistory/2924964/skin/images/lol192x192.png">                 		</a>
+	                                         <a href="${pageContext.request.contextPath}/teamList?page=1&range=1&keyword=축구">			<img alt="foot" 	width="200" height="230"	src="http://pngimg.com/uploads/football/football_PNG52775.png">                                </a>
+	                                         <a href="${pageContext.request.contextPath}/teamList?page=1&range=1&keyword=야구">			<img alt="base" 	width="200" height="230"	src="${pageContext.request.contextPath}/resources/img/base.png">  </a>
+	                                         <a href="${pageContext.request.contextPath}/teamList?page=1&range=1&keyword=농구">			<img alt="bascket" 	width="200" height="230"	src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png">                      </a>
+	                                        
                                             </div>
-                                            <div id="flot-toggles" class="w-100 mt-4" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +219,7 @@
                                 <div id="panel-2" class="panel panel-locked" data-panel-sortable data-panel-collapsed data-panel-close>
                                     <div class="panel-hdr">
                                         <h2>
-                                            Returning <span class="fw-300"><i>Target</i></span>
+                                            오늘의 팀 <span class="fw-300"><i>Target</i></span>
                                         </h2>
                                     </div>
                                     <div class="panel-container show">
@@ -199,122 +233,180 @@
                                                                 <i class="base base-7 icon-stack-2x opacity-100 color-success-500"></i>
                                                                 <i class="fal fa-arrow-up icon-stack-1x opacity-100 color-white"></i>
                                                             </div>
-                                                            $44.34 / GE
+                                                            유자와 아이들
                                                         </div>
-                                                        <span class="m-0 fs-xs text-muted">Increased Profit as per redux margins and estimates</span>
+                                                        <span class="m-0 fs-xs text-muted">팀장 : 콧구멍 </span>
                                                     </div>
                                                 </div>
-                                                <div class="js-easy-pie-chart color-info-400 position-relative d-inline-flex align-items-center justify-content-center" data-percent="35" data-piesize="95" data-linewidth="10" data-scalelength="5">
-                                                    <div class="js-easy-pie-chart color-success-400 position-relative position-absolute pos-left pos-right pos-top pos-bottom d-flex align-items-center justify-content-center" data-percent="65" data-piesize="60" data-linewidth="5" data-scalelength="1" data-scalecolor="#fff">
-                                                        <div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">78%</div>
-                                                    </div>
+                                                <div class="js-easy-pie-chart color-info-400 position-relative d-inline-flex align-items-center justify-content-center" data-percent="75" data-piesize="95" data-linewidth="10" data-scalelength="5">
+                                                        <div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">75%</div>
                                                 </div>
+                                                
                                             </div>
-                                            <div id="flot-area" style="width:100%; height:300px;"></div>
+                                            
+                                            	<div class="panel-content">
+                                            <div class="frame-wrap">
+                                            <div class="header">
+                            <h4 class="title">안녕하세요, 유자와 아이들입니다. </br>
+                            함께 농구를 할 사람들을 모집합니다.</h4>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+
+                                    <tbody>
+                                        <tr>
+                                            <th>종목
+                                            </th><td>농구</td>
+                                        </tr>
+                                        <tr>
+                                            <th>승률
+                                            </th><td>78%</td>
+                                        </tr>
+                                        <tr>
+                                            <th>전적
+                                            </th><td>15승 5패</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>평균나이</th>
+                                            <td>22</td>
+                                        </tr>
+                                        <tr>
+                                            <th>주장</th>
+                                            <td>콧구멍</td>
+                                        </tr>
+                                        <tr>
+                                            <th>위치</th>
+                                            <td>일산</td>
+                                        </tr>
+                                        <tr>
+                                            <th>나이</th>
+                                            <td>26</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                                            </div>
+                                        </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            
+                            
+                            
+                            
+                            
+                                                 <div class="col-lg-6">
                                 <div id="panel-3" class="panel panel-locked" data-panel-sortable data-panel-collapsed data-panel-close>
                                     <div class="panel-hdr">
                                         <h2>
-                                            Effective <span class="fw-300"><i>Marketing</i></span>
+                                            My <span class="fw-300"><i>profile</i></span>
                                         </h2>
                                     </div>
                                     <div class="panel-container show">
                                         <div class="panel-content poisition-relative">
                                             <div class="pb-5 pt-3">
-                                                <div class="row">
-                                                    <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                        <div class="p-2 mr-3 bg-info-200 rounded">
-                                                            <span class="peity-bar" data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">3,4,5,8,2</span>
-                                                        </div>
-                                                        <div>
-                                                            <label class="fs-sm mb-0">Bounce Rate</label>
-                                                            <h4 class="font-weight-bold mb-0">37.56%</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                        <div class="p-2 mr-3 bg-info-300 rounded">
-                                                            <span class="peity-bar" data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">5,3,1,7,9</span>
-                                                        </div>
-                                                        <div>
-                                                            <label class="fs-sm mb-0">Sessions</label>
-                                                            <h4 class="font-weight-bold mb-0">759</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                        <div class="p-2 mr-3 bg-success-300 rounded">
-                                                            <span class="peity-bar" data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">3,4,3,5,5</span>
-                                                        </div>
-                                                        <div>
-                                                            <label class="fs-sm mb-0">New Sessions</label>
-                                                            <h4 class="font-weight-bold mb-0">12.17%</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                        <div class="p-2 mr-3 bg-success-500 rounded">
-                                                            <span class="peity-bar" data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">6,4,7,5,6</span>
-                                                        </div>
-                                                        <div>
-                                                            <label class="fs-sm mb-0">Clickthrough</label>
-                                                            <h4 class="font-weight-bold mb-0">19.77%</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            
+                                                <div class="card mb-g rounded-top">
+                                    <div class="row no-gutters row-grid" >
+                                        <div class="col-12">
+                                            <div class="d-flex flex-column align-items-center justify-content-center p-4">
+                                                <img src="https://img2.yna.co.kr/photo/yna/YH/2019/10/29/PYH2019102903730001300_P2.jpg" class="rounded-circle shadow-2 img-thumbnail" alt="">
+                                                <h5 class="mb-0 fw-700 text-center mt-3">
+                                                              ${MyPage.tst_user_location}
+                                                    <small class="text-muted mb-0">지역</small>
+                                                </h5>
                                             </div>
-                                            <div id="flotVisit" style="width:100%; height:208px;"></div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-center py-3">
+                                                <h5 class="mb-0 fw-700">
+                                                    ${MyPage.tst_user_brith}
+                                                    <small class="text-muted mb-0">나이</small>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-center py-3">
+                                                <h5 class="mb-0 fw-700">
+                                                    ${MyPage.tst_user_gender}
+                                                    <small class="text-muted mb-0">성별</small>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="p-3 text-center">
+<!--                                                 <a href="javascript:void(0);" class="btn-link font-weight-bold">Follow</a> <span class="text-primary d-inline-block mx-3">&#9679;</span> -->
+                                                <a href="javascript:void(0);" class="btn-link font-weight-bold" style="font-size: 1.2rem;"> ${MyPage.tst_user_nickname}</a> 
+<!--                                                 <span class="text-primary d-inline-block mx-3">&#9679;</span> -->
+<!--                                                 <a href="javascript:void(0);" class="btn-link font-weight-bold">Connect</a> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                                
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            
+                            
+                            
+                            
+							<div class="col-lg-12">
                                 <div id="panel-4" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
-                                            Sale <span class="fw-300"><i>Records</i></span>
+                                            MY <span class="fw-300"><i>Tables</i></span>
                                         </h2>
                                     </div>
                                     <div class="panel-container show">
                                         <div class="panel-content">
                                             <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
-                                                <thead class="bg-warning-200">
+                                                <thead class="bg-warning-200" style="line-height: 0.5;">
                                                     <tr>
-                                                        <th>CustomerID</th>
-                                                        <th>Name</th>
-                                                        <th>PurchaseDate</th>
-                                                        <th>CustomerEmail</th>
-                                                        <th>CustomerCVV</th>
-                                                        <th>Country</th>
-                                                        <th>InvoiceAmount</th>
-                                                        <th>Controls</th>
+                                                        <th>No</th>
+                                                        <th>카테고리</th>
+                                                        <th>제목</th>
+                                                        <th>내용</th>
+                                                        <th>닉네임</th>
+                                                        <th>등록일자</th>
+                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                <c:forEach var="row" items="${MyList}">
                                                     <tr>
-                                                        <td>268410636</td>
-                                                        <td>Cooley, Walker J.</td>
-                                                        <td>03-13-19</td>
-                                                        <td>odio.auctor@orcilobortis.edu</td>
-                                                        <td>717</td>
-                                                        <td>Timor-Leste</td>
-                                                        <td>$7,007</td>
-                                                        <td>1</td>
+                                                        <td>${row.no }</td>
+                                                        <td>${row.tst_board_category }</td>
+                                                        <td>
+                                                           <ol class="breadcrumb page-breadcrumb" style="margin: 0.3rem;">
+                                                              <li class="breadcrumb-item">${row.tst_board_title }</li>
+                                                           </ol>
+                                                        </td>
+                                                        <td>
+                                                           <ol class="breadcrumb page-breadcrumb" style="margin: 0.3rem;">
+                                                                <li class="breadcrumb-item"> ${row.tst_board_contents }</li>
+                                                           </ol>
+                                                        </td>
+                                                        <td>${row.tst_user_nickname }</td>
+                                                        <td>${row.tst_insert_date }</td>
+                                                        <td></td>
                                                     </tr>
+                                                </c:forEach>
                                                 </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>CustomerID</th>
-                                                        <th>Name</th>
-                                                        <th>PurchaseDate</th>
-                                                        <th>CustomerEmail</th>
-                                                        <th>CustomerCVV</th>
-                                                        <th>Country</th>
-                                                        <th>InvoiceAmount</th>
-                                                        <th>Controls</th>
-                                                    </tr>
-                                                </tfoot>
                                             </table>
                                             <!-- datatable end -->
                                         </div>
@@ -323,9 +415,11 @@
                             </div>
                         </div>
                     </main> 
+                    
+     
         
-        
-        
+   <span id ="todaysWeather"></span>
+   
         <script src="${pageContext.request.contextPath}/resources/js/vendors.bundle.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/app.bundle.js"></script>
         <script type="text/javascript">
@@ -337,6 +431,8 @@
         <script src="${pageContext.request.contextPath}/resources/js/statistics/flot/flot.bundle.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/statistics/easypiechart/easypiechart.bundle.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/datagrid/datatables/datatables.bundle.js"></script>
+        
+        
 	<script>
             /* defined datas */
             var dataTargetProfit = [
@@ -467,7 +563,7 @@
                                 ES5 example below:	
 
                                 */
-                                return "\n\t\t\t\t\t\t<a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>\n\t\t\t\t\t\t\t<i class=\"fal fa-times\"></i>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t\t<div class='dropdown d-inline-block dropleft'>\n\t\t\t\t\t\t\t<a href='#'' class='btn btn-sm btn-icon btn-outline-primary rounded-circle shadow-0' data-toggle='dropdown' aria-expanded='true' title='More options'>\n\t\t\t\t\t\t\t\t<i class=\"fal fa-ellipsis-v\"></i>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t<div class='dropdown-menu'>\n\t\t\t\t\t\t\t\t<a class='dropdown-item' href='javascript:void(0);'>Change Status</a>\n\t\t\t\t\t\t\t\t<a class='dropdown-item' href='javascript:void(0);'>Generate Report</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>";
+                                return "\n\t\t\t\t\t\t<a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>\n\t\t\t\t\t\t\t<i class=\"fal fa-times\"></i>";
                             },
                         },
 

@@ -218,7 +218,7 @@
 	
 	</insert>
 	
-	
+	<!-- 내꺼 -->
 	<update id="updateUserAuthority" parameterType="TST_teamproject.user.model.UserVo">
 	UPDATE 
 	TST_USER 
@@ -231,5 +231,23 @@
 						TST_USER_EMAIL = #{tst_user_email}
 	</update>
 	
+<!-- 	12.09 유진 수정 -->
+	<!--    My Page 12.04 유진 -->
+   <select id="myPage" parameterType="String" resultType="TST_teamproject.user.model.UserVo">
+   
+   SELECT 
+                   TST_USER_NICKNAME,
+                   TST_USER_ID,
+                   TST_USER_LOCATION,
+                   TST_USER_GENDER,
+                   YEAR(NOW()) - YEAR(TST_USER_BRITH) +1 AS TST_USER_BRITH
+   FROM 
+                   TST_USER 
+   WHERE 
+                   TST_USER_NICKNAME = #{tst_user_nickname}
+            
+   </select>
+   
+   
 	
 </mapper>
