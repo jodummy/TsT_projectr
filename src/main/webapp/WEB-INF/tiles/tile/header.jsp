@@ -5,7 +5,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -160,19 +160,6 @@
                                                     </span>
                                                 </a>
                                             </li>
-<!--                                              <li> -->
-<%--                                                 <a href="${pageContext.request.contextPath}/BoardList?tst_board_category=자유%20게시판" class="app-list-item hover-white"> --%>
-<!--                                                     <span class="icon-stack"> -->
-<!--                                                         <i class="base-4 icon-stack-3x color-fusion-400"></i> -->
-<!--                                                         <i class="base-5 icon-stack-2x color-fusion-200"></i> -->
-<!--                                                         <i class="base-5 icon-stack-1x color-fusion-100"></i> -->
-<!--                                                         <i class="fal fa-keyboard icon-stack-1x color-info-50"></i> -->
-<!--                                                     </span> -->
-<!--                                                     <span class="app-list-name"> -->
-<!--                                                         Notice -->
-<!--                                                     </span> -->
-<!--                                                 </a> -->
-<!--                                             </li> -->
                                         </ul>
                                     </div>
                                 </div>
@@ -185,6 +172,7 @@
                                 <span class="badge badge-icon">!</span>
                             </a>
                             <!-- app notification -->
+                            
                             <div>
                                 <a href="#" class="header-icon" data-toggle="dropdown" title="You got 11 notifications">
                                     <i class="fal fa-bell"></i>
@@ -257,7 +245,7 @@
                                                     <div class="p-2">
                                                         <div class="d-flex align-items-center text-left mb-3">
                                                             <div class="width-5 fw-300 text-primary l-h-n mr-1 align-self-start fs-xxl">
-                                                                14
+                                                                12
                                                             </div>
                                                             <div class="flex-1">
                                                                 <div class="d-flex flex-column">
@@ -265,12 +253,12 @@
                                                                         December 2019
                                                                     </span>
                                                                     <span class="l-h-n fs-nano fw-400 text-secondary">
-                                                                        SunDay
+                                                                        Thu
                                                                     </span>
                                                                 </div>
                                                                 <div class="mt-3">
                                                                     <p>
-                                                                        <strong>2:30PM</strong> - 유자와 아이들
+                                                                        <strong>12:20PM</strong> - 성공회FC
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -288,7 +276,28 @@
                             <!-- app user menu -->
                             <div>
                                 <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2">
-                                    <img src="https://img2.yna.co.kr/photo/yna/YH/2019/10/29/PYH2019102903730001300_P2.jpg" class="profile-image rounded-circle" alt="${principal.username}">
+                                
+<%--                                     <img src="https://img2.yna.co.kr/photo/yna/YH/2019/10/29/PYH2019102903730001300_P2.jpg" class="profile-image rounded-circle" alt="${principal.username}"> --%>
+                                     			<c:choose>
+													<c:when test="${principal.username == '유진이이'}"> 
+													<img src="https://pbs.twimg.com/media/EGsNsB4U0AAeo-Z.jpg" class="profile-image rounded-circle" alt="${principal.username}">
+													</c:when>
+													
+													<c:when test="${principal.username == '스누피'}"> 
+													 <img src="https://image.chosun.com/sitedata/image/201610/21/2016102101259_0.jpg" class="profile-image rounded-circle" alt="${principal.username}">
+													</c:when>
+													
+													<c:when test="${principal.username == 'xogus'}"> 
+													<img src="https://www.nemopan.com/files/attach/images/6294/841/331/009/757eef5bab05e69b697e36d27323a11d.jpg" class="profile-image rounded-circle" alt="${principal.username}">
+													</c:when>
+													
+													<c:otherwise>
+													<img src="https://icon-library.net/images/default-user-icon/default-user-icon-8.jpg" class="profile-image rounded-circle" alt="${principal.username}">
+													</c:otherwise>
+												</c:choose>     
+                                    
+                                    
+                                    
                                     <!-- you can also add username next to the avatar with the codes below:
 									<span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
 									<i class="ni ni-chevron-down hidden-xs-down"></i> -->
@@ -297,11 +306,27 @@
                                     <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                                         <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                                             <span class="mr-2">
-                                                <img src="https://img2.yna.co.kr/photo/yna/YH/2019/10/29/PYH2019102903730001300_P2.jpg" class="rounded-circle profile-image" alt="Dr. Codex Lantern">
+                                               <c:choose>
+													<c:when test="${principal.username == '유진이이'}"> 
+													<img src="https://pbs.twimg.com/media/EGsNsB4U0AAeo-Z.jpg" class="rounded-circle profile-image" alt="">
+													</c:when>
+													
+													<c:when test="${principal.username == '스누피'}"> 
+													 <img src="https://image.chosun.com/sitedata/image/201610/21/2016102101259_0.jpg" class="rounded-circle profile-image" alt="">
+													</c:when>
+													
+													<c:when test="${principal.username == 'xogus'}"> 
+													<img src="https://www.nemopan.com/files/attach/images/6294/841/331/009/757eef5bab05e69b697e36d27323a11d.jpg" class="rounded-circle profile-image" alt="">
+													</c:when>
+													
+													<c:otherwise>
+													<img src="https://icon-library.net/images/default-user-icon/default-user-icon-8.jpg" class="rounded-circle profile-image" alt="">
+													</c:otherwise>
+												</c:choose>     
                                             </span>
                                             <div class="info-card-text">
                                                 <div class="fs-lg text-truncate text-truncate-lg">${principal.username}</div>
-                                                <span class="text-truncate text-truncate-md opacity-80">drlantern@gotbootstrap.com</span>
+                                                <span class="text-truncate text-truncate-md opacity-80">잘 부탁드려요</span>
                                             </div>
                                         </div>
                                     </div>
@@ -442,6 +467,8 @@
 		countMailCheck();
 		showCalendar();
 		$( '#'+dd ).addClass( 'bg-primary-300 pattern-0' );
+		$( '#'+12 ).css("background-color","#DBA3E9");
+		
 	});
 	
 	

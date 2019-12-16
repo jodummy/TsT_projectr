@@ -168,7 +168,17 @@ $.ajax({
     type: "GET",
     url : "/BoardDetail?tst_board_no="+no,
     success : function(result){
-       str += "<div class='card mb-g' style='margin-top: 2rem; max-height:560px;overflow:auto; '><div class='card-body pb-0 px-4' ><div class='d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0' ><div class='d-inline-block align-middle status status-success mr-3'><span class='profile-image rounded-circle d-block' style='background-image:url(https://img2.yna.co.kr/photo/yna/YH/2019/10/29/PYH2019102903730001300_P2.jpg); background-size: cover;'></span>"
+    	
+    	let img = 'https://pbs.twimg.com/media/EGsNsB4U0AAeo-Z.jpg';
+    	if(result.tst_user_nickname == '스누피'){
+    		img='https://image.chosun.com/sitedata/image/201610/21/2016102101259_0.jpg';
+    	}
+       str += "<div class='card mb-g' style='margin-top: 2rem; max-height:560px;overflow:auto; '>"
+       	  +"<div class='card-body pb-0 px-4' ><div class='d-flex flex-row pb-3 pt-2  border-top-0 border-left-0 border-right-0' >"
+       	  +"<div class='d-inline-block align-middle status status-success mr-3'>"
+       	  +"<span class='profile-image rounded-circle d-block' style='background-image:url("
+       	  + img
+       	  +"); background-size: cover;'></span>"
           + "</div><h5 class='mb-0 flex-1 text-dark fw-500'>"+ result.tst_user_nickname +"<small class='m-0 l-h-n'>"+ result.tst_board_title +"</small></h5><span class='text-muted fs-xs opacity-70'>"+ result.tst_insert_date +"</span></div>"
           + "<div class='pb-3 pt-2 border-top-0 border-left-0 border-right-0 text-muted'>"+ result.tst_board_contents +"</div>"
 //           + "<div class='d-flex align-items-center demo-h-spacing py-3' style='float:left;'><a class='d-inline-flex align-items-center text-dark'><i class='fal fa-comment fs-xs mr-1'></i> <span onclick='replyBoard(" + result.tst_board_no +")'> Comments</span></a></div>";
@@ -212,7 +222,7 @@ function replyBoard(tst_board_no){
 	          success : function(result){
 	             
 	             for(var i=0; i < result.length; i++){
-	             str += "</br> <div class='d-flex flex-row w-100 py-4'> <div class='d-inline-block align-middle status status-sm status-success mr-3'> <span class='profile-image profile-image-md rounded-circle d-block mt-1' style='background-image:url(${pageContext.request.contextPath}/resources/img/demo/avatars/avatar-e.png); background-size: cover;''></span>"
+	             str += "</br> <div class='d-flex flex-row w-100 py-4'> <div class='d-inline-block align-middle status status-sm status-success mr-3'> <span class='profile-image profile-image-md rounded-circle d-block mt-1' style='background-image:url(https://image.chosun.com/sitedata/image/201610/21/2016102101259_0.jpg); background-size: cover;''></span>"
 	                   + "</div> <div class='mb-0 flex-1 text-dark'> <div class='d-flex'> <a href='javascript:void(0);' class='text-dark fw-500'>"
 	                   + result[i].tst_user_nickname + "</a><span class='text-muted fs-xs opacity-70 ml-auto'> " +result[i].tst_board_reply_date+ " </span> </div> <p class='mb-0'> " +result[i].tst_board_reply_content+ " </p> </div> </div>"
 	                  

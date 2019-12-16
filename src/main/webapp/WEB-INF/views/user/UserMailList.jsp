@@ -242,8 +242,6 @@ function test(no,tst_from_nicname,tst_message_title){
    });
    
    let str = tst_message_title;
-//    alert(tst_from_nicname);
-//    alert(   str.substring( 0, str.lastIndexOf("팀") ));
 
    
    let swalWithBootstrapButtons = Swal.mixin(
@@ -334,7 +332,6 @@ function maching(no,tst_from_nicname,tst_message_title,tst_message_content){
 	                            "즐거운 경기해요! :)",
 	                            "success"
 	                        );
-	            alert(tst_message_content.substring(tst_message_content.lastIndexOf('>')+1,tst_message_content.length));
 	                        location.href="/maching?tst_from_nicname="+tst_from_nicname +"&tst_message_title="+str.substring(0,str.lastIndexOf('경'))+"&tst_my_team="+tst_message_content.substring(tst_message_content.lastIndexOf('>')+1,tst_message_content.length);
 	                        
 	                    }

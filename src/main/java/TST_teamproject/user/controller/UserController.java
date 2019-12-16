@@ -138,14 +138,10 @@ public class UserController {
 	   //내팀 정보
 	   TeamVo vo2 = teamService.teamFindOne(Integer.parseInt(myTeamNo));
 	   
-	   System.out.println("남 :"+vo.toString());
-	   System.out.println("내 : "+vo2.toString());
 	  
 		MatchingAcceptVo matchingAcceptVo = new MatchingAcceptVo();
 		matchingAcceptVo.setTst_my_team_no(Integer.parseInt(myTeamNo));
-		System.out.println(myTeamNo);
 		matchingAcceptVo.setTst_your_team_no(Integer.parseInt(tst_team_no));
-		System.out.println(tst_team_no);
 		teamService.insertAccept(matchingAcceptVo);
 		
 	   MessageVo messageVo = new MessageVo();
@@ -181,8 +177,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/maching" , method= {RequestMethod.GET})
 	public String maching(@RequestParam("tst_from_nicname") String tst_from_nicname,@RequestParam("tst_message_title") String tst_your_title ,@RequestParam("tst_my_team") String tst_my_team) {
-		System.out.println("안녕");
-		
 		TeamVo yourVo = teamService.swichTeamname(tst_my_team);
 		TeamVo myVo = teamService.swichTeamname(tst_your_title);
 		MatchingAcceptVo vo = new MatchingAcceptVo();

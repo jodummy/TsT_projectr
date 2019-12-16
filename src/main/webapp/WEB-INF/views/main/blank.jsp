@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,8 +95,7 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
               $('#chatLog').append(temp　+ "도입니다. "+'\n');
 //               var imgURL = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
 //               alert(data.weather[0].icon);
-              50n
-              
+//               http://openweathermap.org/img/w/10n.png
               let result = '';
               if(data.weather[0].icon == '01d' ||data.weather[0].icon == '01n'){
             	  result= '01d';
@@ -103,11 +103,11 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
             	  result= '02d';
               }else if(data.weather[0].icon == '03d' || data.weather[0].icon == '03n'){
             	  result= '03d';
-              }else if(data.weather[0].icon == '04d' || data.weather[0].icon == '50n'){
+              }else if(data.weather[0].icon == '04d' || data.weather[0].icon == '50n'|| data.weather[0].icon == '04n'){
             	  result= '04d';
               }else if(data.weather[0].icon == '09d'|| data.weather[0].icon == '09n'){
             	  result= '09d';
-              }else if(data.weather[0].icon == '11d' || data.weather[0].icon == '11n'){
+              }else if(data.weather[0].icon == '11d' || data.weather[0].icon == '11n'|| data.weather[0].icon == '10n'){
             	  result= '11d';
               }else if(data.weather[0].icon == '13d'||data.weather[0].icon == '13n'){
             	  result= '13d';
@@ -119,9 +119,11 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
 
         </script>
 <body>
-            
+
                 <main id="js-page-content" role="main" class="page-content">
-                
+                 <sec:authentication var="principal" property="principal" />
+				<input type="hidden" value='${principal.username}' name="tst_user_nickname" id="tst_user_nickname">    
+            
                 
                     <div class="subheader">
                             <div class="d-flex mr-0">
@@ -143,11 +145,11 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                                 <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                                     <div class="">
                                        <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                           유자와 아이들
+                                           김태현보다 잘하는 팀
                                             <small class="m-0 l-h-n">팀원 많은 팀</small>
                                         </h3>
                                     </div>
-                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="https://tistory4.daumcdn.net/tistory/2924964/skin/images/lol192x192.png">
+                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="http://pngimg.com/uploads/football/football_PNG52775.png">
                                 </div>
                             </div>
                             
@@ -156,7 +158,7 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                                     <div class="">
                                         <h3 class="display-4 d-block l-h-n m-0 fw-500">
                                         
-                                         집 나오면 고생이다
+                                         xogus으로 만든 팀
                                             <small class="m-0 l-h-n">승률이 좋은 팀</small>
                                            
                                         </h3>
@@ -169,11 +171,11 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                                 <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
                                     <div class="">
                                         <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                     	낮에 만나
+							서장훈 따라잡기
                                             <small class="m-0 l-h-n">팀원 교류가 많은 팀 </small>
                                         </h3>
                                     </div>
-                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="${pageContext.request.contextPath}/resources/img/battle.png">
+                                    <img style="opacity: 0.5" class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" alt="battle" width="150" height="100" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png">
                                 </div>
                             </div>
                             
@@ -181,7 +183,7 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                                 <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                                     <div class="">
                                         <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                            롤신병자
+                                            skt t1
                                             <small class="m-0 l-h-n">현재 팀원 모집</small>
                                         </h3>
                                     </div>
@@ -314,7 +316,24 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                                     <div class="row no-gutters row-grid" >
                                         <div class="col-12">
                                             <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                                                <img src="https://img2.yna.co.kr/photo/yna/YH/2019/10/29/PYH2019102903730001300_P2.jpg" class="rounded-circle shadow-2 img-thumbnail" alt="">
+												<!-- 유진이 이미지 태현이 이미지 준서 이미지 -->     
+												<c:choose>
+													<c:when test="${principal.username == '유진이이'}"> 
+													<img src="https://pbs.twimg.com/media/EGsNsB4U0AAeo-Z.jpg" class="rounded-circle shadow-2 img-thumbnail" alt="">
+													</c:when>
+													
+													<c:when test="${principal.username == '스누피'}"> 
+													 <img src="https://image.chosun.com/sitedata/image/201610/21/2016102101259_0.jpg" class="rounded-circle shadow-2 img-thumbnail" alt="">
+													</c:when>
+													
+													<c:when test="${principal.username == 'xogus'}"> 
+													<img src="https://www.nemopan.com/files/attach/images/6294/841/331/009/757eef5bab05e69b697e36d27323a11d.jpg" class="rounded-circle shadow-2 img-thumbnail" alt="">
+													</c:when>
+													
+													<c:otherwise>
+													<img src="https://icon-library.net/images/default-user-icon/default-user-icon-8.jpg" class="rounded-circle shadow-2 img-thumbnail" alt="">
+													</c:otherwise>
+												</c:choose>     
                                                 <h5 class="mb-0 fw-700 text-center mt-3">
                                                               ${MyPage.tst_user_location}
                                                     <small class="text-muted mb-0">지역</small>
@@ -380,10 +399,8 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                                                         <th>No</th>
                                                         <th>카테고리</th>
                                                         <th>제목</th>
-                                                        <th>내용</th>
                                                         <th>닉네임</th>
                                                         <th>등록일자</th>
-                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -396,14 +413,8 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                                                               <li class="breadcrumb-item">${row.tst_board_title }</li>
                                                            </ol>
                                                         </td>
-                                                        <td>
-                                                           <ol class="breadcrumb page-breadcrumb" style="margin: 0.3rem;">
-                                                                <li class="breadcrumb-item"> ${row.tst_board_contents }</li>
-                                                           </ol>
-                                                        </td>
                                                         <td>${row.tst_user_nickname }</td>
                                                         <td>${row.tst_insert_date }</td>
-                                                        <td></td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tbody>
@@ -516,12 +527,6 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                             className: 'btn-outline-default'
                         },
                         {
-                            extend: 'csvHtml5',
-                            text: 'CSV',
-                            titleAttr: 'Generate CSV',
-                            className: 'btn-outline-default'
-                        },
-                        {
                             extend: 'copyHtml5',
                             text: 'Copy',
                             titleAttr: 'Copy to clipboard',
@@ -543,27 +548,7 @@ var apiURI ="http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=2ba391
                             render: function(data, type, full, meta)
                             {
 
-                                /*
-                                -- ES6
-                                -- convert using https://babeljs.io online transpiler
-                                return `
-                                <a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>
-                                	<i class="fal fa-times"></i>
-                                </a>
-                                <div class='dropdown d-inline-block dropleft '>
-                                	<a href='#'' class='btn btn-sm btn-icon btn-outline-primary rounded-circle shadow-0' data-toggle='dropdown' aria-expanded='true' title='More options'>
-                                		<i class="fal fa-ellipsis-v"></i>
-                                	</a>
-                                	<div class='dropdown-menu'>
-                                		<a class='dropdown-item' href='javascript:void(0);'>Change Status</a>
-                                		<a class='dropdown-item' href='javascript:void(0);'>Generate Report</a>
-                                	</div>
-                                </div>`;
-                                	
-                                ES5 example below:	
-
-                                */
-                                return "\n\t\t\t\t\t\t<a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>\n\t\t\t\t\t\t\t<i class=\"fal fa-times\"></i>";
+                                return "";
                             },
                         },
 

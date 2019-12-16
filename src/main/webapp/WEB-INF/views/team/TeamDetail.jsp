@@ -26,7 +26,12 @@
         <link rel="mask-icon" href="${pageContext.request.contextPath}/resources/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
         <link rel="stylesheet" media="screen, print" href="${pageContext.request.contextPath}/resources/css/datagrid/datatables/datatables.bundle.css">
 
-
+		
+		<link rel="stylesheet" media="screen, print" href="${pageContext.request.contextPath}/resources/css/miscellaneous/lightgallery/lightgallery.bundle.css">
+		<link rel="mask-icon" href="${pageContext.request.contextPath}/resources/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/resources/img/favicon/apple-touch-icon.png">
+		
+		
 <script type="text/javascript">
 
 /**
@@ -314,7 +319,7 @@ function teamUpdate(tst_team_no){
                     
                         <div class="subheader">
                             <h1 class="subheader-title">
-                                <i class="fal fa-th-list text-primary"></i> MY TEAM
+                                <i class="fal fa-th-list text-primary"></i> ${sorry }
                             </h1>
                         </div>
                         <div class="row">
@@ -403,7 +408,6 @@ function teamUpdate(tst_team_no){
                                                     <thead class="thead-themed">
                                                         <tr>
                                                             <th>이름</th>
-                                                            <th>위치</th>
                                                             <th>나이</th>
                                                             <th>position</th>
                                                             <th></th>
@@ -413,7 +417,6 @@ function teamUpdate(tst_team_no){
                                                     <tbody>
                                                         <tr>
                                                             <td>${ members.tst_user_nickname }</td>
-                                                            <td>${ members.tst_user_location } </td>
                                                             <td>${ members.tst_user_brith }</td>
                                                            <!-- 팀장인지 팀원인지 구별할 수 있게 함 -->
                                                            <c:if test="${detailTeam.tst_user_nickname == members.tst_user_nickname }">
@@ -503,6 +506,55 @@ function teamUpdate(tst_team_no){
                       
                </div>
                
+                <div class="col-xl-12">
+                                <div id="panel-5" class="panel">
+                                    <div class="panel-hdr">
+                                        <h2>
+                                            Team <span class="fw-300"><i>Photo</i></span>
+                                        </h2>
+                                    </div>
+                                    <div class="panel-container show">
+                                        <div class="panel-content">
+                                            <div id="js-lightgallery">
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/1.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/1.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/2.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/2.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/3.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/3.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/4.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/4.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/5.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/5.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/6.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/6.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/7.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/7.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/8.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/8.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/9.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/9.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/10.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/10.jpg" alt="image">
+                                                </a>
+                                                <a class="" href="${pageContext.request.contextPath}/resources/img/11.jpg" data-sub-html="?">
+                                                    <img class="img-responsive" src="${pageContext.request.contextPath}/resources/img/11.jpg" alt="image">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+               
                </br>
                         <div class="subheader">
                         </div>
@@ -570,9 +622,14 @@ function teamUpdate(tst_team_no){
                             </div>
                         </div>
                     </div>
+                    
                 </div>
    </c:if>
    </c:forEach>
+   
+   <!-- 여기야 -->
+                           
+   
 </main>
                   
         <script src="${pageContext.request.contextPath}/resources/js/vendors.bundle.js"></script>
@@ -587,9 +644,44 @@ function teamUpdate(tst_team_no){
         <script src="${pageContext.request.contextPath}/resources/js/statistics/easypiechart/easypiechart.bundle.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/datagrid/datatables/datatables.bundle.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/notifications/sweetalert2/sweetalert2.bundle.js"></script>
-        
+        <script src="${pageContext.request.contextPath}/resources/js/miscellaneous/lightgallery/lightgallery.bundle.js"></script>
         
 	<script>
+	
+	 $(document).ready(function()
+	            {
+	                var $initScope = $('#js-lightgallery');
+	                if ($initScope.length)
+	                {
+	                    $initScope.justifiedGallery(
+	                    {
+	                        border: -1,
+	                        rowHeight: 150,
+	                        margins: 8,
+	                        waitThumbnailsLoad: true,
+	                        randomize: false,
+	                    }).on('jg.complete', function()
+	                    {
+	                        $initScope.lightGallery(
+	                        {
+	                            thumbnail: true,
+	                            animateThumb: true,
+	                            showThumbByDefault: true,
+	                        });
+	                    });
+	                };
+	                $initScope.on('onAfterOpen.lg', function(event)
+	                {
+	                    $('body').addClass("overflow-hidden");
+	                });
+	                $initScope.on('onCloseAfter.lg', function(event)
+	                {
+	                    $('body').removeClass("overflow-hidden");
+	                });
+	            });
+	
+	
+	
 	function resultSet(no,no2){
 		let myTst_team_no = $('#tst_team_no').val();
 		let loseNo = 0;
@@ -771,13 +863,13 @@ function teamUpdate(tst_team_no){
                     ],
                     columnDefs: [
                         {
-                            targets: 4,
+                            targets: -1,
                             title: '',
                             orderable: false,
                             render: function(data, type, full, meta)
                             {
 
-                                return "\n\t\t\t\t\t\t<a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>\n\t\t\t\t\t\t\t<i class=\"fal fa-times\"></i>";
+                                return "";
                             },
                         },
 

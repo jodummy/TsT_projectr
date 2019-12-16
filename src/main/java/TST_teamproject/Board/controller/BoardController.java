@@ -121,7 +121,6 @@ public class BoardController {
     public String insertReplyBoard(Model model, BoardReplyVo reVo, Principal cipal, BoardVo vo)  throws Exception{
        reVo.setTst_user_nickname(cipal.getName());
        replyService.boardReplyInsert(reVo);
-       System.out.println(reVo.toString());
        return "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ";
     }
     

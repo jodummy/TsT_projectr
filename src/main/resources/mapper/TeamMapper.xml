@@ -425,7 +425,7 @@
      						A.TST_TEAM_ACCEPT != 'N'
      UNION
                             
-                             SELECT 
+     SELECT 
      DISTINCT 
      					 	B.TST_TEAM_NAME,
      					 	date_format(A.TST_DATE, '%Y-%m-%d') TST_DATE,

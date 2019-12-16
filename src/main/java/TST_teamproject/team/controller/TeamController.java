@@ -97,6 +97,7 @@ public class TeamController {
          int score = 0;
          String login_user = principal.getName();
          TeamVo teamVo = teamService.teamFindOne(tst_team_no);
+         model.addAttribute("sorry",teamVo.getTst_team_name());
          model.addAttribute("detailTeam", teamService.teamFindOne(tst_team_no));
          model.addAttribute("member", teamService.memberList(tst_team_no));
          model.addAttribute("login_user", login_user);
@@ -134,14 +135,7 @@ public class TeamController {
          for (int i = 0; i < list.size(); i++) {
         	 list.get(i).setJjs_team_name(teamVo.getTst_team_name());
 		}
-//         System.out.println(list.toString());
          model.addAttribute("selectYourTeam", list);
-         
-         
-         System.out.println("default :"+tst_team_no);
-         System.out.println("mvo team :" + mVo.getTst_my_team_no());
-         System.out.println("나가는 값 :"+list.toString());
-         
          return"team.detailTeam";
       }
       
@@ -226,7 +220,6 @@ public class TeamController {
       @RequestMapping(value="/teamNoticeList" , method = RequestMethod.GET)
       public String teamNoticeList(Model model, TeamBoardVo teamVo,Principal principal)  throws Exception{
 //         teamBoardService.teamBoardList();
-//    	  System.out.println(teamVo.getTst_team_no());
 //    	  model.addAttribute("teamNo", teamVo.getTst_team_no());
          model.addAttribute("userId",principal.getName());
          return "team.detailTeam";
@@ -264,7 +257,6 @@ public class TeamController {
          TeamVo teamVo = teamService.teamFindOne(tst_team_no);
          matchingVo.setTst_team_no(tst_team_no);
          matchingVo.setTst_team_name(teamVo.getTst_team_name());
-         System.out.println(matchingVo.toString());
          teamService.insertTeamMatchingData(matchingVo);
          return "redirect:/insertTeamData/"+matchingVo.getTst_team_no();
       }
@@ -273,7 +265,6 @@ public class TeamController {
       @RequestMapping(value="/matchingList/{tst_team_no}", method=RequestMethod.GET)
       public String matchingList(Model model, @PathVariable("tst_team_no") int tst_team_no, TeamVo teamVo) throws Exception {
          MatchingVo matchingVo = teamService.findTeamMatchingData(tst_team_no);
-         System.out.println("sadasdasd" + matchingVo.toString());
          model.addAttribute("matchingVo", teamService.matchingList(matchingVo));
          model.addAttribute("myTeamNo", tst_team_no);
          return "team.teamMatchingList";
@@ -285,7 +276,6 @@ public class TeamController {
          TeamVo teamVo = teamService.teamFindOne(tst_team_no);
          matchingVo.setTst_team_no(tst_team_no);
          matchingVo.setTst_team_name(teamVo.getTst_team_name());
-         System.out.println(matchingVo.toString());
          teamService.teamMatchingUpdate(matchingVo);
          return "redirect:/insertTeamData/"+matchingVo.getTst_team_no();
       }
@@ -315,7 +305,6 @@ public class TeamController {
       // 11.25 공지사항수정 (유진)
       @RequestMapping(value="/teamNoticeModify" , method = RequestMethod.GET)
       public String teamNoticeModify(Model model, TeamBoardVo teamVo)  throws Exception{
-    	  System.out.println(teamBoardService.noticeDetail(teamVo.getTst_team_notice_board_no()));
     	  model.addAttribute("detail", teamBoardService.noticeDetail(teamVo.getTst_team_notice_board_no()));
          return "team.noticeModify";
       }
@@ -339,7 +328,6 @@ public class TeamController {
       @RequestMapping(value="/teamLeave/{tst_team_no}", method= RequestMethod.GET)
       public String teamLeave(@PathVariable("tst_team_no") int tst_team_no, @RequestParam("tst_user_nickname")String tst_user_nickname) {
          MemberVo memberVo = new MemberVo(tst_team_no, tst_user_nickname);
-         System.out.println(tst_user_nickname + tst_team_no);
          teamService.teamLeave(memberVo);
          return "redirect:/teamDetailpage?tst_team_no="+tst_team_no;
       }
@@ -348,7 +336,6 @@ public class TeamController {
       @RequestMapping(value="/leaveTeam/{tst_team_no}", method= RequestMethod.GET)
       public String leaveTeam(@PathVariable("tst_team_no") int tst_team_no, @RequestParam("tst_user_nickname")String tst_user_nickname) {
          MemberVo memberVo = new MemberVo(tst_team_no, tst_user_nickname);
-         System.out.println(tst_user_nickname + tst_team_no);
          teamService.teamLeave(memberVo);
          return "redirect:/teamList";
       }
