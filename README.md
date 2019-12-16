@@ -47,21 +47,21 @@
 ```
 
 ## 👨‍💻 System requirements
-gson : com.google.code.gson 카카오 로그인 값 받아오기
-mail : javax.mail : 메일 인증
-spring-boot-starter-security : org.springframework.boot : 스프링 시큐리티
-spring-security-taglibs : org.springframework.security : 스프링 시큐리티 태그
-tiles-jsp : org.apache.tiles : tiles 적용
-tiles-core : org.apache.tiles : tiles 적용
-lombok : org.projectlombok : lombok 
-vue : org.webjars.bower:vue : 채팅 화면 vue로 구성 
-sockjs-client : org.webjars : 채팅 통신 
-stomp-websocket : org.webjars 
-embedded-redis : it.ozimov : 채팅 통신  redis
+> gson : com.google.code.gson 카카오 로그인 값 받아오기
+> mail : javax.mail : 메일 인증
+> spring-boot-starter-security : org.springframework.boot : 스프링 시큐리티
+> spring-security-taglibs : org.springframework.security : 스프링 시큐리티 태그
+> tiles-jsp : org.apache.tiles : tiles 적용
+> tiles-core : org.apache.tiles : tiles 적용
+> lombok : org.projectlombok : lombok 
+> vue : org.webjars.bower:vue : 채팅 화면 vue로 구성 
+> sockjs-client : org.webjars : 채팅 통신 
+> stomp-websocket : org.webjars 
+> embedded-redis : it.ozimov : 채팅 통신  redis
 
 
 ## 🤝 Connect
-서유진
-김태현
-조준서(조장)
+> 서유진
+> 김태현
+> 조준서(조장)
 
