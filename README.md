@@ -44,6 +44,7 @@
   |-gradlew.bat
   |-README.md
   |-settings.gradle
+```
 
 ## 👨‍💻 System requirements
 gson : com.google.code.gson 카카오 로그인 값 받아오기
@@ -57,6 +58,7 @@ vue : org.webjars.bower:vue : 채팅 화면 vue로 구성
 sockjs-client : org.webjars : 채팅 통신 
 stomp-websocket : org.webjars 
 embedded-redis : it.ozimov : 채팅 통신  redis
+
 
 ## 🤝 Connect
 서유진
